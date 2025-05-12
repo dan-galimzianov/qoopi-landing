@@ -177,8 +177,7 @@ body {
 .hero-sliders-mobile__slider {
   width: 100%;
   height: 100%;
-  background-color: red;
-  height: 30vh;
+  height: 33.33vh;
 }
 @media (max-width: 375px) {
   .hero-sliders-mobile__slider {
