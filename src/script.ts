@@ -79,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         mediaStack.style.transform = isHorizontal ? `translateX(${currentPosition}px)` : `translateY(${currentPosition}px)`;
 
-        requestAnimationFrame(animate);
+        setTimeout(() => {
+            requestAnimationFrame(animate);
+        }, 10)
     }
     
     // Ожидаем загрузки медиа
