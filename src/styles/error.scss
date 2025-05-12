@@ -1,0 +1,29 @@
+.error-message {
+    color: #ff3b30;
+    font-size: 13px;
+    margin-top: 4px;
+    font-weight: 500;
+    display: none;
+  }
+  
+  .form-alert {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: #3c1918;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+    color: #db2a27;
+  
+    svg {
+      flex-shrink: 0;
+    }
+  }
+  
+  // Стиль для невалидных полей
+  input.error-field,
+  .checkbox-group.error {
+    border-bottom-color: #ff3b30 !important;
+  }
+  

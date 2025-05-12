@@ -1,0 +1,161 @@
+// Подтверждение
+.success-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  
+    &.active {
+      display: flex;
+      opacity: 1;
+    }
+  
+    &__container {
+      background-color: #2a2a2a;
+      border-radius: 16px;
+      width: 400px;
+      max-width: 90%;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.3s ease;
+    }
+  
+    &__icon {
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+      animation: pop 0.6s ease-out;
+  
+      svg {
+        width: 84px;
+        height: 84px;
+      }
+    }
+  
+    &__close {
+      background: #373737;
+      border: none;
+      color: #8a8a8a;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 0;
+  
+      &:hover {
+        color: #fff;
+        background: #515151;
+      }
+    }
+  
+    &__message {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 15px;
+      animation: fadeIn 0.5s ease-in;
+    }
+  
+    &__button {
+      background-color: #793eed;
+      color: #fff;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: darken(#793eed, 5%);
+        transform: translateY(-2px);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pop {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    70% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  // Адаптация для мобильных устройств
+  @media (max-width: 480px) {
+    .success-modal {
+      &__container {
+        padding: 30px 20px;
+        max-width: 95%;
+      }
+      
+      &__message {
+        font-size: 20px;
+      }
+      
+      &__icon svg {
+        width: 64px;
+        height: 64px;
+      }
+      
+      &__button {
+        padding: 12px;
+        font-size: 16px;
+      }
+    }
+  }
+  
+
+
+  

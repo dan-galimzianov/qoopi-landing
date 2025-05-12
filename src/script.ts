@@ -1,5 +1,12 @@
 const waitForVideo = (video: HTMLVideoElement) => {
-  return new Promise((resolve) => video.readyState >= 3 ? resolve(video) : video.addEventListener('loadeddata', resolve));
+  return new Promise((resolve) => {
+    if (video.readyState >= 3) {
+      console.log("video is ready");
+      resolve(video);
+    } else {
+      video.addEventListener('loadeddata', resolve);
+    }
+  });
 }
 
 const waitForImage = (image: HTMLImageElement) => {
@@ -15,6 +22,8 @@ const waitForAllImages = (images: HTMLImageElement[]) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Загрузка страницы...');
+  
   // Получаем все пункты навигации
   const navItems = document.querySelectorAll('.hero-section__nav-item');
   
@@ -50,56 +59,30 @@ document.addEventListener('DOMContentLoaded', () => {
     firstNavItem.click();
   }
 
+  const initCarousel = async (id: string, duration: number) => {
+    const carousel = document.getElementById(id);
+    if (!carousel) return;
 
-  async function initCarousel(id: string, scrollSpeed: number, direction: 'vertical' | 'horizontal') {
-    const mediaStack = document.getElementById(id);
-    const isHorizontal = direction === 'horizontal';
+    const carouselWrapper = carousel.querySelector(".carousel__wrapper") as HTMLElement;
+    if (!carouselWrapper) return;
 
-    if (!mediaStack) return;
+    const images = Array.from(carousel.querySelectorAll('img'));
+    const videos = Array.from(carousel.querySelectorAll('video'));
 
-    const mediaItems = mediaStack.querySelectorAll('.media-item');
-    let currentPosition = 0;
-    
-    // Вычисляем высоту всех элементов с отступами
-    let totalHeight = 0;
-    
-    // Клонируем элементы для бесшовности
-    mediaItems.forEach(item => {
-        const clone = item.cloneNode(true);
-        mediaStack.appendChild(clone);
-    });
-    
-    // Анимация прокрутки
-    const animate = () => {
-        currentPosition -= scrollSpeed;
-        
-        if (-currentPosition >= totalHeight) {
-            currentPosition += totalHeight;
-        }
-        
-        mediaStack.style.transform = isHorizontal ? `translateX(${currentPosition}px)` : `translateY(${currentPosition}px)`;
+    await waitForAllImages(images);
+    await waitForAllVideos(videos);
+    console.log("all images and videos are ready");
 
-        setTimeout(() => {
-            requestAnimationFrame(animate);
-        }, 10)
-    }
-    
-    // Ожидаем загрузки медиа
-    Promise.all([
-        waitForAllVideos(Array.from(mediaStack.querySelectorAll('video'))),
-        waitForAllImages(Array.from(mediaStack.querySelectorAll('img')))
-    ]).then(() => {
-        mediaItems.forEach(item => {
-            totalHeight += isHorizontal ? item.clientWidth : item.clientHeight + 16;
-        });
-        requestAnimationFrame(animate);
-    });
+    let totalHeight = carouselWrapper.clientHeight;
+
+    console.log(totalHeight);
+    const originalContent = carouselWrapper.innerHTML;
+    carouselWrapper.innerHTML = originalContent + originalContent;
+
+    carouselWrapper.style.setProperty('--total-slider-height', `-${totalHeight}px`);
+    carouselWrapper.style.setProperty('--iteration-time', `${duration}s`);
+    carouselWrapper.style.setProperty('animation', "scroll var(--iteration-time) linear infinite");
   }
-  
-  // Инициализация вертикальных каруселей для десктопа
-  initCarousel('carousel1', 1.5, 'vertical');
-  initCarousel('carousel2', 0.9, 'vertical');
-  initCarousel('horizontal-carousel', 1.5, 'horizontal');
 
   // Функционал для меню
   const burgerButton = document.querySelector('.header__menu-burger');
@@ -130,5 +113,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  const initHorizontalCarousel = async (id: string, duration: number) => {
+    const carousel = document.getElementById(id);
+    if (!carousel) return;
+
+    const carouselWrapper = carousel.querySelector(".carousel__wrapper") as HTMLElement;
+    if (!carouselWrapper) return;
+
+    const images = Array.from(carousel.querySelectorAll('img'));
+    const videos = Array.from(carousel.querySelectorAll('video'));
+
+    await waitForAllImages(images);
+    await waitForAllVideos(videos);
+
+    let totalWidth = carouselWrapper.clientWidth;
+    console.log(totalWidth);
+    const originalContent = carouselWrapper.innerHTML;
+    carouselWrapper.innerHTML = originalContent + originalContent;
+
+    carouselWrapper.style.setProperty('--total-slider-width', `-${totalWidth}px`);
+    carouselWrapper.style.setProperty('--iteration-time', `${duration}s`);
+    carouselWrapper.style.setProperty('animation', "scroll-horizontal var(--iteration-time) linear infinite");
+  }
+
+  // Инициализация вертикальных каруселей для десктопа
+  initCarousel('carousel1', 5);
+  initCarousel('carousel2', 15);
+  
+  // Инициализация горизонтальной карусели
+  initHorizontalCarousel('hero-sliders-mobile', 20);
 }); 
 
