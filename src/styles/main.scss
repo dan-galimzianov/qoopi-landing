@@ -1,19 +1,19 @@
 // Variables
 $primary-color: #fff;
-$background-color: #1E1E1E;
+$background-color: #1e1e1e;
 $secondary-color: #262626;
+$text-color:#8A8A8A;
 
 body {
   background-color: $background-color;
   position: relative;
-  font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .hero {
   width: 100vw;
   height: 100vh;
   padding: 10px 40px 16px 40px;
-
 
   &__section {
     margin-top: 32px;
@@ -23,8 +23,12 @@ body {
     }
   }
 
+  @media (max-width: 1700px) {
+    padding: 16px 40px;
+  }
+
   @media (max-width: 1200px) {
-    padding: 12px 16px;
+    padding: 60px 16px 16px 16px;
   }
 }
 
@@ -33,6 +37,28 @@ body {
   justify-content: space-between;
   align-items: center;
 
+  
+  &__logo {
+    width: 242px;
+    height: 80px;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 1700px) {
+      width: 182px;
+      height: 60px;
+    }
+
+    @media (max-width: 1200px) {
+      width: 108px;
+      height: 36px;
+    }
+  }
+
   &__menu-burger {
     display: flex;
     background-color: $secondary-color;
@@ -40,6 +66,15 @@ body {
     gap: 8px;
     border-radius: 12px;
     padding: 21px 19px;
+
+    @media (max-width: 1700px) {
+      padding: 18px 17px;
+    }
+
+    @media (max-width: 1200px) {
+      padding: 17px 16px;
+      gap: 4px;
+    }
   }
 
   &__menu-burger-line {
@@ -47,6 +82,14 @@ body {
     height: 2px;
     background-color: $primary-color;
     border-radius: 2px;
+
+    @media (max-width: 1700px) {
+      width: 24px;
+    }
+
+    @media (max-width: 1200px) {
+      width: 16px;
+    }
   }
 }
 
@@ -98,7 +141,7 @@ body {
     }
 
     @media (max-width: 374px) {
-      margin-bottom: 18px;
+      margin: 30px 0;
     }
   }
 
@@ -156,7 +199,8 @@ body {
     width: 100%;
   }
 
-  .outline-photo, .outline-video {
+  .outline-photo,
+  .outline-video {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -184,10 +228,15 @@ body {
     height: 100%;
     background-color: red;
     height: 30vh;
+
+    @media (max-width: 374px) {
+      display: none;
+    }  
   }
 
   &__button {
     display: none;
+    font-family: inherit;
 
     @media (max-width: 1200px) {
       display: block;
@@ -200,5 +249,54 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    bottom: 84px
+  }
+  
+  @media (max-width: 375px) {
+    bottom: 84px; 
+    padding-bottom: 10px;
   }
 }
+
+.policy {
+  position: fixed;
+  bottom: 16px;
+  left: 40px;
+  z-index: 10;
+  display: flex;
+  gap: 40px;
+  
+  
+  @media (max-width: 1200px) {
+    position: absolute;
+    flex-direction: column;
+    gap: 12px;
+    left: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: 84px;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: $background-color;
+  }
+  &__copy {
+    color: $text-color;
+    opacity: 0.7;
+    font-size: 13px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  &__link {
+    color: $text-color;
+    opacity: 0.7;
+    font-size: 13px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
