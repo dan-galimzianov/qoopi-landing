@@ -179,6 +179,10 @@ body {
   gap: 16px;
   width: 37vw;
 
+  &__carousel {
+    width: calc(50% - 8px);
+  }
+
   @media (max-width: 1700px) {
     width: 42vw;
     right: 11vw;
@@ -196,22 +200,29 @@ body {
   overflow: hidden;
   margin-bottom: 10px;
 
-  .image {
-    width: 100%;
-  }
-
-  .outline-photo,
-  .outline-video {
+  &__outline-image {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
   }
 
-  .video {
+  &__video {
     width: 100%;
+    height: auto;
+  }
+
+  &__image {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1200px) {
+    width: 30vw;
   }
 }
+
 .media-stack {
   width: calc(50% - 8px);
 }
@@ -615,4 +626,11 @@ body {
     line-height: 16px;
     margin-top: 10px;
   }
+}
+
+.hero-sliders-mobile__slider_horizontal {
+  display: grid;
+  grid-auto-flow: column;  
+  gap: 16px;
+  grid-auto-columns: 33vw;
 }
