@@ -3,6 +3,7 @@ $primary-color: #fff;
 $background-color: #1e1e1e;
 $secondary-color: #262626;
 $text-color:#8A8A8A;
+$primary-color-2: #793EED;
 
 body {
   background-color: $background-color;
@@ -356,4 +357,262 @@ body {
 
 .image {
   width: 250px;
+}
+
+// Menu overlay styles
+.menu-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 20px;
+  right: -520px;
+  width: 500px;
+  height: calc(100% - 40px); 
+  background-color: #373737;
+  z-index: 1000;
+  transition: right 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Состояние открытого меню */
+.menu-open .menu-overlay {
+  right: 20px;
+}
+
+/* Стили для кнопки закрытия */
+.close-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1002;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.close-btn span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: $primary-color;
+  border-radius: 2px;
+  transition: transform 0.4s ease, background-color 0.3s ease;
+}
+
+.close-btn span:first-child {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.close-btn span:last-child {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.close-btn:hover span {
+  background-color: #793EED;
+}
+
+.menu-open .close-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-open .close-btn span:first-child {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.menu-open .close-btn span:last-child {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+.menu-content {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: 0.1s;
+}
+
+.menu-content ul {
+  list-style: none;
+  padding-top: 120px;
+  padding-left: 40px;
+  margin: 0;
+}
+
+.menu-content li {
+  margin-bottom: 25px;
+}
+
+.menu-content a {
+  text-decoration: none;
+  color: $primary-color;
+  font-size: 22px;
+  font-weight: 500;
+  transition: color 0.2s;
+  display: block;
+  padding: 8px 0;
+}
+
+.menu-content a:hover {
+  color: #793EED;
+}
+
+.menu-content__button {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: 0.2s;
+  display: flex;
+  justify-content: center;
+  padding: 24px 40px;
+  background-color: $primary-color-2;
+  color: $primary-color;
+  font-family: 'Manrope', sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 600;
+  border-radius: 12px;
+  box-shadow: none;
+  cursor: pointer;
+  border: none;
+  
+  @media (max-width: 1700px) {
+    padding: 16px 32px;
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 12px 16px;
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
+
+.menu-open .menu-content,
+.menu-open .menu-content__button {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.menu-open .header__menu-burger {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Адаптив для меню */
+@media (max-width: 768px) {
+  .menu-overlay {
+    width: calc(100% - 40px);
+    top: 10px;
+    right: -100%;
+  }
+  
+  .menu-open .menu-overlay {
+    right: 10px;
+  }
+  
+  .menu-content ul {
+    padding-top: 80px;
+    padding-left: 20px;
+  }
+  
+  .menu-content li {
+    margin-bottom: 15px;
+  }
+  
+  .menu-content a {
+    font-size: 18px;
+    padding: 6px 0;
+  }
+  
+  .menu-content__button {
+    padding: 14px 20px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  
+  .close-btn {
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Дополнительный адаптив для еще меньших экранов */
+@media (max-width: 480px) {
+  .menu-overlay {
+    width: calc(100% - 32px);
+    padding: 20px;
+  }
+  
+  .menu-content ul {
+    padding-top: 60px;
+    padding-left: 10px;
+  }
+  
+  .menu-content li {
+    margin-bottom: 10px;
+  }
+  
+  .menu-content a {
+    font-size: 16px;
+    padding: 4px 0;
+  }
+  
+  .menu-content__button {
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 18px;
+    border-radius: 8px;
+  }
+  
+  .close-btn {
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .close-btn span {
+    height: 1.5px;
+  }
+}
+
+/* Дополнительный адаптив для очень маленьких экранов */
+@media (max-width: 374px) {
+  .menu-overlay {
+    width: calc(100% - 20px);
+    padding: 15px;
+  }
+  
+  .menu-content ul {
+    padding-top: 50px;
+    padding-left: 5px;
+  }
+  
+  .menu-content li {
+    margin-bottom: 8px;
+  }
+  
+  .menu-content a {
+    font-size: 14px;
+  }
+  
+  .menu-content__button {
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 16px;
+    margin-top: 10px;
+  }
 }

@@ -101,5 +101,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initCarousel('carousel2', 0.9, 'vertical');
   initCarousel('horizontal-carousel', 1.5, 'horizontal');
 
+  // Функционал для меню
+  const burgerButton = document.querySelector('.header__menu-burger');
+  const closeButton = document.getElementById('closeBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  // Открытие меню при клике на бургер
+  burgerButton?.addEventListener('click', function(event) {
+    event.stopPropagation(); // Предотвращаем всплытие события
+    document.body.classList.add('menu-open');
+  });
+
+  // Закрытие меню при клике на крестик
+  closeButton?.addEventListener('click', function(event) {
+    event.stopPropagation(); // Предотвращаем всплытие события
+    document.body.classList.remove('menu-open');
+  });
+
+  // Закрытие меню при клике вне меню
+  document.addEventListener('click', function(event) {
+    // Обрабатываем только если меню открыто
+    if (document.body.classList.contains('menu-open')) {
+      // Если кликнули не по меню и не по кнопке бургера
+      if (menuOverlay && burgerButton && 
+          !menuOverlay.contains(event.target as Node) && 
+          !burgerButton.contains(event.target as Node)) {
+        document.body.classList.remove('menu-open');
+      }
+    }
+  });
 }); 
 
