@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css">
+    <title>Qoopi</title>
+  </head>
+  <body>
+      <main class="hero">
+        <header class="header">
+          <div class="header__logo">
+            <img src="/src/assets/logo.svg" alt="Qoopi">
+          </div>
+          <div class="header__menu-burger">
+            <div class="header__menu-burger-line"></div>
+            <div class="header__menu-burger-line"></div>
+            <div class="header__menu-burger-line"></div>
+          </div>
+        </header>
+        <section class="hero-section hero__section">
+          <nav class="hero-section__nav">
+            <ul class="hero-section__nav-list">
+              <li class="hero-section__nav-item" data-section-id="1">
+                О qoopi
+              </li>
+              <li class="hero-section__nav-item" data-section-id="2">
+                Блогерам
+              </li>
+            </ul>
+          </nav>
+          <div class="hero-section__content" data-section-id="1">
+            <div class="hero-section__content-title title title_h1">
+              Создайте собственную <br> витрину на qoopi
+            </div>
+            <div class="title title_h4 title_secondary hero-section__content-description">
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
+            </div>
+            <button class="button hero-section__desktop-button">
+              Создать витрину
+            </button>
+          </div>
+
+          <div class="hero-section__content" data-section-id="2">
+            <div class="hero-section__content-title title title_h1">
+              Продвигайте свои товары и бренд через витрины блогеров и экспертов
+            </div>
+            <div class="title title_h4 title_secondary hero-section__content-description">
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
+            </div>
+            <button class="hero-section__desktop-button button">
+              Создать витрину
+            </button>
+          </div>
+        </section>
+        <section class="hero-sliders" data-section-id="1">
+          <div class="media-stack" id="carousel1" >
+                <!-- Фото 1 -->
+                <div class="media-item">
+                  <img src="/src/assets/carousel/photo1.jpg" class="image"/>
+                  <img src="/src/assets/carousel/outline1.png" class="outline-photo"/>
+                </div>
+                <!-- Видео 1 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline2.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline class="video">
+                    <source src="/src/assets/carousel/video1.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <!-- Фото 2 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline3.png"
+                    class="outline-photo"
+                  />
+                  <img src="/src/assets/carousel/photo2.jpg" class="image"/>
+                </div>
+                <!-- Видео 2 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline4.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline >
+                    <source src="/src/assets/carousel/video2.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <!-- Фото 3 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline5.png"
+                    alt=""
+                    class="outline-photo"
+                  />
+                  <img src="/src/assets/carousel/photo3.jpg" alt="" class="image" />
+                </div>
+                <!-- Видео 3 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline6.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline>
+                    <source src="/src/assets/carousel/video3.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <!-- Фото 4 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline7.png"
+                    alt=""
+                    class="outline-photo"
+                  />
+                  <img src="/src/assets/carousel/photo4.jpg" alt="" class="image" />
+                </div>
+                <!-- Видео 4 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline8.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline>
+                    <source src="/src/assets/carousel/video4.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="coursel-end-detector"></div>
+          </div>
+           <div class="media-stack" id="carousel2" >
+                <!-- Фото 1 -->
+                <div class="media-item">
+                  <img src="/src/assets/carousel/photo1.jpg" class="image"/>
+                  <img src="/src/assets/carousel/outline1.png" class="outline-photo"/>
+                </div>
+                <!-- Видео 1 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline2.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline class="video">
+                    <source src="/src/assets/carousel/video1.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <!-- Фото 2 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline3.png"
+                    class="outline-photo"
+                  />
+                  <img src="/src/assets/carousel/photo2.jpg" class="image"/>
+                </div>
+                <!-- Видео 2 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline4.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline >
+                    <source src="/src/assets/carousel/video2.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <!-- Фото 3 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline5.png"
+                    alt=""
+                    class="outline-photo"
+                  />
+                  <img src="/src/assets/carousel/photo3.jpg" alt="" class="image" />
+                </div>
+                <!-- Видео 3 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline6.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline>
+                    <source src="/src/assets/carousel/video3.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <!-- Фото 4 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline7.png"
+                    alt=""
+                    class="outline-photo"
+                  />
+                  <img src="/src/assets/carousel/photo4.jpg" alt="" class="image" />
+                </div>
+                <!-- Видео 4 -->
+                <div class="media-item">
+                  <img
+                    src="/src/assets/carousel/outline8.png"
+                    alt=""
+                    class="outline-video"
+                  />
+                  <video loop muted autoplay playsinline>
+                    <source src="/src/assets/carousel/video4.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="coursel-end-detector"></div>
+          </div>
+        </section>
+        <section class="hero-sliders-mobile" data-section-id="1">
+          <div class="hero-sliders-mobile__slider"></div>
+          <button class="button hero-sliders-mobile__button">
+            Создать витрину
+          </button>
+        </section>
+        <section class="hero-sliders-mobile" data-section-id="2">
+          <div class="hero-sliders-mobile__slider" style="background-color: blue;"></div>
+          <button class="button hero-sliders-mobile__button">
+            Создать HUI
+          </button>
+        </section>
+      </main>
+      <img class="blot_1" src="/src/assets/blots/blot_1.svg" alt="blot 1" data-section-id="1">
+      <img class="blot_2" src="/src/assets/blots/blot_2.svg" alt="blot 2" data-section-id="2">
+      <script type="module" src="/src/script.ts"></script>
+  </body>
+</html>
