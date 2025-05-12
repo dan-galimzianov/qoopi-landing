@@ -78,8 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         mediaStack.style.transform = isHorizontal ? `translateX(${currentPosition}px)` : `translateY(${currentPosition}px)`;
+
         requestAnimationFrame(animate);
     }
+    
     // Ожидаем загрузки медиа
     Promise.all([
         waitForAllVideos(Array.from(mediaStack.querySelectorAll('video'))),
@@ -91,6 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(animate);
     });
   }
+  
+  // Инициализация вертикальных каруселей для десктопа
+  initCarousel('carousel1', 1.5, 'vertical');
+  initCarousel('carousel2', 0.9, 'vertical');
+  initCarousel('horizontal-carousel', 1.5, 'horizontal');
 
 }); 
 
