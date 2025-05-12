@@ -4,3 +4,5 @@
 @import './styles/main.scss';
 @import './styles/ui.scss';
 @import './styles/sections.scss';
+@import './styles/blogger-modal.scss';
+@import './styles/success.scss';

@@ -15,6 +15,8 @@ const waitForAllImages = (images: HTMLImageElement[]) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Загрузка страницы...');
+  
   // Получаем все пункты навигации
   const navItems = document.querySelectorAll('.hero-section__nav-item');
   

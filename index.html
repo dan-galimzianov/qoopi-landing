@@ -5,9 +5,250 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/style.css">
+
     <title>Qoopi</title>
   </head>
   <body>
+        <!-- Модальное окно для блоггеров-->
+        <div class="modal-overlay" id="modal">
+          <div class="modal-container">
+            <!-- Заголовок и кнопка закрытия -->
+            <div class="modal-header">
+              <h3>Стать блогером на qoopi</h3>
+              <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div>
+              <p class="subtitle">
+                Заполните анкету и мы свяжемся с вами в ближайшее время
+              </p>
+            </div>
+    
+            <!-- Основное содержимое модалки -->
+            <div class="modal-content">
+              <form id="blogger-form">
+                <!-- Группа полей ввода -->
+                <div class="form-group">
+                  <label for="name" class="required">Имя и фамилия</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="Константин Константинопольский"
+                  />
+                  <div class="error-message" id="name-error"></div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="email" class="required">Электронная почта</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="example@mail.com"
+                    required
+                  />
+                  <div class="error-message" id="email-error"></div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="phone" class="required">Номер телефона</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+7"
+                    required
+                  />
+                  <div class="error-message" id="phone-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="socialNetwork" class="required"
+                    >Социальная сеть</label
+                  >
+    
+                  <div class="modal-select-container">
+                    <!-- Скрытое поле для отправки данных формы -->
+                    <input
+                      type="hidden"
+                      name="socialNetwork"
+                      id="socialNetwork"
+                      value=""
+                    />
+    
+                    <!-- Заголовок селектора -->
+                    <div
+                      class="modal-select-header"
+                      tabindex="0"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-controls="socialNetworkDropdown"
+                      data-placeholder="Выберите социальную сеть"
+                    >
+                      <span>Выберите социальную сеть</span>
+                      <div class="modal-select-arrow"></div>
+                    </div>
+    
+                    <!-- Выпадающий список опций -->
+                    <div
+                      id="socialNetworkDropdown"
+                      class="modal-select-dropdown"
+                      role="listbox"
+                    >
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="instagram"
+                      >
+                        <span>Instagram</span>
+                      </div>
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="youtube"
+                      >
+                        <span>YouTube</span>
+                      </div>
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="tiktok"
+                      >
+                        <span>TikTok</span>
+                      </div>
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="other"
+                      >
+                        <span>Другая</span>
+                      </div>
+                    </div>
+    
+                    <!-- Элемент для скринридеров -->
+                    <div class="modal-select-live-region" aria-live="polite"></div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="account" class="required"
+                    >Ссылка на ваш аккаунт</label
+                  >
+                  <input
+                    type="url"
+                    id="account"
+                    name="account"
+                    placeholder="https://"
+                    required
+                  />
+                  <div class="error-message" id="account-error"></div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="followers" class="required"
+                    >Количество подписчиков</label
+                  >
+                  <input
+                    type="text"
+                    id="followers"
+                    name="followers"
+                    placeholder="Укажите количество"
+                    required
+                  />
+                  <div class="error-message" id="followers-error"></div>
+                </div>
+              </form>
+            </div>
+            <footer class="modal-footer">
+              <div class="form-alert" id="form-alert">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Круг-обруч -->
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="9"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    fill="none"
+                  />
+                  <!-- Восклицательный знак -->
+                  <path
+                    d="M10 5v6M10 14v1"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span>Заполните все поля</span>
+              </div>
+              <!-- Чекбоксы -->
+              <div class="checkboxes">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="agreement" name="agreement" required />
+                  <label for="agreement"
+                    >Я принимаю условия&nbsp;
+                    <a href="#" target="_blank" class="text-link"
+                      >пользовательского соглашения</a
+                    ></label
+                  >
+                </div>
+    
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="newsletter"
+                    name="newsletter"
+                    checked
+                  />
+                  <label for="newsletter"
+                    >Я согласен получать письма от qoopi</label
+                  >
+                </div>
+              </div>
+    
+              <!-- Кнопка отправки -->
+              <button type="submit" class="submit-btn">Отправить заявку</button>
+            </footer>
+          </div>
+        </div>
+         <!-- Success Modal -->
+        <div class="success-modal" id="successModal">
+          <div class="success-modal__container">
+            <button class="success-modal__close" id="successModalClose">
+              &times;
+            </button>
+            <div class="success-modal__icon">
+              <svg
+                width="84"
+                height="84"
+                viewBox="0 0 84 84"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M42 83.6663C65.0116 83.6663 83.6666 65.0113 83.6666 41.9997C83.6666 35.563 82.2071 29.4669 79.6008 24.0248L48.0275 55.598C42.9429 60.683 34.6983 60.683 29.6134 55.598L17.169 43.1534C15.135 41.1193 15.135 37.8218 17.169 35.7876C19.2029 33.7538 22.5007 33.7538 24.5346 35.7876L36.9791 48.2322C37.9962 49.2493 39.645 49.2493 40.6621 48.2322L73.8087 15.0853C66.1658 6.06142 54.7516 0.333008 42 0.333008C18.9881 0.333008 0.333313 18.9878 0.333313 41.9997C0.333313 65.0113 18.9881 83.6663 42 83.6663Z"
+                  fill="#15B385"
+                />
+              </svg>
+            </div>
+            <div class="success-modal__message">Ваша заявка отправлена</div>
+          </div>
+        </div>
+
       <main class="hero">
         <header class="header">
           <div class="header__logo">
@@ -37,19 +278,19 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
-            <button class="button hero-section__desktop-button">
+            <button class="button hero-section__desktop-button open-modal-btn" id="openMainModalBtn">
               Создать витрину
             </button>
           </div>
 
           <div class="hero-section__content" data-section-id="2">
             <div class="hero-section__content-title title title_h1">
-              Продвигайте свои товары и бренд через витрины блогеров и экспертов
+              Продвигайте свои товары и бренд через витрины блогеров и экспертов
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
               Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
-            <button class="hero-section__desktop-button button">
+            <button class="hero-section__desktop-button button open-modal-btn" id="openBloggerModalBtn">
               Создать витрину
             </button>
           </div>
@@ -288,23 +529,26 @@
                   </video>
                 </div>
           </div>
-          <button class="button hero-sliders-mobile__button">
+          <button class="button hero-sliders-mobile__button open-modal-btn">
             Создать витрину
           </button>
         </section>
         <section class="hero-sliders-mobile" data-section-id="2">
           <!-- <div class="hero-sliders-mobile__slider"></div> -->
-          <button class="button hero-sliders-mobile__button">
-            Создать HUI
+          <button class="button hero-sliders-mobile__button open-modal-btn">
+            Создать витрину
           </button>
         </section>
         <div class="policy">
           <div class="policy__copy">© qoopi 2025</div>
-          <a href="#" class="policy__link">Правила обработки персональных данных</a>
+          <a href="#" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
       <img class="blot_1" src="/src/assets/blots/blot_1.svg" alt="blot 1" data-section-id="1">
       <img class="blot_2" src="/src/assets/blots/blot_2.svg" alt="blot 2" data-section-id="2">
       <script type="module" src="/src/script.ts"></script>
+      <script src="/src/modalInit.js"></script>
+      <script src="/src/bloggerModal.js"></script>
+      <script src="/src/selectDebug.js"></script>
   </body>
 </html>
