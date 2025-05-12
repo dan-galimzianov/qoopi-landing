@@ -260,6 +260,23 @@
             <div class="header__menu-burger-line"></div>
           </div>
         </header>
+        
+        <div class="menu-overlay" id="menuOverlay">
+            <div class="close-btn" id="closeBtn">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-content">
+                <ul>
+                    <li><a href="#">О qoopi</a></li>
+                    <li><a href="#">Блогерам</a></li>
+                    <li><a href="#">Брендам</a></li>
+                    <li><a href="#">Селлерам</a></li>
+                </ul>
+            </div>
+            <button class="menu-content__button">Задать вопрос</button>
+        </div>
+        
         <section class="hero-section hero__section">
           <nav class="hero-section__nav">
             <ul class="hero-section__nav-list">
@@ -295,180 +312,92 @@
             </button>
           </div>
         </section>
-        <section class="hero-sliders" data-section-id="1">
-          <div class="media-stack" id="carousel1" >
-                <!-- Фото 1 -->
+
+        <div class="hero-sliders" data-section-id="1">
+          <section class="carousel hero-sliders__carousel" id="carousel1">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/src/assets/carousel/photo1.jpg" class="image"/>
-                  <img src="/src/assets/carousel/outline1.png" class="outline-photo"/>
+                    <img src="/src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
                 </div>
-                <!-- Видео 1 -->
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
                 <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline2.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline class="video">
-                    <source src="/src/assets/carousel/video1.mp4" type="video/mp4" />
-                  </video>
+                    <img src="/src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
                 </div>
-                <!-- Фото 2 -->
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
                 <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline3.png"
-                    class="outline-photo"
-                  />
-                  <img src="/src/assets/carousel/photo2.jpg" class="image"/>
+                    <img src="/src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
                 </div>
-                <!-- Видео 2 -->
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+            </div>
+          </section>
+          <section class="carousel hero-sliders__carousel" id="carousel2">
+          <div class="carousel__wrapper">
+            <div class="carousel__slide">
+              <div class="media-item">
+                  <img src="/src/assets/carousel/outline1.png" alt="" class="media-item__outline-image">
+                  <img src="/src/assets/carousel/photo1.jpg" alt="" class="media-item__image">
+              </div>
+            </div>
+            <div class="carousel__slide">
                 <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline4.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline >
-                    <source src="/src/assets/carousel/video2.mp4" type="video/mp4" />
-                  </video>
+                    <img src="/src/assets/carousel/outline2.png" alt="" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video">                                        
+                      <source src="/src/assets/carousel/video1.mp4" type="video/mp4">
+                    </video>
                 </div>
-                <!-- Фото 3 -->
+            </div>
+            <div class="carousel__slide">
                 <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline5.png"
-                    alt=""
-                    class="outline-photo"
-                  />
-                  <img src="/src/assets/carousel/photo3.jpg" alt="" class="image" />
+                  <img src="/src/assets/carousel/outline3.png" alt="" class="media-item__outline-image">
+                  <img src="/src/assets/carousel/photo2.jpg" alt="" class="media-item__image">
                 </div>
-                <!-- Видео 3 -->
+            </div>
+            <div class="carousel__slide">
                 <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline6.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline>
-                    <source src="/src/assets/carousel/video3.mp4" type="video/mp4" />
-                  </video>
+                  <img src="/src/assets/carousel/outline3.png" alt="" class="media-item__outline-image">
+                  <img src="/src/assets/carousel/photo2.jpg" alt="" class="media-item__image">
                 </div>
-                <!-- Фото 4 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline7.png"
-                    alt=""
-                    class="outline-photo"
-                  />
-                  <img src="/src/assets/carousel/photo4.jpg" alt="" class="image" />
-                </div>
-                <!-- Видео 4 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline8.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline>
-                    <source src="/src/assets/carousel/video4.mp4" type="video/mp4" />
-                  </video>
-                </div>
+            </div>
           </div>
-           <div class="media-stack" id="carousel2" >
-                <!-- Фото 1 -->
-                <div class="media-item">
-                  <img src="/src/assets/carousel/photo1.jpg" class="image"/>
-                  <img src="/src/assets/carousel/outline1.png" class="outline-photo"/>
-                </div>
-                <!-- Видео 1 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline2.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline class="video">
-                    <source src="/src/assets/carousel/video1.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <!-- Фото 2 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline3.png"
-                    class="outline-photo"
-                  />
-                  <img src="/src/assets/carousel/photo2.jpg" class="image"/>
-                </div>
-                <!-- Видео 2 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline4.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline >
-                    <source src="/src/assets/carousel/video2.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <!-- Фото 3 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline5.png"
-                    alt=""
-                    class="outline-photo"
-                  />
-                  <img src="/src/assets/carousel/photo3.jpg" alt="" class="image" />
-                </div>
-                <!-- Видео 3 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline6.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline>
-                    <source src="/src/assets/carousel/video3.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <!-- Фото 4 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline7.png"
-                    alt=""
-                    class="outline-photo"
-                  />
-                  <img src="/src/assets/carousel/photo4.jpg" alt="" class="image" />
-                </div>
-                <!-- Видео 4 -->
-                <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline8.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline>
-                    <source src="/src/assets/carousel/video4.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="coursel-end-detector"></div>
-          </div>
-        </section>
+          </section>
+        </div>
+        
         <section class="hero-sliders-mobile" data-section-id="1">
-          <div class="hero-sliders-mobile__slider" id="horizontal-carousel">
-            <div class="media-item">
-                  <img src="/src/assets/carousel/photo1.jpg" class="image"/>
-                  <img src="/src/assets/carousel/outline1.png" class="outline-photo"/>
-                </div>
-                <!-- Видео 1 -->
+          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
                 <div class="media-item">
-                  <img
-                    src="/src/assets/carousel/outline2.png"
-                    alt=""
-                    class="outline-video"
-                  />
-                  <video loop muted autoplay playsinline class="video">
-                    <source src="/src/assets/carousel/video1.mp4" type="video/mp4" />
-                  </video>
+                    <img src="/src/assets/carousel/outline1.png" alt="" class="media-item__outline-image">
+                    <img src="/src/assets/carousel/photo1.jpg" alt="" class="media-item__image">
                 </div>
+<<<<<<< HEAD
                 <!-- Фото 2 -->
                 <div class="media-item">
                   <img
@@ -530,18 +459,50 @@
                 </div>
           </div>
           <button class="button hero-sliders-mobile__button open-modal-btn">
+=======
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/src/assets/carousel/outline2.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/src/assets/carousel/video1.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                    <img src="/src/assets/carousel/outline3.png" alt="" class="media-item__outline-image">
+                    <img src="/src/assets/carousel/photo2.jpg" alt="" class="media-item__image">
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                    <img src="/src/assets/carousel/outline3.png" alt="" class="media-item__outline-image">
+                    <img src="/src/assets/carousel/photo2.jpg" alt="" class="media-item__image">
+                  </div>
+              </div>
+            </div>
+          </section>
+          <button class="button hero-sliders-mobile__button">
+>>>>>>> 9c946a537be272f31f8f3a9b8b988a232db63d09
             Создать витрину
           </button>
         </section>
+
         <section class="hero-sliders-mobile" data-section-id="2">
           <!-- <div class="hero-sliders-mobile__slider"></div> -->
           <button class="button hero-sliders-mobile__button open-modal-btn">
             Создать витрину
           </button>
         </section>
+        
         <div class="policy">
           <div class="policy__copy">© qoopi 2025</div>
+<<<<<<< HEAD
           <a href="#" class="policy__link">Правила обработки персональных данных</a>
+=======
+          <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
+>>>>>>> 9c946a537be272f31f8f3a9b8b988a232db63d09
         </div>
       </main>
       <img class="blot_1" src="/src/assets/blots/blot_1.svg" alt="blot 1" data-section-id="1">
