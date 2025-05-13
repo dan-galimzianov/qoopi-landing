@@ -14,12 +14,17 @@
 }
 
 .hero-section__content {
+  width: 50%;
   position: absolute;
   opacity: 0;
   height: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   max-width: 100%;
+}
+
+.hero-section__content-description {
+  width: 90%;
 }
 
 .hero-sliders {
@@ -52,6 +57,22 @@
   visibility: visible !important;
 }
 
+.media-container {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+.media-container-mobile {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+  
+  &.section-active {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
 a {
   color: #8651ef;
   text-decoration: none;
