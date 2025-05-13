@@ -25,24 +25,33 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Загрузка страницы...');
   
   // Получаем все пункты навигации
-  const navItems = document.querySelectorAll('.hero-section__nav-item');
+  const navItems = document.querySelectorAll('.hero-section__nav-link');
   
   // Обработчик клика по пункту меню
+  let activeSection = "1";
+
   navItems.forEach(item => {
     item.addEventListener('click', () => {
       // Получаем id секции из атрибута
       const sectionId = item.getAttribute('data-section-id');
       
       if (!sectionId) return;
-      
-      // Выделяем активный пункт меню
-      navItems.forEach(navItem => {
-        navItem.classList.remove('hero-section__nav-item_active');
+      item.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start'
       });
-      item.classList.add('hero-section__nav-item_active');
+            // Выделяем активный пункт меню
+      navItems.forEach(navItem => {
+        navItem.classList.remove('hero-section__nav-link_active');
+      });
+      item.classList.add('hero-section__nav-link_active');
       
       // Показываем/скрываем соответствующие секции
-      const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-item)');
+      const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-link)');
+      document.body.classList.remove(`blot_${activeSection}`);
+      document.body.classList.add(`blot_${sectionId}`);
+      activeSection = sectionId;
 
       allSections.forEach(section => {
         const sectionElement = section as HTMLElement;
