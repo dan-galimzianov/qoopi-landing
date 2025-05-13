@@ -304,17 +304,15 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       
       // Добавляем специальный обработчик для кнопки с ID openBloggerModalBtn
-      const bloggerBtn = document.getElementById('openBloggerModalBtn');
-      if (bloggerBtn) {
-        console.log('Добавляем отдельный обработчик для кнопки с ID openBloggerModalBtn');
-        
-        bloggerBtn.addEventListener('click', function(e) {
+      const bloggerBtns = document.querySelectorAll('.openBloggerModalBtn');
+      bloggerBtns.forEach(button => {
+        button.addEventListener('click', function(e) {
           console.log('Клик по кнопке с ID openBloggerModalBtn');
           e.preventDefault();
           e.stopPropagation();
           openModal();
         });
-      }
+      });
       
       // Проверяем, существует ли уже объект window.bloggerModalFunctions
       if (window.bloggerModalFunctions) {
