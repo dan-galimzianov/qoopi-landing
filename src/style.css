@@ -11,3 +11,5 @@
 @import './styles/seller-modal.scss';
 @import './styles/dropped-list.scss';
 @import './styles/success.scss';
+@import './styles/brands/main.scss';
+@import './styles/sellers/main.scss';

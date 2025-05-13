@@ -292,10 +292,6 @@ $modal-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); // Добавлено: тень �
       &.error {
         label {
           color: $text-color;
-
-          &:before {
-            border: 1px solid $error-color;
-          }
         }
       }
 
@@ -348,14 +344,7 @@ $modal-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); // Добавлено: тень �
 }
 
 // Адаптивность
-@media (max-width: 860px) {
-  .modal-overlay#sellerModal {
-    .modal-container {
-      width: 95vw;
-      max-width: none;
-    }
-  }
-
+@media (max-width: 1200px) {
   .modal-header,
   .modal-content,
   .modal-footer {

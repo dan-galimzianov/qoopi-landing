@@ -33,10 +33,6 @@ $transition-easing: ease;
     opacity: 1;
     visibility: visible;
   }
-  
-  @media (max-width: 767px) {
-    justify-content: center; // На мобильных устройствах центрируем
-  }
 }
 
 // Контейнер модалки
@@ -58,7 +54,6 @@ $transition-easing: ease;
   transition: transform $transition-duration $transition-easing,
     opacity $transition-duration $transition-easing;
   box-shadow: $modal-shadow;
-  right: 0; // Добавляем, чтобы закрепить модалку справа
   
   .modal-overlay.active & {
     transform: translateY(0);
@@ -69,11 +64,7 @@ $transition-easing: ease;
     width: calc(100% - 40px);
     max-width: none;
     margin: 20px;
-  }
-  
-  @media (max-width: 767px) {
-    right: auto; // Сбрасываем правое позиционирование для мобильных
-    margin: 20px;
+    right: auto;
   }
 }
 
@@ -176,7 +167,6 @@ $transition-easing: ease;
       padding: 8px 0;
       background-color: transparent;
       border: none;
-      border-bottom: 1px solid $text-color;
       color: $white;
       font-size: 17px;
       font-family: 'Manrope', sans-serif;
@@ -221,7 +211,7 @@ $transition-easing: ease;
   
   &.error {
     .multi-select-header {
-      border-bottom-color: $error-color !important;
+      border-bottom: 1px solid $error-color !important;
     }
   }
 
@@ -230,17 +220,15 @@ $transition-easing: ease;
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid $text-color;
+    border-bottom: none;
     cursor: pointer;
     transition: border-color $transition-duration $transition-easing;
     
-    &:hover {
-      border-bottom-color: lighten($text-color, 10%);
-    }
     
     &:focus {
       outline: none;
-      border-bottom-color: $primary-color;
+      // Убираем цвет бордера при фокусе
+      // border-bottom-color: $primary-color;
     }
     
     span {
@@ -402,7 +390,7 @@ $transition-easing: ease;
             width: 18px;
             height: 18px;
             border: 1px solid $checkbox-bg;
-            border-radius: 4px;
+            border-radius: 6px;
             background-color: transparent;
             transition: all $transition-duration $transition-easing;
           }
@@ -571,82 +559,5 @@ $transition-easing: ease;
   }
   40%, 60% {
     transform: translateX(4px);
-  }
-}
-
-// Стили мультиселектора для брендов, интегрированные с dropped-list.scss
-#brandModal {
-  .multi-select-container {
-    width: 100%;
-    position: relative;
-    margin-bottom: 10px;
-  }
-  
-  .multi-select-header {
-    background-color: transparent;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    border-bottom: 1px solid $text-color;
-    transition: all $transition-duration $transition-easing;
-    
-    &:hover {
-      border-bottom-color: $primary-color;
-    }
-    
-    span {
-      color: $text-color;
-    }
-    
-    &.has-selection span {
-      color: $white;
-    }
-  }
-  
-  .multi-select-dropdown {
-    position: absolute;
-    width: 100%;
-    background-color: #555;
-    border-radius: 16px;
-    margin-top: 5px;
-    z-index: 100;
-    max-height: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: max-height 0.5s ease, opacity 0.3s ease;
-    visibility: hidden;
-    
-    &.open {
-      max-height: 50vh;
-      opacity: 1;
-      pointer-events: auto;
-      display: block;
-      visibility: visible;
-    }
-  }
-  
-  .multi-select-option {
-    padding: 16px 24px;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    &:hover {
-      background-color: #666;
-    }
-    
-    &.selected::after {
-      content: '';
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
   }
 }

@@ -41,7 +41,7 @@ body {
   }
 
   @media (max-width: 1200px) {
-    padding: 60px 16px 16px 16px;
+    padding: 10px 16px 16px 16px;
   }
 }
 
@@ -718,81 +718,6 @@ body {
   }
 }
 
-.media-container-mobile {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: none;
-  opacity: 0;
-  
-  .media-section {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    padding: 0 16px;
-  }
-  
-  .video-photo-container {
-    position: relative;
-    transform: scale(0.7);
-    transform-origin: center bottom;
-  }
-  
-  .video-container {
-    width: 231px;
-    height: 324px;
-  }
-  
-  .blogers-photo {
-    width: 241px;
-    height: 241px;
-    top: 215px;
-    left: 125px;
-  }
-  
-  .phone-image {
-    width: 200px;
-    height: 390px;
-    margin-top: 0;
-  }
-  
-  @media (max-width: 768px) {
-    .video-photo-container {
-      transform: scale(0.6);
-    }
-    
-    .phone-image {
-      width: 180px;
-      height: 350px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .video-photo-container {
-      transform: scale(0.5);
-    }
-    
-    .phone-image {
-      width: 150px;
-      height: 292px;
-    }
-  }
-  
-  @media (max-width: 374px) {
-    .video-photo-container {
-      transform: scale(0.45);
-    }
-    
-    .phone-image {
-      width: 130px;
-      height: 253px;
-    }
-  }
-}
-
 @media (max-width: 1200px) {
   .hero-sliders-mobile__button {
     display: block;
@@ -801,17 +726,6 @@ body {
   }
 }
 
-@media (max-width: 1200px) {
-  .media-container-mobile {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    opacity: 1;
-    bottom: 84px;
-  }
-}
-
-
 
 .hero-sliders-mobile__slider_horizontal {
   display: grid;
@@ -819,3 +733,4 @@ body {
   gap: 16px;
   grid-auto-columns: 33vw;
 }
+

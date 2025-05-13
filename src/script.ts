@@ -42,12 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
       item.classList.add('hero-section__nav-item_active');
       
       // Показываем/скрываем соответствующие секции
-      const allSections = document.querySelectorAll('[data-section-id]');
+      const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-item)');
+
       allSections.forEach(section => {
+        const sectionElement = section as HTMLElement;
         if (section.getAttribute('data-section-id') === sectionId) {
-          section.classList.add('section-active');
+          sectionElement.style.setProperty('opacity', '1');
+          sectionElement.style.setProperty('visibility', 'visible');
         } else {
-          section.classList.remove('section-active');
+          sectionElement.style.setProperty('opacity', '0');
+          sectionElement.style.setProperty('visibility', 'hidden');
         }
       });
     });
@@ -138,10 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Инициализация вертикальных каруселей для десктопа
-  initCarousel('carousel1', 5);
+  initCarousel('carousel1', 17);
   initCarousel('carousel2', 15);
+  initCarousel('carousel3', 15);
+  initCarousel('sellers-media-carousel', 15);
   
   // Инициализация горизонтальной карусели
   initHorizontalCarousel('hero-sliders-mobile', 20);
+  initHorizontalCarousel('brands-media-mobile-carousel', 20);
+  initHorizontalCarousel('sellers-media-mobile-carousel', 20);
 }); 
 
