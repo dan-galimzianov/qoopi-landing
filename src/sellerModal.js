@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (selectedOptions.length === 0) {
             multiSelectHeader.querySelector('span').textContent =
               'Выберите категории';
+            multiSelectHeader.classList.remove('has-selection');
           } else {
             // Берем категории для отображения
             const selectedLabels = selectedOptions.map(
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             );
             multiSelectHeader.querySelector('span').textContent =
               selectedLabels.join(', ');
+            multiSelectHeader.classList.add('has-selection');
           }
         }
   
@@ -222,22 +224,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // Сбросить ошибку категорий
     function resetCategoryError() {
       const multiSelectHeader = document.getElementById('categoryHeader');
-      const multiSelectContainer =
-        document.querySelector('.multiselect-container') ||
-        document.querySelector('.multiselect-dropdown');
+      const multiSelectContainer = document.querySelector('.multi-select-container');
   
       if (multiSelectContainer) {
         multiSelectContainer.classList.remove('error');
       }
   
       if (multiSelectHeader) {
-        multiSelectHeader.style.borderBottomColor = '#515151';
-  
-        const span = multiSelectHeader.querySelector('span');
-        if (span) {
-          const hasSelected =
-            document.querySelectorAll('.multi-select-option.selected').length > 0;
-          span.style.color = hasSelected ? '#ffffff' : '#8a8a8a';
+        multiSelectHeader.classList.remove('error');
+        
+        // Обновляем класс has-selection в зависимости от наличия выбранных опций
+        const hasSelected = document.querySelectorAll('.multi-select-option.selected').length > 0;
+        if (hasSelected) {
+          multiSelectHeader.classList.add('has-selection');
+        } else {
+          multiSelectHeader.classList.remove('has-selection');
         }
       }
     }
@@ -582,6 +583,25 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
       });
+      
+      // Сброс ошибок при изменении чекбоксов
+      document.querySelectorAll('#seller-form input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', function() {
+          const checkboxGroup = this.closest('.checkbox-group');
+          if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+            checkboxGroup.classList.remove('error');
+          }
+        });
+      });
     }
+    
+    // Экспортируем функции для доступа из modalInit.js
+    window.sellerModalFunctions = {
+      openSellerModal,
+      closeSellerModal
+    };
+    
+    // Экспортируем функцию напрямую для доступа из modalInit.js
+    window.openSellerModalFunction = openSellerModal;
   });
   

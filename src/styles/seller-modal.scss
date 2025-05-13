@@ -9,6 +9,8 @@ $bg-color: #2a2a2a;
 $text-color: #ffffff;
 $placeholder-color: #8a8a8a;
 $border-color: #515151;
+$modal-bg: #2a2a2a; // Добавлено: цвет фона модального окна
+$modal-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); // Добавлено: тень модального окна
 
 // // Анимации
 // @keyframes fadeIn {
@@ -330,6 +332,17 @@ $border-color: #515151;
 
     &:active {
       transform: translateY(0);
+    }
+  }
+}
+
+// Стили для чекбоксов в футере
+.checkbox-group {
+  &.error {
+    label {
+      &:before {
+        border: 1px solid $error-color !important;
+      }
     }
   }
 }

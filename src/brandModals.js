@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const multiSelectDropdown = document.getElementById(
         'brandCategoryDropdown'
       );
+      
+      if (!multiSelectHeader || !multiSelectDropdown) {
+        console.error('Элементы мультиселектора не найдены');
+        return;
+      }
+      
+      // Удаляем все inline стили, которые могли быть применены
+      multiSelectDropdown.removeAttribute('style');
+      
       const arrow = multiSelectHeader.querySelector('.arrow');
       const options = multiSelectDropdown.querySelectorAll(
         '.multi-select-option'
@@ -43,12 +52,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedOptions.length === 0) {
           headerSpan.textContent = 'Выберите категории';
           headerSpan.style.color = '#8a8a8a'; // Серый цвет, когда ничего не выбрано
+          multiSelectHeader.classList.remove('has-selection');
         } else {
           const selectedLabels = selectedOptions.map(
             (opt) => opt.querySelector('span').textContent
           );
           headerSpan.textContent = selectedLabels.join(', ');
           headerSpan.style.color = '#ffffff'; // Белый цвет, когда есть выбор
+          multiSelectHeader.classList.add('has-selection');
         }
       }
   
@@ -79,6 +90,15 @@ document.addEventListener('DOMContentLoaded', function () {
       multiSelectHeader.addEventListener('click', function (e) {
         e.stopPropagation();
         const isExpanded = multiSelectDropdown.classList.toggle('open');
+        
+        // Важно: убедимся, что display не установлен в none
+        if (isExpanded) {
+          multiSelectDropdown.style.display = 'block';
+          multiSelectDropdown.style.visibility = 'visible';
+          multiSelectDropdown.style.opacity = '1';
+          multiSelectDropdown.style.maxHeight = '50vh';
+        }
+        
         arrow.classList.toggle('up', isExpanded);
         multiSelectHeader.setAttribute('aria-expanded', isExpanded);
       });
@@ -185,6 +205,12 @@ document.addEventListener('DOMContentLoaded', function () {
       // Сначала сбрасываем мультиселектор
       resetBrandMultiSelect();
       
+      // Убедимся, что dropdown не имеет display:none
+      const multiSelectDropdown = document.getElementById('brandCategoryDropdown');
+      if (multiSelectDropdown) {
+        multiSelectDropdown.removeAttribute('style');
+      }
+      
       brandModal.style.display = 'flex';
       brandModal.style.opacity = '0';
       brandModal.style.visibility = 'visible';
@@ -259,7 +285,8 @@ document.addEventListener('DOMContentLoaded', function () {
       
       // Принудительно закрываем выпадающий список
       multiSelectDropdown.classList.remove('open');
-      multiSelectDropdown.style.display = 'none';
+      // Убираем display:none, который мешает корректной работе мультиселектора
+      // multiSelectDropdown.style.display = 'none';
       multiSelectHeader.setAttribute('aria-expanded', 'false');
       
       // Сбрасываем стрелку
@@ -522,6 +549,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Make the function available globally for modalInit.js
     window.openBrandModalFunction = openBrandModal;
+    
+    // Добавляем обработчики для сброса ошибок при выборе категорий
+    const brandCategoryHeader = document.getElementById('brandCategoryHeader');
+    const multiSelectContainer = document.querySelector('.multi-select-container');
+    
+    if (brandCategoryHeader && multiSelectContainer) {
+      brandCategoryHeader.addEventListener('click', function() {
+        if (multiSelectContainer.classList.contains('error')) {
+          multiSelectContainer.classList.remove('error');
+        }
+      });
+      
+      // Также добавим обработчик для удаления ошибки при выборе категории
+      const options = document.querySelectorAll('#brandCategoryDropdown .multi-select-option');
+      options.forEach(option => {
+        option.addEventListener('click', function() {
+          if (multiSelectContainer.classList.contains('error')) {
+            multiSelectContainer.classList.remove('error');
+          }
+        });
+      });
+    }
   });
   
   // Общая функция закрытия success modal

@@ -2,32 +2,40 @@
 document.addEventListener('DOMContentLoaded', function() {
   console.log('modalInit.js загружен');
   
-  // Находим все кнопки открытия модалки и само модальное окно
+  // Отладочные сообщения для глобальных функций
+  console.log('openBrandModalFunction существует:', typeof window.openBrandModalFunction === 'function');
+  console.log('brandModals существует:', !!window.brandModals);
+  console.log('openSellerModalFunction существует:', typeof window.openSellerModalFunction === 'function');
+  console.log('sellerModalFunctions существует:', !!window.sellerModalFunctions);
+  
+  // Находим все кнопки открытия модалки и модальные окна
   const openButtons = document.querySelectorAll('.open-modal-btn');
   const modal = document.getElementById('modal');
   const brandModal = document.getElementById('brandModal');
+  const sellerModal = document.getElementById('sellerModal');
   const closeBtn = document.querySelector('.close-modal-btn');
   const successModal = document.getElementById('successModal');
   const successCloseBtn = document.getElementById('successModalClose');
   const successCloseBtnFooter = document.getElementById('successModalCloseBtn');
   
-  // Находим специально кнопки открытия в разных секциях
+  // Находим кнопки для различных секций
   const mainButtons = document.querySelectorAll('[data-section-id="1"] .open-modal-btn');
-  const brandButtons = document.querySelectorAll('[data-section-id="2"] .open-modal-btn');
-  // Находим кнопку для брендов в секции 3
+  const bloggerButtons = document.querySelectorAll('[data-section-id="2"] .open-modal-btn');
   const brandSection3Button = document.querySelector('[data-section-id="3"] .hero-section__desktop-button');
-  // Находим кнопки для блоггеров
+  const sellerButtons = document.querySelectorAll('[data-section-id="4"] .open-modal-btn');
+  
+  // Находим ID-идентификаторы кнопок
   const bloggerButton = document.getElementById('openBloggerModalBtn');
   const bloggerMobileButton = document.getElementById('openBloggerMobileBtn');
-  // Находим кнопку для продавцов (seller) в секции 4
+  const brandButton = document.getElementById('openBrandModalBtn');  
   const sellerButton = document.getElementById('openSellerModalBtn');
 
   console.log('Кнопки в секции 1:', mainButtons.length);
-  console.log('Кнопки в секции 2:', brandButtons.length);
+  console.log('Кнопки в секции 2:', bloggerButtons.length);
   console.log('Кнопка бренда в секции 3:', brandSection3Button ? 'найдена' : 'не найдена');
-  console.log('Кнопка блоггера в секции 2:', bloggerButton ? 'найдена' : 'не найдена');
-  console.log('Мобильная кнопка блоггера:', bloggerMobileButton ? 'найдена' : 'не найдена');
-  console.log('Кнопка продавца в секции 4:', sellerButton ? 'найдена' : 'не найдена');
+  console.log('Кнопка блоггера (ID):', bloggerButton ? 'найдена' : 'не найдена');
+  console.log('Мобильная кнопка блоггера (ID):', bloggerMobileButton ? 'найдена' : 'не найдена');
+  console.log('Кнопка продавца (ID):', sellerButton ? 'найдена' : 'не найдена');
   
   // Инициализация событий только если найдены нужные элементы
   if (modal) {
@@ -37,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let scrollPosition = 0;
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     
-    // Функция открытия модального окна
+    // Функция открытия модального окна блогера
     function openModal() {
       // Сохраняем текущую позицию скролла
       scrollPosition = window.pageYOffset;
@@ -98,7 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
         successModal.style.display = 'none';
         
         // Восстанавливаем прокрутку только если нет других открытых модальных окон
-        if (!modal.classList.contains('active') && (!brandModal || !brandModal.classList.contains('active'))) {
+        if (!modal.classList.contains('active') && 
+            (!brandModal || !brandModal.classList.contains('active')) &&
+            (!sellerModal || !sellerModal.classList.contains('active'))) {
           document.body.classList.remove('modal-open');
           document.body.style.top = '';
           document.body.style.paddingRight = '';
@@ -109,86 +119,136 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Функция открытия модального окна для брендов
     function openBrandModal() {
-      if (typeof openBrandModalFunction === 'function') {
-        openBrandModalFunction();
-      } else if (window.brandMultiSelect) {
-        // Прямой вызов функции из brandModals.js
-        const brandModalElement = document.getElementById('brandModal');
-        if (brandModalElement) {
-          brandModalElement.style.display = 'flex';
+      if (window.brandModals && window.brandModals.openBrandModal) {
+        console.log('Вызываем openBrandModal из объекта brandModals');
+        window.brandModals.openBrandModal();
+      } else if (typeof window.openBrandModalFunction === 'function') {
+        console.log('Вызываем openBrandModalFunction');
+        window.openBrandModalFunction();
+      } else {
+        console.warn('Функция открытия модального окна брендов не найдена, пробуем открыть напрямую');
+        // Пробуем открыть модальное окно напрямую
+        if (brandModal) {
+          // Сохраняем текущую позицию скролла
+          scrollPosition = window.pageYOffset;
+          
+          brandModal.style.display = 'flex';
+          
+          // Добавляем класс для блокировки прокрутки
+          document.body.classList.add('modal-open');
+          document.body.style.top = `-${scrollPosition}px`;
+          document.body.style.paddingRight = `${scrollbarWidth}px`;
+          
+          // Анимируем появление
           setTimeout(function() {
-            brandModalElement.classList.add('active');
+            brandModal.classList.add('active');
           }, 10);
         } else {
-          console.warn('Элемент модального окна для брендов не найден');
-          openModal();
+          console.error('Элемент модального окна брендов не найден');
+          openModal(); // Fallback на модальное окно блогеров
         }
+      }
+    }
+    
+    // Функция открытия модального окна для селлеров
+    function openSellerModal() {
+      if (window.sellerModalFunctions && window.sellerModalFunctions.openSellerModal) {
+        console.log('Вызываем openSellerModal из объекта sellerModalFunctions');
+        window.sellerModalFunctions.openSellerModal();
+      } else if (typeof window.openSellerModalFunction === 'function') {
+        console.log('Вызываем openSellerModalFunction');
+        window.openSellerModalFunction();
       } else {
-        console.warn('Модальное окно для брендов не найдено');
-        console.log('Открываем обычное модальное окно вместо модального окна брендов');
-        openModal();
+        console.warn('Функция открытия модального окна селлеров не найдена, пробуем открыть напрямую');
+        // Пробуем открыть модальное окно напрямую
+        if (sellerModal) {
+          // Сохраняем текущую позицию скролла
+          scrollPosition = window.pageYOffset;
+          
+          sellerModal.style.display = 'flex';
+          
+          // Добавляем класс для блокировки прокрутки
+          document.body.classList.add('modal-open');
+          document.body.style.top = `-${scrollPosition}px`;
+          document.body.style.paddingRight = `${scrollbarWidth}px`;
+          
+          // Анимируем появление
+          setTimeout(function() {
+            sellerModal.classList.add('active');
+          }, 10);
+        } else {
+          console.error('Элемент модального окна селлеров не найден');
+          openModal(); // Fallback на модальное окно блогеров
+        }
       }
     }
     
-    // Функция для определения, активна ли секция с данным ID
-    function isSectionActive(sectionId) {
-      const sections = document.querySelectorAll(`[data-section-id="${sectionId}"]`);
-      for (let i = 0; i < sections.length; i++) {
-        if (sections[i].classList.contains('section-active')) {
-          return true;
-        }
-      }
-      return false;
-    }
-    
-    // Обработчик клика по кнопке с проверкой активной секции
-    document.addEventListener('click', function(e) {
-      // Проверка на кнопку блоггеров
-      if (e.target === bloggerButton || e.target.closest('#openBloggerModalBtn')) {
-        e.preventDefault();
-        if (isSectionActive('2')) {
-          console.log('Клик по кнопке блоггеров в активной секции 2');
-          openModal();
-        }
-      }
-      
-      // Проверка на мобильную кнопку блоггеров
-      if (e.target === bloggerMobileButton || e.target.closest('#openBloggerMobileBtn')) {
-        e.preventDefault();
-        if (isSectionActive('2')) {
-          console.log('Клик по мобильной кнопке блоггеров в активной секции 2');
-          openModal();
-        }
-      }
-      
-      // Проверка на кнопку брендов
-      if (e.target === brandSection3Button || e.target.closest('[data-section-id="3"] .hero-section__desktop-button')) {
-        e.preventDefault();
-        if (isSectionActive('3')) {
-          console.log('Клик по кнопке брендов в активной секции 3');
-          openBrandModal();
-        }
-      }
-      
-      // Проверка на кнопку продавцов
-      if (e.target === sellerButton || e.target.closest('#openSellerModalBtn')) {
-        e.preventDefault();
-        if (isSectionActive('4')) {
-          console.log('Клик по кнопке продавцов в активной секции 4');
-          openModal();
-        }
-      }
-    });
-    
-    // Добавляем обработчики событий для кнопок в секции 1
-    mainButtons.forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        if (isSectionActive('1')) {
-          console.log('Клик по кнопке в активной секции 1');
-          openModal();
+    // Функция для определения активной секции
+    function getActiveSectionId() {
+      let activeSectionId = null;
+      document.querySelectorAll('[data-section-id]').forEach(section => {
+        if (section.classList.contains('section-active')) {
+          const id = section.getAttribute('data-section-id');
+          if (id) activeSectionId = id;
         }
       });
+      return activeSectionId;
+    }
+    
+    // Универсальный обработчик клика для всех кнопок
+    document.addEventListener('click', function(e) {
+      // Находим ближайшую кнопку (либо саму кнопку, либо её дочерний элемент)
+      const button = e.target.closest('button');
+      if (!button) return; // Если клик не по кнопке, игнорируем
+      
+      // Получаем активную секцию
+      const activeSectionId = getActiveSectionId();
+      console.log('Активная секция:', activeSectionId);
+      
+      // Проверяем, является ли кнопка кнопкой создания витрины или открытия модального окна
+      if (button.classList.contains('hero-section__desktop-button') || 
+          button.classList.contains('hero-sliders-mobile__button') ||
+          button.classList.contains('open-modal-btn')) {
+        
+        e.preventDefault();
+        
+        // Проверяем, есть ли у кнопки ID, который явно указывает, какую модалку открывать
+        if (button.id === 'openBloggerModalBtn' || button.id === 'openBloggerMobileBtn') {
+          console.log('Открываем модальное окно блогера по ID кнопки');
+          openModal();
+        } 
+        else if (button.id === 'openBrandModalBtn') {
+          console.log('Открываем модальное окно бренда по ID кнопки');
+          openBrandModal();
+        } 
+        else if (button.id === 'openSellerModalBtn') {
+          console.log('Открываем модальное окно селлера по ID кнопки');
+          openSellerModal();
+        } 
+        // Если у кнопки нет явного ID, определяем модалку по активной секции
+        else {
+          if (activeSectionId === '1') {
+            // Секция "О qoopi"
+            console.log('Открываем модальное окно в секции О qoopi');
+            openModal();
+          } 
+          else if (activeSectionId === '2') {
+            // Секция "Блогерам"
+            console.log('Открываем модальное окно в секции Блогерам');
+            openModal();
+          } 
+          else if (activeSectionId === '3') {
+            // Секция "Брендам"
+            console.log('Открываем модальное окно в секции Брендам');
+            openBrandModal();
+          } 
+          else if (activeSectionId === '4') {
+            // Секция "Селлерам"
+            console.log('Открываем модальное окно в секции Селлерам');
+            openSellerModal();
+          }
+        }
+      }
     });
     
     // Закрытие основного модального окна
@@ -226,11 +286,79 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'Escape') {
         if (modal.classList.contains('active')) {
           closeModal();
+        } else if (brandModal && brandModal.classList.contains('active')) {
+          // Закрытие модального окна брендов по Escape
+          if (window.brandModals && window.brandModals.closeBrandModal) {
+            window.brandModals.closeBrandModal();
+          } else {
+            brandModal.classList.remove('active');
+            setTimeout(function() {
+              brandModal.style.display = 'none';
+              document.body.classList.remove('modal-open');
+              document.body.style.top = '';
+              document.body.style.paddingRight = '';
+              window.scrollTo(0, scrollPosition);
+            }, 300);
+          }
+        } else if (sellerModal && sellerModal.classList.contains('active')) {
+          // Закрытие модального окна селлеров по Escape
+          if (window.sellerModalFunctions && window.sellerModalFunctions.closeSellerModal) {
+            window.sellerModalFunctions.closeSellerModal();
+          } else {
+            sellerModal.classList.remove('active');
+            setTimeout(function() {
+              sellerModal.style.display = 'none';
+              document.body.classList.remove('modal-open');
+              document.body.style.top = '';
+              document.body.style.paddingRight = '';
+              window.scrollTo(0, scrollPosition);
+            }, 300);
+          }
         } else if (successModal && successModal.classList.contains('active')) {
           closeSuccessModal();
         }
       }
     });
+    
+    // Закрытие модального окна брендов по клику на оверлей
+    if (brandModal) {
+      brandModal.addEventListener('click', function(e) {
+        if (e.target === brandModal) {
+          if (window.brandModals && window.brandModals.closeBrandModal) {
+            window.brandModals.closeBrandModal();
+          } else {
+            brandModal.classList.remove('active');
+            setTimeout(function() {
+              brandModal.style.display = 'none';
+              document.body.classList.remove('modal-open');
+              document.body.style.top = '';
+              document.body.style.paddingRight = '';
+              window.scrollTo(0, scrollPosition);
+            }, 300);
+          }
+        }
+      });
+    }
+    
+    // Закрытие модального окна селлеров по клику на оверлей
+    if (sellerModal) {
+      sellerModal.addEventListener('click', function(e) {
+        if (e.target === sellerModal) {
+          if (window.sellerModalFunctions && window.sellerModalFunctions.closeSellerModal) {
+            window.sellerModalFunctions.closeSellerModal();
+          } else {
+            sellerModal.classList.remove('active');
+            setTimeout(function() {
+              sellerModal.style.display = 'none';
+              document.body.classList.remove('modal-open');
+              document.body.style.top = '';
+              document.body.style.paddingRight = '';
+              window.scrollTo(0, scrollPosition);
+            }, 300);
+          }
+        }
+      });
+    }
     
     // Глобальные объекты для доступа из других частей приложения
     window.modalFunctions = {

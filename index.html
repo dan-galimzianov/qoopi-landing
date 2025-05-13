@@ -5,6 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/style.css">
+    <!-- Добавляем стили для мультиселекта -->
+    <link rel="stylesheet" href="/src/styles/dropped-list.scss">
 
     <title>Qoopi</title>
   </head>
@@ -22,7 +24,6 @@
                 Заполните анкету и мы свяжемся с вами в ближайшее время
               </p>
             </div>
-    
             <!-- Основное содержимое модалки -->
             <div class="modal-content">
               <form id="blogger-form">
@@ -858,7 +859,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Заказывайте  распаковки или просто разрешите добавить товары на свою витрину в qoopi
             </div>
-            <button class="hero-section__desktop-button button">
+            <button class="hero-section__desktop-button button open-modal-btn" id="openBrandModalBtn">
               Создать витрину
             </button>
           </div>
@@ -1140,9 +1141,11 @@
       <img class="blot_1" src="/src/assets/blots/blot_1.svg" alt="blot 1" data-section-id="1">
       <img class="blot_2" src="/src/assets/blots/blot_2.svg" alt="blot 2" data-section-id="2">
       <script type="module" src="/src/script.ts"></script>
-      <script src="/src/modalInit.js"></script>
       <script src="/src/bloggerModal.js"></script>
+      <link rel="stylesheet" href="/src/styles/dropped-list.scss">
       <script src="/src/brandModals.js"></script>
+      <script src="/src/sellerModal.js"></script>
+      <script src="/src/modalInit.js"></script>
       <script src="/src/selectDebug.js"></script>
       <script src="/src/questionModal.js"></script>
   </body>
