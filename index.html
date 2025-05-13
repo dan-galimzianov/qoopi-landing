@@ -5,8 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/qoopi-landing/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-C5PGFoVZ.js"></script>
-    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-CpXSKOmd.css">
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-DqUPhunq.js"></script>
+    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-Ccn4bY5b.css">
   </head>
   <body class="blot_1">
         <!-- Модальное окно для блоггеров-->
@@ -864,13 +864,13 @@
             </div>
             <div class="menu-content">
                 <ul>
-                    <li><a href="#about">О qoopi</a></li>
-                    <li><a href="#bloggers">Блогерам</a></li>
-                    <li><a href="#brands">Брендам</a></li>
-                    <li><a href="#sellers">Селлерам</a></li>
+                    <li><a href="#about" data-section-id="1" class="menu-nav-link">О qoopi</a></li>
+                    <li><a href="#bloggers" data-section-id="2" class="menu-nav-link">Блогерам</a></li>
+                    <li><a href="#brands" data-section-id="3" class="menu-nav-link">Брендам</a></li>
+                    <li><a href="#sellers" data-section-id="4" class="menu-nav-link">Селлерам</a></li>
                 </ul>
             </div>
-            <button class="menu-content__button openQuestionModalBtn">Задать вопрос</button>
+            <button class="menu-content__button" id="openQuestionModalBtn">Задать вопрос</button>
         </div>
         
         <section class="hero-section hero__section">
@@ -919,7 +919,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Заказывайте  распаковки или просто разрешите добавить товары на свою витрину в qoopi
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn" id="openBrandModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn openBrandModalBtn" >
               Создать витрину
             </button>
           </div>
@@ -930,7 +930,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn" id="openSellerModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn openSellerModalBtn">
               Создать витрину
             </button>
           </div>
@@ -1002,7 +1002,7 @@
                       <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
                     </video>
                 </div>
-              </div>
+                </div>
               <div class="carousel__slide">
 
                 <div class="media-item">
@@ -1050,7 +1050,7 @@
             </div>
           </section>
         </section>
-
+        
         <section class="hero-sliders-mobile" data-section-id="1">
           <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
             <div class="carousel__wrapper">
@@ -1058,38 +1058,38 @@
               <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
-                </div>
-                <div class="media-item">
+              </div>
+              <div class="media-item">
                   <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                <video loop muted autoplay playsinline class="media-item__video">                                        
                     <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
-                  </video>
-                </div>
+                </video>
               </div>
-              <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
+            </div>
+            <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
+            <div class="carousel__slide">
+              <div class="media-item">
                   <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                <video loop muted autoplay playsinline class="media-item__video">                                        
                     <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
+                </video>
+              </div>
+              <div class="media-item">
                   <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
-                </div>
               </div>
-              <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
+            </div>
+            <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
+            <div class="carousel__slide">
+              <div class="media-item">
                   <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
-                  </video>
-                </div>
               </div>
+              <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
               <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
@@ -1162,9 +1162,9 @@
             <div class="blogers-media__video-container">
               <video class="blogers-media__video" autoplay loop muted playsinline>
                 <source src="/qoopi-landing/assets/video1-Cw5nYvc-.mp4" type="video/mp4">
-              </video>
+                </video>
               <img src="/qoopi-landing/assets/video1-outline-DiGHoEvp.png" alt="Video outline" class="blogers-media__video-outline-image">
-            </div>
+              </div>
             <div class="blogers-media__app-preview">
               <img src="/qoopi-landing/assets/app-preview-DaeUGzVM.png" alt="App preview" class="blogers-media__app-preview-image">
             </div>
@@ -1192,13 +1192,13 @@
                       <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
                       <video loop muted autoplay playsinline class="media-item__video">                                        
                         <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
-                      </video>
-                  </div>
+                </video>
               </div>
+            </div>
               <div class="carousel__slide">
                 <div class="media-item">
                     <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
-                </div>
+          </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
@@ -1299,9 +1299,9 @@
             <img src="/qoopi-landing/assets/app-preview-BojDKGPC.png" alt="App preview">
           </div>
           <div class="brands-media__mobile-button-container">
-            <button class="button brands-media__mobile-button">
-              Создать витрину
-            </button>
+            <button class="button brands-media__mobile-button openBrandModalBtn">
+            Создать витрину
+          </button>
           </div>
         </section>
 
@@ -1421,12 +1421,12 @@
             <img src="/qoopi-landing/assets/app-preview-D4ZnQ-t3.png" alt="App preview">
           </div>
           <div class="sellers-media__mobile-button-container">
-            <button class="button sellers-media__mobile-button">
+            <button class="button sellers-media__mobile-button openSellerModalBtn">
               Создать витрину
             </button>
           </div>
         </section>
-
+        
         <div class="policy">
           <div class="policy__copy">© qoopi 2025</div>
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
