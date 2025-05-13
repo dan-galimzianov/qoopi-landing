@@ -1,0 +1,150 @@
+.blogers-media {
+    position: absolute;
+    top: 150px;
+    right: 0;
+    width: 100%;
+    max-width: 830px;
+    height: max-content;
+    z-index: 1;
+    right: 7vw;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+    &__mobile-button-container {
+        display: none;
+        width: 100%;
+        margin: 16px 0;
+        padding: 0 16px;
+        justify-content: stretch;
+    }
+
+    &__mobile-button {
+        width: 100%;
+    }
+
+    &__container {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        gap: 74px;
+        align-items: start;
+        position: relative;
+    }
+
+    &__video-container {
+        position: relative;
+        width: fit-content;
+        z-index: 1;
+        margin-top: 43px;
+    }
+
+    &__video-outline-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    &__video {
+        width: 320px;
+        height: 470px;
+        object-fit: cover;
+        border-radius: 28px;
+    }
+
+    &__app-preview {
+        width: 410px;
+    }    
+
+    &__app-preview-image {
+        width: 100%;
+        border-radius: 28px;
+    }
+
+    &__good {
+        position: absolute;
+        bottom: 59px;
+        right: 310px;
+        z-index: -1;
+    }
+
+    &__good-image {
+        width: 333px;
+        height: 333px;
+    }
+}
+
+@media (max-width: 1840px) {
+    .blogers-media {
+        right: 80px;
+    }
+}
+
+@media (max-width: 1700px) {
+    .blogers-media {
+
+        &__video {
+            width: 231px;
+            height: 342px;
+            border-radius: 16px;
+        }
+
+        &__app-preview {
+            width: 280px;
+        }
+
+        &__container {
+            gap: 54px;
+        }
+
+        &__good {
+            right: 224px;
+        }
+
+        &__good-image {
+            width: 240px;
+            height: 240px;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .blogers-media {
+        opacity: 1;
+        visibility: visible;
+        bottom: 84px;
+        top: auto;
+        width: 100%;
+        align-items: center;
+        right: 0;
+        
+        &__video {
+            width: 102px;
+            height: 150px;
+            border-radius: 9px;
+        }
+
+        &__app-preview {
+            width: 125px;
+        }
+
+        &__container {
+            gap: 37px;
+        }
+
+        &__good {
+            right: 93px;
+            bottom: 26px;
+        }
+
+        &__good-image {
+            width: 105px;
+            height: 105px;
+        }
+
+        &__mobile-button-container {
+            display: flex;
+        }
+    }
+}
