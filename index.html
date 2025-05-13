@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/style.css">
     <link rel="stylesheet" href="./src/styles/checkbox-fix.scss">
-
     <title>Qoopi</title>
   </head>
-  <body>
+  <body class="blot_1">
         <!-- Модальное окно для блоггеров-->
         <div class="modal-overlay" id="modal">
           <div class="modal-container">
@@ -865,10 +864,10 @@
             </div>
             <div class="menu-content">
                 <ul>
-                    <li><a href="#">О qoopi</a></li>
-                    <li><a href="#">Блогерам</a></li>
-                    <li><a href="#">Брендам</a></li>
-                    <li><a href="#">Селлерам</a></li>
+                    <li><a href="#about">О qoopi</a></li>
+                    <li><a href="#bloggers">Блогерам</a></li>
+                    <li><a href="#brands">Брендам</a></li>
+                    <li><a href="#sellers">Селлерам</a></li>
                 </ul>
             </div>
             <button class="menu-content__button" id="openQuestionModalBtn">Задать вопрос</button>
@@ -877,19 +876,18 @@
         <section class="hero-section hero__section">
           <nav class="hero-section__nav">
             <ul class="hero-section__nav-list">
-              <li class="hero-section__nav-item" data-section-id="1">
-                О qoopi
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="1" href="#about">О qoopi</a>
               </li>
-              <li class="hero-section__nav-item" data-section-id="2">
-                Блогерам
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="2" href="#bloggers">Блогерам</a>
               </li>
-              <li class="hero-section__nav-item" data-section-id="3">
-                Брендам
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="3" href="#brands">Брендам</a>
               </li>
-              <li class="hero-section__nav-item" data-section-id="4">
-                Селлерам
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="4" href="#sellers">Селлерам</a>
               </li>
-              
             </ul>
           </nav>
           <div class="hero-section__content" data-section-id="1">
@@ -938,7 +936,7 @@
           </div>
         </section>
 
-        <div class="hero-sliders" data-section-id="1">
+        <section class="hero-sliders" data-section-id="1">
           <section class="carousel hero-sliders__carousel" id="carousel1">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
@@ -1004,6 +1002,7 @@
                       <source src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
                     </video>
                 </div>
+              </div>
               <div class="carousel__slide">
 
                 <div class="media-item">
@@ -1012,7 +1011,7 @@
               </div>
               <div class="carousel__slide">
                  <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
+                    <img src="./src/assets/carousel/about-slider/outlines/outline8.png" class="media-item__outline-image">
                     <video loop muted autoplay playsinline class="media-item__video">                                        
                       <source src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
                     </video>
@@ -1050,9 +1049,137 @@
             </div>
             </div>
           </section>
-        </div>
+        </section>
 
-        <div class="brands-media" data-section-id="3">
+        <section class="hero-sliders-mobile" data-section-id="1">
+          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
+            <div class="carousel__wrapper">
+              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo1.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo2.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline6.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo3.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo4.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline7.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline4.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo4.png" class="media-item__image">
+                </div>
+              </div>
+            </div>
+          </section>
+          <button class="button hero-sliders-mobile__button">
+            Создать витрину
+          </button>
+        </section>
+
+        <section class="blogers-media" data-section-id="2">
+          <div class="blogers-media__container">
+            <div class="blogers-media__video-container">
+              <video class="blogers-media__video" autoplay loop muted playsinline>
+                <source src="./src/assets/blogers/video1.mp4" type="video/mp4">
+              </video>
+              <img src="./src/assets/blogers/video1-outline.png" alt="Video outline" class="blogers-media__video-outline-image">
+            </div>
+            <div class="blogers-media__app-preview">
+              <img src="./src/assets/blogers/app-preview.png" alt="App preview" class="blogers-media__app-preview-image">
+            </div>
+            <div class="blogers-media__good">
+              <img src="./src/assets/blogers/photo1.png" alt="Bloger photo" class="blogers-media__good-image">
+            </div>
+          </div>
+          <div class="blogers-media__mobile-button-container">
+            <button class="button blogers-media__mobile-button">
+                Создать витрину
+            </button>
+          </div>
+        </section>
+
+        <section class="brands-media" data-section-id="3">
           <section class="carousel brands-media__carousel" id="carousel3">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
@@ -1172,13 +1299,13 @@
             <img src="./src/assets/brands/app-preview.png" alt="App preview">
           </div>
           <div class="brands-media__mobile-button-container">
-            <button class="button brands-media__mobile-button open-modal-btn" id="openBrandMobileBtn">
+            <button class="button brands-media__mobile-button">
               Создать витрину
             </button>
           </div>
-        </div>
+        </section>
 
-        <div class="sellers-media" data-section-id="4">
+        <section class="sellers-media" data-section-id="4">
           <section class="carousel sellers-media__carousel" id="sellers-media-carousel">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
@@ -1294,142 +1421,17 @@
             <img src="./src/assets/sellers/app-preview.png" alt="App preview">
           </div>
           <div class="sellers-media__mobile-button-container">
-            <button class="button sellers-media__mobile-button open-modal-btn" id="openSellerMobileBtn">
+            <button class="button sellers-media__mobile-button">
               Создать витрину
             </button>
           </div>
-        </div>
-        
-        
-        <section class="hero-sliders-mobile" data-section-id="1">
-          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
-            <div class="carousel__wrapper">
-              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
-                </div>
-              </div>
-              <div class="media-item">
-                <img src="/src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                  <source src="/src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
-                </video>
-              </div>
-            </div>
-            <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
-            <div class="carousel__slide">
-              <div class="media-item">
-                <img src="/src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                  <source src="/src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
-                </video>
-              </div>
-              <div class="media-item">
-                <img src="/src/assets/carousel/about-slider/right-half/photo1.png" class="media-item__image">
-              </div>
-            </div>
-            <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
-            <div class="carousel__slide">
-              <div class="media-item">
-                <img src="/src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
-              </div>
-              <div class="media-item">
-                <img src="/src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                  <source src="/src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
-                </video>
-              </div>
-            </div>
-              <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo2.png" class="media-item__image">
-                </div>
-              </div>
-              <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline6.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo3.png" class="media-item__image">
-                </div>
-              </div>
-              <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo4.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline7.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline4.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo4.png" class="media-item__image">
-                </div>
-              </div>
-            </div>
-          </section>
-          <button class="button hero-sliders-mobile__button" id="openBloggerMobileBtn">
-            Создать витрину
-          </button>
         </section>
 
-        <section class="media-container" data-section-id="2">
-          <div class="media-section" data-section-id="2">
-            <div class="video-photo-container">
-              <div class="video-container">
-                <video class="blogers-video" autoplay loop muted playsinline>
-                  <source src="../src/assets/blogers/blogers-video.mp4" type="video/mp4">
-                </video>
-                <img src="../src/assets/blogers/blogers-video__outline.png" class="video-mask" alt="Video mask">
-              </div>
-              <img src="../src/assets/blogers/blogers-photo.jpg" class="blogers-photo" alt="Blogers photo">
-              <img src="../src/assets/blogers/photo_outline.png" class="blogers-photo" alt="">
-            </div>
-            <img src="../src/assets/blogers/blogers-phone.png" class="phone-image" alt="Phone">
-          </div>
-        </section>        
         <div class="policy">
           <div class="policy__copy">© qoopi 2025</div>
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
-      <img class="blot_1" src="/src/assets/blots/blot_1.svg" alt="blot 1" data-section-id="1">
-      <img class="blot_2" src="/src/assets/blots/blot_2.svg" alt="blot 2" data-section-id="2">
       <script type="module" src="/src/script.ts"></script>
       <script src="/src/bloggerModal.js"></script>
       <link rel="stylesheet" href="/src/styles/dropped-list.scss">
