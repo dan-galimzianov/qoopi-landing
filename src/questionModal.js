@@ -15,21 +15,34 @@ function initAutoResizeTextarea() {
   
   // Вызовите эту функцию в DOMContentLoaded
   document.addEventListener('DOMContentLoaded', function () {
+    console.log('questionModal.js загружен');
     initAutoResizeTextarea();
+    
     // Элементы модального окна
     const questionModal = document.getElementById('questionModal');
-    const openQuestionModalBtn = document.getElementById('openQuestionModalBtn'); // Добавьте эту кнопку в HTML
-    const closeQuestionModalBtn = document.getElementById(
-      'closeQuestionModalBtn'
-    );
+    const openQuestionModalBtn = document.getElementById('openQuestionModalBtn');
+    
+    console.log('questionModal:', questionModal);
+    console.log('openQuestionModalBtn:', openQuestionModalBtn);
+    
+    if (!questionModal || !openQuestionModalBtn) {
+      console.error('Элементы модального окна вопросов не найдены');
+      return;
+    }
+    
+    const closeQuestionModalBtn = document.getElementById('closeQuestionModalBtn');
     const questionForm = document.getElementById('question-form');
     const submitQuestionBtn = document.getElementById('submitQuestionBtn');
-    const questionModalContainer =
-      questionModal.querySelector('.modal-container');
+    const questionModalContainer = questionModal.querySelector('.modal-container');
+    const successModal = document.getElementById('successModal');
   
     // Анимационные параметры
     const ANIMATION_DURATION = 300;
     let isAnimating = false;
+    
+    // Сохраняем позицию скролла
+    let scrollPosition = 0;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   
     // Инициализация при загрузке
     initPhoneMask();
@@ -62,12 +75,71 @@ function initAutoResizeTextarea() {
         resetErrorStates();
       }
     }
+  
+    // Инициализация лайв-валидации
+    function initLiveValidation() {
+      // Найдем все текстовые поля ввода
+      const inputFields = questionForm.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea');
+      inputFields.forEach(field => {
+        field.addEventListener('input', function() {
+          // Если поле непустое, убираем класс ошибки
+          if (this.value.trim() !== '') {
+            this.classList.remove('error-field');
+          }
+        });
+        
+        // Обработка фокуса - убираем ошибку при фокусе
+        field.addEventListener('focus', function() {
+          this.classList.remove('error-field');
+        });
+      });
+      
+      // Обработчик для чекбокса согласия
+      const agreementCheckbox = document.getElementById('questionAgreement');
+      agreementCheckbox.addEventListener('change', function() {
+        const checkboxGroup = this.closest('.checkbox-group');
+        if (this.checked) {
+          checkboxGroup.classList.remove('error');
+        }
+        
+        // Проверяем все поля и решаем, показывать ли сообщение об ошибке
+        updateErrorMessageVisibility();
+      });
+    }
+    
+    // Функция обновления видимости сообщения об ошибке
+    function updateErrorMessageVisibility() {
+      const errorAlert = document.getElementById('question-form-alert');
+      const hasErrors = questionForm.querySelector('.error-field, .checkbox-group.error');
+      
+      if (!hasErrors) {
+        errorAlert.style.display = 'none';
+      }
+    }
+  
     // Открытие модального окна
     function openQuestionModal() {
+      console.log('Открытие модального окна вопросов');
       if (isAnimating) return;
       isAnimating = true;
   
+      // Сохраняем текущую позицию скролла
+      scrollPosition = window.pageYOffset;
+      
+      // Показываем модальное окно
       questionModal.style.display = 'flex';
+      
+      // Если меню открыто, закрываем его
+      const menuOverlay = document.getElementById('menuOverlay');
+      if (menuOverlay && document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+      }
+      
+      // Добавляем класс для блокировки прокрутки и компенсируем сдвиг
+      document.body.classList.add('modal-open');
+      document.body.style.top = `-${scrollPosition}px`;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+      
       questionModal.style.opacity = '0';
       questionModalContainer.style.transform = 'translateY(20px)';
       questionModalContainer.style.opacity = '0';
@@ -107,7 +179,34 @@ function initAutoResizeTextarea() {
         document.body.style.overflow = '';
         questionModal.classList.remove('active');
         isAnimating = false;
+        
+        // Восстанавливаем прокрутку только если нет других открытых модальных окон
+        if (!successModal || !successModal.classList.contains('active')) {
+          document.body.classList.remove('modal-open');
+          document.body.style.top = '';
+          document.body.style.paddingRight = '';
+          window.scrollTo(0, scrollPosition);
+        }
       }, ANIMATION_DURATION);
+    }
+  
+    // Функция открытия модального окна успеха
+    function openSuccessModal() {
+      // Закрываем модальное окно вопросов
+      questionModal.classList.remove('active');
+      setTimeout(function() {
+        questionModal.style.display = 'none';
+        
+        // Показываем модальное окно успеха
+        if (successModal) {
+          successModal.style.display = 'flex';
+          
+          // Анимируем появление
+          setTimeout(function() {
+            successModal.classList.add('active');
+          }, 10);
+        }
+      }, 300);
     }
   
     // Обработка отправки формы
@@ -128,7 +227,7 @@ function initAutoResizeTextarea() {
         closeQuestionModal();
         setTimeout(() => {
           // Здесь можно открыть окно успешной отправки
-          document.getElementById('successModal').classList.add('active');
+          openSuccessModal();
         }, ANIMATION_DURATION + 50);
       }
     }
@@ -162,17 +261,23 @@ function initAutoResizeTextarea() {
       }
   
       // Проверка соглашения
+      const agreementCheckbox = document.getElementById('questionAgreement');
+      const checkboxGroup = agreementCheckbox.closest('.checkbox-group');
+      
       if (!formData.agreement) {
-        document
-          .getElementById('questionAgreement')
-          .closest('.checkbox-group')
-          .classList.add('error');
+        checkboxGroup.classList.add('error');
         isValid = false;
+      } else {
+        // Если чекбокс отмечен, убедимся что класс ошибки удален
+        checkboxGroup.classList.remove('error');
       }
   
       if (!isValid) {
         document.getElementById('question-form-alert').style.display = 'flex';
         scrollToFirstError();
+      } else {
+        // Если форма валидна, убираем сообщение об ошибке
+        document.getElementById('question-form-alert').style.display = 'none';
       }
   
       return isValid;
@@ -212,17 +317,112 @@ function initAutoResizeTextarea() {
   
     // Настройка обработчиков событий
     function setupEventListeners() {
-      // Добавьте кнопку для открытия этого модального окна в ваш HTML
+      console.log('Настройка обработчиков событий');
+      // Обработчик для кнопки открытия модального окна
       if (openQuestionModalBtn) {
-        openQuestionModalBtn.addEventListener('click', openQuestionModal);
+        console.log('Добавление обработчика события click для кнопки', openQuestionModalBtn);
+        openQuestionModalBtn.addEventListener('click', function(e) {
+          console.log('Клик по кнопке открытия модального окна вопросов');
+          e.preventDefault();
+          e.stopPropagation(); // Предотвращаем всплытие события
+          openQuestionModal();
+        });
       }
   
       if (closeQuestionModalBtn) {
-        closeQuestionModalBtn.addEventListener('click', closeQuestionModal);
+        closeQuestionModalBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeQuestionModal();
+        });
       }
   
       if (submitQuestionBtn) {
         submitQuestionBtn.addEventListener('click', handleSubmit);
+      }
+      
+      // Инициализируем лайв-валидацию
+      initLiveValidation();
+      
+      // Обработчики изменения полей для сброса ошибок "на лету"
+      const inputs = questionModal.querySelectorAll('input, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          this.classList.remove('error-field');
+          
+          // Если это чекбокс соглашения, убираем ошибку с родительского элемента
+          if (this.id === 'questionAgreement' && this.checked) {
+            this.closest('.checkbox-group').classList.remove('error');
+            // Скрываем общее сообщение об ошибке, если все поля заполнены
+            checkAllFieldsAndHideError();
+          }
+        });
+      });
+      
+      // Специальный обработчик для чекбокса
+      const agreementCheckbox = document.getElementById('questionAgreement');
+      if (agreementCheckbox) {
+        // Обработчик события change
+        agreementCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            console.log('Чекбокс отмечен, убираем ошибку');
+            this.closest('.checkbox-group').classList.remove('error');
+            // Проверяем, можно ли скрыть общее сообщение об ошибке
+            checkAllFieldsAndHideError();
+          }
+        });
+        
+        // Дополнительный обработчик события click
+        agreementCheckbox.addEventListener('click', function() {
+          setTimeout(() => {
+            if (this.checked) {
+              console.log('Чекбокс кликнут, убираем ошибку');
+              this.closest('.checkbox-group').classList.remove('error');
+              // Проверяем, можно ли скрыть общее сообщение об ошибке
+              checkAllFieldsAndHideError();
+            }
+          }, 0);
+        });
+        
+        // Обработчик для лейбла чекбокса
+        const agreementLabel = agreementCheckbox.nextElementSibling;
+        if (agreementLabel) {
+          agreementLabel.addEventListener('click', function() {
+            setTimeout(() => {
+              if (agreementCheckbox.checked) {
+                console.log('Клик по лейблу, убираем ошибку');
+                agreementCheckbox.closest('.checkbox-group').classList.remove('error');
+                // Проверяем, можно ли скрыть общее сообщение об ошибке
+                checkAllFieldsAndHideError();
+              }
+            }, 0);
+          });
+        }
+      }
+      
+      // Функция для проверки всех полей и скрытия сообщения об ошибке
+      function checkAllFieldsAndHideError() {
+        const requiredFields = ['name', 'email', 'phone', 'message'];
+        let allFilled = true;
+        
+        // Проверяем заполненность всех полей
+        requiredFields.forEach((field) => {
+          const element = document.getElementById(
+            `question${field.charAt(0).toUpperCase() + field.slice(1)}`
+          );
+          if (!element.value.trim()) {
+            allFilled = false;
+          }
+        });
+        
+        // Проверяем чекбокс
+        if (!document.getElementById('questionAgreement').checked) {
+          allFilled = false;
+        }
+        
+        // Если все поля заполнены, скрываем сообщение об ошибке
+        if (allFilled) {
+          document.getElementById('question-form-alert').style.display = 'none';
+        }
       }
   
       questionModal.addEventListener('click', function (e) {
@@ -239,5 +439,11 @@ function initAutoResizeTextarea() {
         }
       });
     }
+  
+    // Добавляем функции в глобальный объект
+    window.questionModalFunctions = {
+      openQuestionModal,
+      closeQuestionModal
+    };
   });
   

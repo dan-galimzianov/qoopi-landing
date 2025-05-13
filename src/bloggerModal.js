@@ -551,12 +551,69 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   
+    // Функция инициализации лайв-валидации полей
+    function initLiveValidation() {
+      // Находим все текстовые поля ввода
+      const inputFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"]');
+      inputFields.forEach(field => {
+        field.addEventListener('input', function() {
+          // Если поле непустое, убираем класс ошибки
+          if (this.value.trim() !== '') {
+            this.classList.remove('error-field');
+          }
+        });
+        
+        // Обработка фокуса - убираем ошибку при фокусе
+        field.addEventListener('focus', function() {
+          this.classList.remove('error-field');
+        });
+      });
+      
+      // Обработчик для чекбокса согласия
+      const agreementCheckbox = document.getElementById('agreement');
+      if (agreementCheckbox) {
+        agreementCheckbox.addEventListener('change', function() {
+          const checkboxGroup = this.closest('.checkbox-group');
+          if (this.checked && checkboxGroup) {
+            console.log('Чекбокс отмечен, убираем ошибку');
+            checkboxGroup.classList.remove('error');
+            
+            // Проверяем, можно ли скрыть сообщение об ошибке
+            const formAlert = document.getElementById('form-alert');
+            const hasErrors = form.querySelector('.error-field, .checkbox-group.error');
+            if (!hasErrors && formAlert) {
+              formAlert.style.display = 'none';
+            }
+          }
+        });
+        
+        // Дополнительный обработчик для события click
+        agreementCheckbox.addEventListener('click', function() {
+          setTimeout(() => {
+            const checkboxGroup = this.closest('.checkbox-group');
+            if (this.checked && checkboxGroup) {
+              console.log('Чекбокс кликнут, убираем ошибку');
+              checkboxGroup.classList.remove('error');
+              
+              // Проверяем все поля и скрываем сообщение об ошибке если все в порядке
+              const formAlert = document.getElementById('form-alert');
+              const hasErrors = form.querySelector('.error-field, .checkbox-group.error');
+              if (!hasErrors && formAlert) {
+                formAlert.style.display = 'none';
+              }
+            }
+          }, 0);
+        });
+      }
+    }
+  
     // Инициализация
     initPhoneMask();
     initFollowersMask();
     initSocialAutocomplete();
     initModalSelect();
     updateAccountFieldColor(); // Добавляем вызов новой функции
+    initLiveValidation();
   
     // Финальная настройка селектора для гарантированной работы
     setTimeout(function() {

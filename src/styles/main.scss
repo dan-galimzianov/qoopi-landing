@@ -4,6 +4,8 @@ $background-color: #1e1e1e;
 $secondary-color: #262626;
 $text-color:#8A8A8A;
 $primary-color-2: #793EED;
+$transition-duration: 0.3s;
+$transition-easing: ease;
 
 body {
   background-color: $background-color;
@@ -490,7 +492,8 @@ body {
 .menu-content__button {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  /* Объединяем все transition в одно свойство */
+  transition: all $transition-duration $transition-easing;
   transition-delay: 0.2s;
   display: flex;
   justify-content: center;
@@ -519,10 +522,22 @@ body {
   }
 }
 
+/* Состояние меню после открытия */
 .menu-open .menu-content,
 .menu-open .menu-content__button {
   opacity: 1;
-  transform: translate(0);
+  transform: translateY(0); /* Устанавливаем начальную позицию явно */
+  transition-delay: 0s; /* Сбрасываем задержку для hover эффекта */
+}
+
+/* Отдельные стили для hover эффекта */
+.menu-open .menu-content__button:hover {
+  background-color: darken($primary-color-2, 5%);
+  transform: translateY(-2px);
+}
+
+.menu-open .menu-content__button:active {
+  transform: translateY(0);
 }
 
 .menu-open .header__menu-burger {
@@ -560,6 +575,16 @@ body {
     padding: 14px 20px;
     font-size: 16px;
     line-height: 20px;
+    
+    /* Сохраняем анимацию для мобильной версии */
+    &:hover {
+      background-color: darken($primary-color-2, 5%);
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
   }
   
   .close-btn {
@@ -635,6 +660,16 @@ body {
     font-size: 13px;
     line-height: 16px;
     margin-top: 10px;
+    
+    /* Сохраняем анимацию для самых маленьких экранов */
+    &:hover {
+      background-color: darken($primary-color-2, 5%);
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
   }
 }
 

@@ -399,6 +399,10 @@ body.modal-open {
       input[type='checkbox'] {
         position: absolute;
         opacity: 0;
+        z-index: -1; // Делаем чекбокс невидимым но доступным
+        cursor: pointer;
+        height: 0;
+        width: 0;
 
         + label {
           display: flex;
@@ -411,6 +415,7 @@ body.modal-open {
           transition: color $transition-duration $transition-easing;
           line-height: 1.4;
           min-height: 22px;
+          user-select: none; // Запрещаем выделение текста
 
           &:before {
             content: '';
@@ -421,6 +426,7 @@ body.modal-open {
             height: 18px;
             border-radius: 6px;
             background-color: $checkbox-bg;
+            border: 1px solid transparent; // Добавляем прозрачную границу
             transition: all $transition-duration $transition-easing;
           }
 
@@ -435,6 +441,7 @@ body.modal-open {
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
             opacity: 0;
+            pointer-events: none; // Чтобы не мешал кликам
             transition: opacity $transition-duration $transition-easing;
           }
           
@@ -467,6 +474,7 @@ body.modal-open {
 
           &:before {
             border: 1px solid $error-color;
+            background-color: rgba($error-color, 0.1); // Добавляем фоновый цвет для состояния ошибки
           }
         }
       }
@@ -537,6 +545,7 @@ body.modal-open {
     
     &:before {
       border: 1px solid #ff3b30 !important;
+      background-color: rgba(#ff3b30, 0.1) !important; // Добавляем фоновый цвет для состояния ошибки
     }
   }
 }
