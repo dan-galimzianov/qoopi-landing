@@ -5,8 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/qoopi-landing/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-JqErK0z3.js"></script>
-    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-DRy9ivpc.css">
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-QFQLXyNY.js"></script>
+    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-BFnhoNEt.css">
   </head>
   <body class="blot_1">
         <!-- Модальное окно для блоггеров-->
@@ -63,10 +63,10 @@
                 </div>
                 <div class="form-group">
                   <label for="socialNetwork" class="required"
-                    >Социальная сеть</label
+                    >Социальные сети</label
                   >
     
-                  <div class="modal-select-container">
+                  <div class="multi-select-container">
                     <!-- Скрытое поле для отправки данных формы -->
                     <input
                       type="hidden"
@@ -75,27 +75,28 @@
                       value=""
                     />
     
-                    <!-- Заголовок селектора -->
+                    <!-- Заголовок мультиселектора -->
                     <div
-                      class="modal-select-header"
+                      class="multi-select-header"
+                      id="socialNetworkHeader"
                       tabindex="0"
-                      role="combobox"
+                      role="button"
+                      aria-haspopup="listbox"
                       aria-expanded="false"
-                      aria-controls="socialNetworkDropdown"
-                      data-placeholder="Выберите социальную сеть"
                     >
-                      <span>Выберите социальную сеть</span>
-                      <div class="modal-select-arrow"></div>
+                      <span>Выберите социальные сети</span>
+                      <span class="arrow" aria-hidden="true"></span>
                     </div>
     
                     <!-- Выпадающий список опций -->
                     <div
                       id="socialNetworkDropdown"
-                      class="modal-select-dropdown"
+                      class="multi-select-dropdown"
                       role="listbox"
+                      aria-multiselectable="true"
                     >
                       <div
-                        class="modal-select-option"
+                        class="multi-select-option"
                         role="option"
                         tabindex="0"
                         aria-selected="false"
@@ -104,7 +105,7 @@
                         <span>Instagram</span>
                       </div>
                       <div
-                        class="modal-select-option"
+                        class="multi-select-option"
                         role="option"
                         tabindex="0"
                         aria-selected="false"
@@ -113,7 +114,7 @@
                         <span>YouTube</span>
                       </div>
                       <div
-                        class="modal-select-option"
+                        class="multi-select-option"
                         role="option"
                         tabindex="0"
                         aria-selected="false"
@@ -122,7 +123,7 @@
                         <span>TikTok</span>
                       </div>
                       <div
-                        class="modal-select-option"
+                        class="multi-select-option"
                         role="option"
                         tabindex="0"
                         aria-selected="false"
@@ -133,21 +134,20 @@
                     </div>
     
                     <!-- Элемент для скринридеров -->
-                    <div class="modal-select-live-region" aria-live="polite"></div>
+                    <div class="visually-hidden" aria-live="polite" id="socialNetworkLiveRegion"></div>
                   </div>
                 </div>
     
                 <div class="form-group">
                   <label for="account" class="required"
-                    >Ссылка на ваш аккаунт</label
+                    >Ссылки на ваши аккаунты</label
                   >
-                  <input
-                    type="url"
+                  <textarea
                     id="account"
                     name="account"
-                    placeholder="https://"
+                    placeholder="Введите ссылки на ваши аккаунты"
                     required
-                  />
+                  ></textarea>
                   <div class="error-message" id="account-error"></div>
                 </div>
     
@@ -419,6 +419,69 @@
                         data-value="beauty"
                       >
                         <span>Красота</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="health"
+                      >
+                        <span>Здоровье</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="sport"
+                      >
+                        <span>Спорт</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="auto"
+                      >
+                        <span>Авто</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="home"
+                      >
+                        <span>Дом</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="gadget"
+                      >
+                        <span>Гаджеты</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="child"
+                      >
+                        <span>Дети</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="other"
+                      >
+                        <span>Другое</span>
                       </div>
                     </div>
                     <div
@@ -1375,5 +1438,6 @@
       <script src="/src/modalInit.js"></script>
       <script src="/src/selectDebug.js"></script>
       <script src="/src/questionModal.js"></script>
+      <script src="/src/menuNavigation.js"></script>
   </body>
 </html>
