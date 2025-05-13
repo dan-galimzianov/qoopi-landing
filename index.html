@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-DY454jwC.js"></script>
-    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-CG9JRh46.css">
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-BK7DAmYD.js"></script>
+    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-aeoJvvJ7.css">
   </head>
-  <body>
+  <body class="blot_1">
         <!-- Модальное окно для блоггеров-->
         <div class="modal-overlay" id="modal">
           <div class="modal-container">
@@ -269,10 +269,10 @@
             </div>
             <div class="menu-content">
                 <ul>
-                    <li><a href="#">О qoopi</a></li>
-                    <li><a href="#">Блогерам</a></li>
-                    <li><a href="#">Брендам</a></li>
-                    <li><a href="#">Селлерам</a></li>
+                    <li><a href="#about">О qoopi</a></li>
+                    <li><a href="#bloggers">Блогерам</a></li>
+                    <li><a href="#brands">Брендам</a></li>
+                    <li><a href="#sellers">Селлерам</a></li>
                 </ul>
             </div>
             <button class="menu-content__button">Задать вопрос</button>
@@ -281,19 +281,18 @@
         <section class="hero-section hero__section">
           <nav class="hero-section__nav">
             <ul class="hero-section__nav-list">
-              <li class="hero-section__nav-item" data-section-id="1">
-                О qoopi
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="1" href="#about">О qoopi</a>
               </li>
-              <li class="hero-section__nav-item" data-section-id="2">
-                Блогерам
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="2" href="#bloggers">Блогерам</a>
               </li>
-              <li class="hero-section__nav-item" data-section-id="3">
-                Брендам
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="3" href="#brands">Брендам</a>
               </li>
-              <li class="hero-section__nav-item" data-section-id="4">
-                Селлерам
+              <li class="hero-section__nav-item">
+                <a class="hero-section__nav-link" data-section-id="4" href="#sellers">Селлерам</a>
               </li>
-              
             </ul>
           </nav>
           <div class="hero-section__content" data-section-id="1">
@@ -342,7 +341,7 @@
           </div>
         </section>
 
-        <div class="hero-sliders" data-section-id="1">
+        <section class="hero-sliders" data-section-id="1">
           <section class="carousel hero-sliders__carousel" id="carousel1">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
@@ -408,6 +407,7 @@
                       <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
                     </video>
                 </div>
+              </div>
               <div class="carousel__slide">
 
                 <div class="media-item">
@@ -416,7 +416,7 @@
               </div>
               <div class="carousel__slide">
                  <div class="media-item">
-                    <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                    <img src="/qoopi-landing/assets/outline8-sIbx13zU.png" class="media-item__outline-image">
                     <video loop muted autoplay playsinline class="media-item__video">                                        
                       <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
                     </video>
@@ -454,9 +454,137 @@
             </div>
             </div>
           </section>
-        </div>
+        </section>
 
-        <div class="brands-media" data-section-id="3">
+        <section class="hero-sliders-mobile" data-section-id="1">
+          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
+            <div class="carousel__wrapper">
+              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo2-B_9jW6mP.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline6-to4KD5xY.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video3-D64JwrUn.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo3-CBSjtr_g.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo4-Cioi-40q.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline7-0JwI4XPa.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video4-BXKcBcEb.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/qoopi-landing/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo4-z0fEuEMe.png" class="media-item__image">
+                </div>
+              </div>
+            </div>
+          </section>
+          <button class="button hero-sliders-mobile__button">
+            Создать витрину
+          </button>
+        </section>
+
+        <section class="blogers-media" data-section-id="2">
+          <div class="blogers-media__container">
+            <div class="blogers-media__video-container">
+              <video class="blogers-media__video" autoplay loop muted playsinline>
+                <source src="/qoopi-landing/assets/video1-Cw5nYvc-.mp4" type="video/mp4">
+              </video>
+              <img src="/qoopi-landing/assets/video1-outline-DiGHoEvp.png" alt="Video outline" class="blogers-media__video-outline-image">
+            </div>
+            <div class="blogers-media__app-preview">
+              <img src="/qoopi-landing/assets/app-preview-DaeUGzVM.png" alt="App preview" class="blogers-media__app-preview-image">
+            </div>
+            <div class="blogers-media__good">
+              <img src="/qoopi-landing/assets/photo1-CRasDhbp.png" alt="Bloger photo" class="blogers-media__good-image">
+            </div>
+          </div>
+          <div class="blogers-media__mobile-button-container">
+            <button class="button blogers-media__mobile-button">
+                Создать витрину
+            </button>
+          </div>
+        </section>
+
+        <section class="brands-media" data-section-id="3">
           <section class="carousel brands-media__carousel" id="carousel3">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
@@ -580,9 +708,9 @@
               Создать витрину
             </button>
           </div>
-        </div>
+        </section>
 
-        <div class="sellers-media" data-section-id="4">
+        <section class="sellers-media" data-section-id="4">
           <section class="carousel sellers-media__carousel" id="sellers-media-carousel">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
@@ -702,138 +830,13 @@
               Создать витрину
             </button>
           </div>
-        </div>
-        
-        
-        <section class="hero-sliders-mobile" data-section-id="1">
-          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
-            <div class="carousel__wrapper">
-              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
-                </div>
-              </div>
-              <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo2-B_9jW6mP.png" class="media-item__image">
-                </div>
-              </div>
-              <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo3-C-T2gWd2.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline6-to4KD5xY.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video3-D64JwrUn.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo3-CBSjtr_g.png" class="media-item__image">
-                </div>
-              </div>
-              <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo4-Cioi-40q.png" class="media-item__image">
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline7-0JwI4XPa.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video4-BXKcBcEb.mp4" type="video/mp4">
-                  </video>
-                </div>
-              </div>
-              <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
-              <div class="carousel__slide">
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
-                  </video>
-                </div>
-                <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo4-z0fEuEMe.png" class="media-item__image">
-                </div>
-              </div>
-            </div>
-          </section>
-          <button class="button hero-sliders-mobile__button">
-            Создать витрину
-          </button>
         </section>
 
-        <section class="media-container" data-section-id="2">
-          <div class="media-section" data-section-id="2">
-            <div class="video-photo-container">
-              <div class="video-container">
-                <video class="blogers-video" autoplay loop muted playsinline>
-                  <source src="../src/assets/blogers/blogers-video.mp4" type="video/mp4">
-                </video>
-                <img src="../src/assets/blogers/blogers-video__outline.png" class="video-mask" alt="Video mask">
-              </div>
-              <img src="../src/assets/blogers/blogers-photo.jpg" class="blogers-photo" alt="Blogers photo">
-              <img src="../src/assets/blogers/photo_outline.png" class="blogers-photo" alt="">
-            </div>
-            <img src="../src/assets/blogers/blogers-phone.png" class="phone-image" alt="Phone">
-          </div>
-        </section>
-        
         <div class="policy">
           <div class="policy__copy">© qoopi 2025</div>
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
-      <img class="blot_1" src="data:image/svg+xml,%3csvg%20width='1729'%20height='1055'%20viewBox='0%200%201729%201055'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1172.54%20829.417C1272.91%20824.54%201339.97%20799.549%201354.39%20753.63C1372.27%20697.552%201308.27%20621.562%201191.03%20544.557C1474.07%20607.34%201697.58%20596.165%201725.82%20507.578C1760.57%20398.674%201486.26%20213.779%201113%2094.9181C739.741%20-24.1458%20409.15%20-32.2729%20374.405%2076.632C356.524%20132.71%20420.529%20208.699%20537.77%20285.705C254.726%20222.922%2031.2163%20234.097%202.97287%20322.684C-29.944%20425.696%20214.087%20596.571%20556.463%20715.635C456.087%20720.512%20389.034%20745.503%20374.608%20791.422C339.862%20900.327%20614.169%201085.22%20987.43%201204.08C1360.69%201323.15%201691.28%201331.27%201726.03%201222.37C1758.94%201119.36%201514.91%20948.481%201172.54%20829.417Z'%20fill='%23373737'%20fill-opacity='0.32'/%3e%3c/svg%3e" alt="blot 1" data-section-id="1">
-      <img class="blot_2" src="data:image/svg+xml,%3csvg%20width='1624'%20height='1080'%20viewBox='0%200%201624%201080'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1230.26%201030.26C1285.02%20975.503%201279.68%20871.876%201226.88%20751.959C1204.41%20700.846%201255.66%20649.598%201306.77%20672.067C1426.83%20724.73%201530.31%20730.212%201585.07%20675.453C1686.45%20574.079%201581.68%20304.756%201350.82%2073.9001C1119.97%20-156.956%20850.785%20-261.862%20749.271%20-160.347C694.512%20-105.588%20699.994%20-2.10207%20752.657%20117.956C775.126%20169.069%20723.878%20220.317%20672.765%20197.848C552.707%20145.185%20449.221%20139.703%20394.462%20194.462C339.703%20249.221%20345.045%20352.847%20397.848%20472.765C420.317%20523.878%20369.068%20575.126%20317.956%20552.657C197.898%20499.994%2094.4115%20494.512%2039.6527%20549.271C-61.7214%20650.645%2043.044%20919.968%20273.9%201150.82C504.756%201381.68%20774.079%201486.45%20875.453%201385.07C930.212%201330.31%20924.87%201226.69%20872.067%201106.77C849.597%201055.66%20900.846%201004.41%20951.959%201026.88C1072.02%201079.54%201175.5%201085.02%201230.26%201030.26Z'%20fill='%23373737'%20fill-opacity='0.32'/%3e%3c/svg%3e" alt="blot 2" data-section-id="2">
       <script src="./src/modalInit.js"></script>
       <script src="./src/bloggerModal.js"></script>
       <script src="./src/selectDebug.js"></script>
