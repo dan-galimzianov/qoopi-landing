@@ -51,29 +51,39 @@ document.addEventListener('DOMContentLoaded', function () {
   
         if (selectedOptions.length === 0) {
           headerSpan.textContent = 'Выберите категории';
-          headerSpan.style.color = '#8a8a8a'; // Серый цвет, когда ничего не выбрано
+          // Remove inline color style to let CSS handle it based on error state
+          headerSpan.style.removeProperty('color');
           multiSelectHeader.classList.remove('has-selection');
         } else {
           const selectedLabels = selectedOptions.map(
             (opt) => opt.querySelector('span').textContent
           );
           headerSpan.textContent = selectedLabels.join(', ');
-          headerSpan.style.color = '#ffffff'; // Белый цвет, когда есть выбор
+          // Always make selected values white per our CSS
+          headerSpan.style.removeProperty('color');
           multiSelectHeader.classList.add('has-selection');
         }
         
-        // Убедимся, что нет border-bottom, если нет ошибки
-        if (!multiSelectContainer.classList.contains('error')) {
-          multiSelectHeader.style.borderBottom = 'none';
-        }
+        // Always ensure no border-bottom
+        multiSelectHeader.style.borderBottom = 'none';
       }
   
       // Функция закрытия дропдауна
       function closeDropdown() {
         if (multiSelectDropdown.classList.contains('open')) {
-          multiSelectDropdown.classList.remove('open');
-          arrow.classList.remove('up');
-          multiSelectHeader.setAttribute('aria-expanded', 'false');
+          // Сначала запускаем анимацию скрытия
+          multiSelectDropdown.style.opacity = '0';
+          multiSelectDropdown.style.transform = 'translateY(-5px)';
+          
+          // После завершения анимации полностью скрываем элемент
+          setTimeout(() => {
+            multiSelectDropdown.classList.remove('open');
+            arrow.classList.remove('up');
+            multiSelectHeader.setAttribute('aria-expanded', 'false');
+            
+            // Сбрасываем стили для следующего открытия
+            multiSelectDropdown.style.transform = '';
+          }, 200); // Время анимации
         }
       }
   
@@ -101,7 +111,9 @@ document.addEventListener('DOMContentLoaded', function () {
           multiSelectDropdown.style.display = 'block';
           multiSelectDropdown.style.visibility = 'visible';
           multiSelectDropdown.style.opacity = '1';
-          multiSelectDropdown.style.maxHeight = '50vh';
+          multiSelectDropdown.style.maxHeight = '300px';
+          multiSelectDropdown.style.overflowY = 'auto';
+          multiSelectDropdown.style.transform = 'translateY(0)';
         }
         
         arrow.classList.toggle('up', isExpanded);
@@ -111,10 +123,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // Обработчик клика на опции
       options.forEach((option) => {
         option.addEventListener('click', function (e) {
+          e.stopPropagation();
           const isSelected = !option.classList.contains('selected');
           updateOptionState(option, isSelected);
           updateHeader();
-          e.stopPropagation();
         });
       });
   
@@ -173,6 +185,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
   
+      // Предотвращаем распространение клика внутри мультиселектора
+      multiSelectContainer.addEventListener('click', function(e) {
+        // Останавливаем распространение, чтобы не сработали другие обработчики
+        e.stopPropagation();
+      });
+      
+      // Обработчик клика для самого выпадающего списка
+      multiSelectDropdown.addEventListener('click', function(e) {
+        // Останавливаем распространение, чтобы не сработали другие обработчики
+        e.stopPropagation();
+      });
+  
       // Закрытие выпадающего списка при клике вне мультиселектора
       document.addEventListener('click', function (e) {
         // Проверяем, что клик был не внутри мультиселектора и выпадающий список открыт
@@ -183,6 +207,61 @@ document.addEventListener('DOMContentLoaded', function () {
           closeDropdown();
         }
       });
+      
+      // Дополнительный обработчик для формы и модального окна - закрываем список при взаимодействии с другими элементами
+      if (brandForm) {
+        // Закрытие при клике на любой элемент формы (кроме мультиселектора)
+        brandForm.addEventListener('click', function(e) {
+          if (!multiSelectContainer.contains(e.target) && multiSelectDropdown.classList.contains('open')) {
+            closeDropdown();
+          }
+        });
+        
+        // Закрытие при фокусе на любом input поле
+        const formInputs = brandForm.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+          input.addEventListener('focus', function() {
+            if (multiSelectDropdown.classList.contains('open')) {
+              closeDropdown();
+            }
+          });
+        });
+      }
+      
+      // Закрытие при клике в любом месте модального окна (но не в мультиселекторе)
+      if (brandModalContainer) {
+        brandModalContainer.addEventListener('click', function(e) {
+          // Проверяем, что клик не был внутри мультиселектора и список открыт
+          if (!multiSelectContainer.contains(e.target) && 
+              multiSelectDropdown.classList.contains('open') &&
+              e.target !== multiSelectHeader &&
+              !multiSelectHeader.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+      }
+      
+      // Закрытие при клике на футер модалки (чекбоксы, кнопка Отправить)
+      const modalFooter = document.querySelector('#brandModal .modal-footer');
+      if (modalFooter) {
+        modalFooter.addEventListener('click', function(e) {
+          // Проверяем, что выпадающий список открыт
+          if (multiSelectDropdown.classList.contains('open') && 
+              !multiSelectContainer.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+      }
+      
+      // Закрытие при скролле содержимого модального окна
+      const modalContent = document.querySelector('#brandModal .modal-content');
+      if (modalContent) {
+        modalContent.addEventListener('scroll', function() {
+          if (multiSelectDropdown.classList.contains('open')) {
+            closeDropdown();
+          }
+        });
+      }
   
       // Закрытие при изменении размера окна
       window.addEventListener('resize', closeDropdown);
@@ -317,8 +396,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const headerSpan = multiSelectHeader.querySelector('span');
       if (headerSpan) {
         headerSpan.textContent = 'Выберите категории';
-        headerSpan.style.color = '#8a8a8a';
+        // Remove inline color style to let CSS handle it based on error/selection state
+        headerSpan.style.removeProperty('color');
       }
+      
+      // Remove the has-selection class
+      multiSelectHeader.classList.remove('has-selection');
+      
+      // Ensure no border-bottom
+      multiSelectHeader.style.borderBottom = 'none';
     }
     
     // Функция сброса формы бренда и мультиселектора

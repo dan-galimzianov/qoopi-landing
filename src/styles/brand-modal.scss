@@ -58,6 +58,10 @@ $transition-easing: ease;
   .modal-overlay.active & {
     transform: translateY(0);
     opacity: 1;
+
+    @media (max-width: 860px) {
+      padding: 0;
+    }
   }
 
   @media (max-width: 860px) {
@@ -211,7 +215,7 @@ $transition-easing: ease;
   
   &.error {
     .multi-select-header {
-      border-bottom: 1px solid $error-color !important;
+      border-bottom: none !important;
     }
   }
 
@@ -219,33 +223,42 @@ $transition-easing: ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 8px 10px 8px 0px;
     border-bottom: none;
     cursor: pointer;
-    transition: border-color $transition-duration $transition-easing;
-    
+    user-select: none;
+    transition: all $transition-duration $transition-easing;
+    background-color: transparent;
+    color: $text-color;
+    font-size: 17px;
     
     &:focus {
       outline: none;
-      // Убираем цвет бордера при фокусе
-      // border-bottom-color: $primary-color;
     }
     
     span {
-      color: $text-color;
-      font-size: 17px;
       font-family: 'Manrope', sans-serif;
       transition: color $transition-duration $transition-easing;
     }
     
+    // When has selection, ensure white text
+    &.has-selection {
+      color: $white !important;
+      
+      span {
+        color: $white !important;
+      }
+    }
+    
     .arrow {
-      border: solid $text-color;
+      border: solid #ffffff;
       border-width: 0 2px 2px 0;
       display: inline-block;
       padding: 3px;
       margin-top: -3px;
       transform: rotate(45deg);
       transition: transform $transition-duration $transition-easing;
+      margin-left: 10px;
       
       &.up {
         transform: rotate(-135deg);
@@ -259,39 +272,64 @@ $transition-easing: ease;
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: $modal-bg;
-    border: 1px solid lighten($modal-bg, 10%);
-    border-radius: 4px;
+    background-color: #515151;
+    border-radius: 8px;
     margin-top: 5px;
-    z-index: 100;
+    z-index: 10000;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    visibility: hidden;
     display: none;
-    max-height: 200px;
     overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     
     &.open {
+      max-height: 300px;
+      opacity: 1;
+      pointer-events: auto;
       display: block;
-      animation: fadeIn $transition-duration $transition-easing;
+      visibility: visible;
+      animation: fadeInDropdown 0.3s ease;
     }
     
     .multi-select-option {
-      padding: 10px 15px;
+      padding: 16px 24px;
       cursor: pointer;
-      transition: background-color $transition-duration $transition-easing;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+      margin: 0;
+      border: none;
+      height: 56px;
+      box-sizing: border-box;
       
       &:hover {
-        background-color: lighten($modal-bg, 5%);
+        background-color: lighten(#515151, 10%);
       }
       
       &:focus {
         outline: none;
-        background-color: lighten($modal-bg, 8%);
+        background-color: lighten(#515151, 15%);
       }
       
       &.selected {
-        background-color: rgba($primary-color, 0.2);
+        background-color: $checkbox-bg;
         
         &:hover {
-          background-color: rgba($primary-color, 0.3);
+          background-color: $checkbox-bg;
+        }
+        
+        &::after {
+          content: '';
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+          background-size: contain;
+          background-repeat: no-repeat;
         }
       }
       
@@ -304,16 +342,32 @@ $transition-easing: ease;
     
     &::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
     }
     
     &::-webkit-scrollbar-track {
-      background: $modal-bg;
+      background: #515151;
+      border-radius: 8px;
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: $checkbox-bg;
-      border-radius: 3px;
+      background-color: lighten(#515151, 20%);
+      border-radius: 4px;
+      
+      &:hover {
+        background-color: lighten(#515151, 30%);
+      }
     }
+  }
+}
+
+// Дополнительные стили для мультиселектора при ошибке
+.multi-select-header.error-field,
+.multi-select-container.error .multi-select-header {
+  color: $error-color !important;
+  
+  .arrow {
+    border-color: $error-color !important;
   }
 }
 
@@ -492,6 +546,17 @@ $transition-easing: ease;
   }
 }
 
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 // Адаптивность для мобильных устройств
 @media (max-width: 768px) {
   #brandModal .modal-container {
@@ -525,6 +590,19 @@ $transition-easing: ease;
   
   .multi-select-container .multi-select-header span {
     font-size: 16px;
+  }
+  
+  .multi-select-dropdown {
+    max-height: 0;
+    
+    &.open {
+      max-height: 260px;
+    }
+    
+    .multi-select-option {
+      padding: 14px 20px;
+      height: 50px;
+    }
   }
 }
 
