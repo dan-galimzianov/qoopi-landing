@@ -393,7 +393,7 @@ $modal-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   #questionModal.modal-overlay {
     .modal-container {
       width: 100%;

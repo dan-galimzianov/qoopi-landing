@@ -41,26 +41,55 @@ document.addEventListener('DOMContentLoaded', function () {
           el.classList.remove('error');
         });
 
-        // Сбрасываем состояние селектора социальной сети
-        const selectHeader = document.querySelector('.modal-select-header');
-        if (selectHeader) {
-          const span = selectHeader.querySelector('span');
+        // Сбрасываем состояние мультиселектора
+        const multiSelectHeader = document.getElementById('socialNetworkHeader');
+        if (multiSelectHeader) {
+          const span = multiSelectHeader.querySelector('span');
           if (span) {
-            span.textContent = selectHeader.getAttribute('data-placeholder') || 'Выберите социальную сеть';
+            span.textContent = 'Выберите социальные сети';
+            span.style.color = ''; // Сбрасываем цвет текста
           }
-          selectHeader.classList.remove('has-selection');
-          selectHeader.classList.remove('error-field');
+          multiSelectHeader.classList.remove('has-selection');
+          multiSelectHeader.classList.remove('error-field');
+          multiSelectHeader.setAttribute('aria-expanded', 'false');
+          
+          // Сбрасываем стрелку
+          const arrow = multiSelectHeader.querySelector('.arrow');
+          if (arrow) {
+            arrow.classList.remove('up');
+          }
+        }
+        
+        // Закрываем и скрываем выпадающий список
+        const multiSelectDropdown = document.getElementById('socialNetworkDropdown');
+        if (multiSelectDropdown) {
+          multiSelectDropdown.classList.remove('open');
+          multiSelectDropdown.style.display = 'none';
+          multiSelectDropdown.style.opacity = '0';
+          multiSelectDropdown.style.maxHeight = '0';
+          multiSelectDropdown.style.visibility = 'hidden';
+          
+          // Сбрасываем все выбранные опции
+          const options = multiSelectDropdown.querySelectorAll('.multi-select-option');
+          options.forEach(option => {
+            option.classList.remove('selected');
+            option.setAttribute('aria-selected', 'false');
+          });
+        }
+        
+        // Сбрасываем значение скрытого поля социальной сети
+        const socialNetworkInput = document.getElementById('socialNetwork');
+        if (socialNetworkInput) {
+          socialNetworkInput.value = '';
+        }
+        
+        // Если доступен объект мультиселектора, используем его метод reset
+        if (window.socialNetworkMultiSelect && typeof window.socialNetworkMultiSelect.reset === 'function') {
+          window.socialNetworkMultiSelect.reset();
         }
         
         const formAlert = document.getElementById('form-alert');
         if (formAlert) formAlert.style.display = 'none';
-
-        // Сбрасываем значение поля account
-        const accountInput = document.getElementById('account');
-        if (accountInput) {
-          accountInput.value = 'https://';
-          accountInput.placeholder = 'https://';
-        }
       }
   
       // Сохраняем текущую позицию скролла
@@ -83,6 +112,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeModal() {
       // Сначала закрываем выпадающий список, если он открыт
       resetSelectAndDropdown();
+      
+      // Дополнительно закрываем мультиселектор
+      const multiSelectDropdown = document.getElementById('socialNetworkDropdown');
+      if (multiSelectDropdown && multiSelectDropdown.classList.contains('open')) {
+        closeSocialNetworkDropdown();
+      }
       
       modalOverlay.classList.remove('active');
   
@@ -150,15 +185,39 @@ document.addEventListener('DOMContentLoaded', function () {
         formAlert.style.display = 'none';
       }
       
-      // Сбрасываем селектор
-      const selectHeader = document.querySelector('.modal-select-header');
-      if (selectHeader) {
-        const span = selectHeader.querySelector('span');
+      // Сбрасываем мультиселектор социальных сетей
+      const multiSelectHeader = document.getElementById('socialNetworkHeader');
+      if (multiSelectHeader) {
+        const span = multiSelectHeader.querySelector('span');
         if (span) {
-          span.textContent = selectHeader.getAttribute('data-placeholder') || 'Выберите социальную сеть';
+          span.textContent = 'Выберите социальные сети';
         }
-        selectHeader.classList.remove('has-selection');
-        selectHeader.classList.remove('error-field');
+        multiSelectHeader.classList.remove('has-selection');
+        multiSelectHeader.classList.remove('error-field');
+        multiSelectHeader.setAttribute('aria-expanded', 'false');
+        
+        // Сбрасываем стрелку
+        const arrow = multiSelectHeader.querySelector('.arrow');
+        if (arrow) {
+          arrow.classList.remove('up');
+        }
+      }
+      
+      // Сбрасываем выбранные опции в мультиселекторе
+      const multiSelectOptions = document.querySelectorAll('#socialNetworkDropdown .multi-select-option');
+      multiSelectOptions.forEach(option => {
+        option.classList.remove('selected');
+        option.setAttribute('aria-selected', 'false');
+      });
+      
+      // Принудительно закрываем выпадающий список мультиселектора
+      const multiSelectDropdown = document.getElementById('socialNetworkDropdown');
+      if (multiSelectDropdown) {
+        multiSelectDropdown.classList.remove('open');
+        multiSelectDropdown.style.display = 'none';
+        multiSelectDropdown.style.maxHeight = '0';
+        multiSelectDropdown.style.opacity = '0';
+        multiSelectDropdown.style.pointerEvents = 'none';
       }
       
       // Сбрасываем значение скрытого поля социальной сети
@@ -167,12 +226,10 @@ document.addEventListener('DOMContentLoaded', function () {
         socialNetworkInput.value = '';
       }
       
-      // Сбрасываем значение поля account
+      // Очищаем значение поля account
       const accountInput = document.getElementById('account');
       if (accountInput) {
-        accountInput.value = 'https://';
-        accountInput.placeholder = 'https://';
-        accountInput.style.color = '#8a8a8a';
+        accountInput.value = '';
       }
       
       // Сбрасываем чекбоксы к дефолтным значениям
@@ -182,15 +239,18 @@ document.addEventListener('DOMContentLoaded', function () {
       if (agreementCheckbox) agreementCheckbox.checked = false;
       if (newsletterCheckbox) newsletterCheckbox.checked = true;
       
-      // Сбрасываем селекции в выпадающем списке
-      const options = document.querySelectorAll('.modal-select-option');
-      options.forEach(option => {
-        option.classList.remove('selected');
-        option.setAttribute('aria-selected', 'false');
-      });
-      
       // Закрываем выпадающий список (еще раз, для уверенности)
       resetSelectAndDropdown();
+      
+      // Используем глобальную функцию закрытия мультиселектора, если она доступна
+      if (window.closeSocialNetworkDropdown) {
+        window.closeSocialNetworkDropdown();
+      }
+      
+      // Если доступен объект мультиселектора, используем его метод reset
+      if (window.socialNetworkMultiSelect && typeof window.socialNetworkMultiSelect.reset === 'function') {
+        window.socialNetworkMultiSelect.reset();
+      }
     }
   
     // Функция открытия модального окна подтверждения
@@ -236,10 +296,10 @@ document.addEventListener('DOMContentLoaded', function () {
           
           button.addEventListener('click', function(e) {
             console.log('Клик по кнопке открытия модального окна блогеров в секции 2');
-            e.preventDefault();
+          e.preventDefault();
             e.stopPropagation();
-            openModal();
-          });
+          openModal();
+        });
         }
       });
       
@@ -327,98 +387,25 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   
-    // Проверка формы селектора
-    function initModalSelect() {
-      console.log('Инициализация селектора...');
-      const selectHeaders = document.querySelectorAll('.modal-select-header');
-  
-      if (!selectHeaders.length) {
-        console.log('Ошибка: не найдены элементы .modal-select-header');
+    // Функция инициализации мультиселектора для социальных сетей
+    function initMultiSelect() {
+      console.log('Инициализация мультиселектора...');
+      
+      const multiSelectHeader = document.getElementById('socialNetworkHeader');
+      const multiSelectDropdown = document.getElementById('socialNetworkDropdown');
+      
+      if (!multiSelectHeader || !multiSelectDropdown) {
+        console.error('Элементы мультиселектора не найдены');
         return;
       }
       
-      console.log(`Найдено ${selectHeaders.length} селекторов`);
-  
-      selectHeaders.forEach((header) => {
-        const selectContainer = header.closest('.modal-select-container');
-        const dropdown = selectContainer.querySelector('.modal-select-dropdown');
-        const arrow = header.querySelector('.modal-select-arrow');
-        const options = dropdown.querySelectorAll('.modal-select-option');
-        const liveRegion = selectContainer.querySelector(
-          '.modal-select-live-region'
-        );
-        
-        // Принудительная инициализация стилей для правильной работы
-        dropdown.style.position = 'absolute';
-        dropdown.style.width = '100%';
-        dropdown.style.backgroundColor = '#515151';
-        dropdown.style.borderRadius = '8px';
-        dropdown.style.zIndex = '10000';
-        
-        // Обработчик клика на заголовок с inline-стилями
-        header.addEventListener('click', function(e) {
-          console.log('Клик на заголовок селектора (дополнительный обработчик)');
-          e.stopPropagation();
-          
-          const isCurrentlyOpen = dropdown.classList.contains('open');
-          
-          if (!isCurrentlyOpen) {
-            // Сначала закрываем все другие дропдауны
-            document.querySelectorAll('.modal-select-dropdown').forEach(d => {
-              if (d !== dropdown) {
-                d.classList.remove('open');
-                d.style.maxHeight = '0';
-                d.style.opacity = '0';
-                d.style.pointerEvents = 'none';
-              }
-            });
-            
-            // Теперь открываем наш дропдаун
-            dropdown.classList.add('open');
-            dropdown.style.maxHeight = '250px';
-            dropdown.style.opacity = '1';
-            dropdown.style.pointerEvents = 'auto';
-            dropdown.style.display = 'block';
-            arrow.classList.add('up');
-          } else {
-            // Закрываем дропдаун
-            dropdown.classList.remove('open');
-            dropdown.style.maxHeight = '0';
-            dropdown.style.opacity = '0';
-            dropdown.style.pointerEvents = 'none';
-            arrow.classList.remove('up');
-          }
-        });
-
-        // Обработчик клика на опции с inline-стилями
-        options.forEach((option) => {
-          option.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            // Выбираем опцию
-            options.forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            
-            // Обновляем текст заголовка
-            header.querySelector('span').textContent = option.querySelector('span').textContent;
-            header.classList.add('has-selection');
-            
-            // Обновляем скрытое поле
-            const hiddenInput = selectContainer.querySelector('input[type="hidden"]');
-            if (hiddenInput) {
-              hiddenInput.value = option.getAttribute('data-value');
-              const event = new Event('change', { bubbles: true });
-              hiddenInput.dispatchEvent(event);
-            }
-            
-            // Закрываем дропдаун
-            dropdown.classList.remove('open');
-            dropdown.style.maxHeight = '0';
-            dropdown.style.opacity = '0';
-            dropdown.style.pointerEvents = 'none';
-            arrow.classList.remove('up');
-          });
-        });
+      // Удаляем все inline стили, которые могли быть применены
+      multiSelectDropdown.removeAttribute('style');
+      
+      const arrow = multiSelectHeader.querySelector('.arrow');
+      const options = multiSelectDropdown.querySelectorAll('.multi-select-option');
+      const liveRegion = document.getElementById('socialNetworkLiveRegion');
+      const multiSelectContainer = document.querySelector('.multi-select-container');
         
         // Сбросить все выбранные элементы при инициализации
         options.forEach((option) => {
@@ -428,232 +415,200 @@ document.addEventListener('DOMContentLoaded', function () {
   
         // Функция обновления заголовка
         function updateHeader() {
-          const selectedOption = Array.from(options).find((opt) =>
+        const selectedOptions = Array.from(options).filter((opt) =>
             opt.classList.contains('selected')
           );
-  
-          if (!selectedOption) {
-            header.querySelector('span').textContent =
-              header.getAttribute('data-placeholder') || 'Выберите опцию';
-            header.classList.remove('has-selection'); // Удаляем класс, если нет выбора
+        const headerSpan = multiSelectHeader.querySelector('span');
+        
+        if (selectedOptions.length === 0) {
+          headerSpan.textContent = 'Выберите социальные сети';
+          headerSpan.style.removeProperty('color');
+          multiSelectHeader.classList.remove('has-selection');
           } else {
-            header.querySelector('span').textContent =
-              selectedOption.querySelector('span').textContent;
-            header.classList.add('has-selection'); // Добавляем класс при выборе
-          }
+          const selectedLabels = selectedOptions.map(
+            (opt) => opt.querySelector('span').textContent
+          );
+          headerSpan.textContent = selectedLabels.join(', ');
+          headerSpan.style.removeProperty('color');
+          multiSelectHeader.classList.add('has-selection');
         }
+        
+        // Always ensure no border-bottom
+        multiSelectHeader.style.borderBottom = 'none';
+      }
+      
+      // Глобальная функция для закрытия дропдауна
+      window.closeSocialNetworkDropdown = function() {
+        if (multiSelectDropdown.classList.contains('open')) {
+          // Сначала запускаем анимацию скрытия
+          multiSelectDropdown.style.opacity = '0';
+          multiSelectDropdown.style.transform = 'translateY(-5px)';
+          
+          // После завершения анимации полностью скрываем элемент
+          setTimeout(() => {
+            multiSelectDropdown.classList.remove('open');
+            arrow.classList.remove('up');
+            multiSelectHeader.setAttribute('aria-expanded', 'false');
+            
+            // Сбрасываем стили для следующего открытия
+            multiSelectDropdown.style.transform = '';
+          }, 200); // Время анимации
+        }
+      };
+      
+      // Сокращение для локального использования
+      function closeSocialNetworkDropdown() {
+        window.closeSocialNetworkDropdown();
+      }
   
-        // Вызвать updateHeader() для установки начального состояния заголовка
+      // Вызвать updateHeader() для установки начального состояния
         updateHeader();
   
-        // Функция для обновления визуального состояния и ARIA-атрибутов
+      // Функция для обновления состояния опции
         function updateOptionState(option, isSelected) {
-          // Сначала сбросим все опции
-          options.forEach((opt) => {
-            opt.classList.remove('selected');
-            opt.setAttribute('aria-selected', 'false');
-          });
-  
-          // Затем выберем нужную опцию
-          if (isSelected) {
-            option.classList.add('selected');
-            option.setAttribute('aria-selected', 'true');
+        option.classList.toggle('selected', isSelected);
+        option.setAttribute('aria-selected', isSelected);
+        
+        // Обновить скрытое поле с выбранными значениями
+        const hiddenInput = document.getElementById('socialNetwork');
+        if (hiddenInput) {
+          const selectedValues = Array.from(options)
+            .filter(opt => opt.classList.contains('selected'))
+            .map(opt => opt.getAttribute('data-value'));
+          
+          hiddenInput.value = selectedValues.join(',');
+          
+          // Dispatch event для обработки изменений
+          const event = new Event('change', { bubbles: true });
+          hiddenInput.dispatchEvent(event);
           }
   
           // Обновить live region для скринридеров
           if (liveRegion) {
-            liveRegion.textContent = `${
-              option.querySelector('span').textContent
-            } ${isSelected ? 'выбрано' : 'не выбрано'}`;
-          }
+          liveRegion.textContent = `${option.querySelector('span').textContent} ${
+            isSelected ? 'выбрано' : 'не выбрано'
+          }`;
         }
-  
-        // Управление с клавиатуры для заголовка
-        header.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            const isExpanded = dropdown.classList.toggle('open');
-            arrow.classList.toggle('up', isExpanded);
-            header.setAttribute('aria-expanded', isExpanded);
-  
-            if (isExpanded && options.length > 0) {
-              // Фокус на первый элемент списка при открытии
-              options[0].focus();
-            }
-          } else if (e.key === 'Escape' && dropdown.classList.contains('open')) {
-            dropdown.classList.remove('open');
-            arrow.classList.remove('up');
-            header.setAttribute('aria-expanded', 'false');
-            header.focus();
-          } else if (
-            e.key === 'ArrowDown' &&
-            dropdown.classList.contains('open')
-          ) {
-            e.preventDefault();
-            if (options.length > 0) {
-              options[0].focus();
-            }
-          }
-        });
-  
-        // Управление с клавиатуры для опций
-        options.forEach((option, index) => {
-          option.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
+      }
+      
+      // Обработчик клика на заголовок
+      multiSelectHeader.addEventListener('click', function (e) {
+        e.stopPropagation(); // Останавливаем распространение события
+        const isExpanded = multiSelectDropdown.classList.toggle('open');
+        
+        // Важно: убедимся, что display не установлен в none
+        if (isExpanded) {
+          multiSelectDropdown.style.display = 'block';
+          multiSelectDropdown.style.visibility = 'visible';
+          multiSelectDropdown.style.opacity = '1';
+          multiSelectDropdown.style.maxHeight = '300px';
+          multiSelectDropdown.style.overflowY = 'auto';
+          multiSelectDropdown.style.transform = 'translateY(0)'; // Сбрасываем transform для анимации
+        }
+        
+        arrow.classList.toggle('up', isExpanded);
+        multiSelectHeader.setAttribute('aria-expanded', isExpanded);
+      });
+      
+      // Обработчик клика на опции
+      options.forEach((option) => {
+        option.addEventListener('click', function (e) {
+          e.stopPropagation(); // Останавливаем распространение события
               const isSelected = !option.classList.contains('selected');
               updateOptionState(option, isSelected);
               updateHeader();
-  
-              // Получить значение выбранной опции
-              const value = option.getAttribute('data-value');
-  
-              // Найти и обновить скрытое поле ввода, если оно есть
-              const hiddenInput = selectContainer.querySelector(
-                'input[type="hidden"]'
-              );
-              if (hiddenInput) {
-                hiddenInput.value = value;
-  
-                // Создадим событие изменения для скрытого поля
-                const changeEvent = new Event('change', { bubbles: true });
-                hiddenInput.dispatchEvent(changeEvent);
-              }
-  
-              // Закрыть дропдаун после выбора
-              dropdown.classList.remove('open');
-              arrow.classList.remove('up');
-              header.setAttribute('aria-expanded', 'false');
-              header.focus();
-            } else if (e.key === 'Escape') {
-              dropdown.classList.remove('open');
-              arrow.classList.remove('up');
-              header.setAttribute('aria-expanded', 'false');
-              header.focus();
-            } else if (e.key === 'ArrowDown') {
-              e.preventDefault();
-              const nextIndex = (index + 1) % options.length;
-              options[nextIndex].focus();
-            } else if (e.key === 'ArrowUp') {
-              e.preventDefault();
-              if (index === 0) {
-                header.focus();
-              } else {
-                const prevIndex = (index - 1 + options.length) % options.length;
-                options[prevIndex].focus();
-              }
-            }
           });
         });
+      
+      // Предотвращаем распространение клика внутри мультиселектора
+      multiSelectContainer.addEventListener('click', function(e) {
+        // Останавливаем распространение, чтобы не сработали другие обработчики
+        e.stopPropagation();
       });
-  
-      // Закрыть все дропдауны при клике вне элементов
+      
+      // Обработчик клика для самого выпадающего списка
+      multiSelectDropdown.addEventListener('click', function(e) {
+        // Останавливаем распространение, чтобы не сработали другие обработчики
+        e.stopPropagation();
+      });
+      
+      // Закрытие выпадающего списка при клике вне мультиселектора
       document.addEventListener('click', function (e) {
-        const selectContainers = document.querySelectorAll(
-          '.modal-select-container'
-        );
-        selectContainers.forEach((container) => {
-          const header = container.querySelector('.modal-select-header');
-          const dropdown = container.querySelector('.modal-select-dropdown');
-          const arrow = container.querySelector('.modal-select-arrow');
-  
-          if (!container.contains(e.target)) {
-            dropdown.classList.remove('open');
-            arrow.classList.remove('up');
-            header.setAttribute('aria-expanded', 'false');
+        // Проверяем, что клик был не внутри мультиселектора и выпадающий список открыт
+        if (
+          !multiSelectContainer.contains(e.target) &&
+          multiSelectDropdown.classList.contains('open')
+        ) {
+          closeSocialNetworkDropdown();
+        }
+      });
+      
+      // Добавляем обработчик клика на модальный контейнер
+      const modalContainer = document.querySelector('.modal-container');
+      if (modalContainer) {
+        modalContainer.addEventListener('click', function(e) {
+          // Закрываем выпадающий список при клике в любое место модального окна,
+          // если клик не был внутри мультиселектора и выпадающий список открыт
+          if (
+            !multiSelectContainer.contains(e.target) &&
+            multiSelectDropdown.classList.contains('open')
+          ) {
+            closeSocialNetworkDropdown();
           }
         });
-      });
-    }
-  
-    // Функция обновления цвета поля account в зависимости от его содержимого
-    function updateAccountFieldColor() {
-      const accountInput = document.getElementById('account');
-      if (!accountInput) return;
-      
-      // Начальная настройка цвета
-      if (accountInput.value === 'https://' || accountInput.value === '') {
-        accountInput.style.color = '#8a8a8a'; // Серый цвет для https://
-      } else {
-        accountInput.style.color = '#ffffff'; // Белый цвет для введенного контента
       }
       
-      // Обработчик ввода
-      accountInput.addEventListener('input', function() {
-        if (this.value === 'https://' || this.value === '') {
-          this.style.color = '#8a8a8a';
-        } else {
-          this.style.color = '#ffffff';
-        }
-      });
+      // Закрытие при изменении размера окна
+      window.addEventListener('resize', closeSocialNetworkDropdown);
       
-      // Обработчик фокуса
-      accountInput.addEventListener('focus', function() {
-        this.style.color = '#ffffff'; // При фокусе всегда белый
-      });
-      
-      // Обработчик потери фокуса
-      accountInput.addEventListener('blur', function() {
-        if (this.value === 'https://' || this.value === '') {
-          this.style.color = '#8a8a8a';
-        } else {
-          this.style.color = '#ffffff';
-        }
-      });
+      // Экспортируем методы для доступа из формы
+      window.socialNetworkMultiSelect = {
+        getSelectedValues: function () {
+          return Array.from(options)
+            .filter((opt) => opt.classList.contains('selected'))
+            .map((opt) => opt.getAttribute('data-value'));
+        },
+        reset: function () {
+          options.forEach((option) => {
+            option.classList.remove('selected');
+            option.setAttribute('aria-selected', 'false');
+          });
+          updateHeader();
+          
+          // Очищаем скрытое поле
+          const hiddenInput = document.getElementById('socialNetwork');
+          if (hiddenInput) {
+            hiddenInput.value = '';
+          }
+        },
+        close: closeSocialNetworkDropdown,
+      };
     }
-  
-    // Функция инициализации лайв-валидации полей
-    function initLiveValidation() {
-      // Находим все текстовые поля ввода
-      const inputFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"]');
-      inputFields.forEach(field => {
-        field.addEventListener('input', function() {
-          // Если поле непустое, убираем класс ошибки
-          if (this.value.trim() !== '') {
-            this.classList.remove('error-field');
-          }
+    
+    // Проверка работы textarea для ссылок на аккаунты
+    function initTextareaStyles() {
+      const textarea = document.getElementById('account');
+      if (textarea) {
+        // Устанавливаем базовые стили
+        textarea.style.width = '100%';
+        textarea.style.padding = '8px 0';
+        textarea.style.backgroundColor = 'transparent';
+        textarea.style.border = 'none';
+        textarea.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
+        textarea.style.color = '#fff';
+        textarea.style.fontSize = '17px';
+        textarea.style.fontFamily = 'Manrope, sans-serif';
+        textarea.style.resize = 'vertical';
+        textarea.style.minHeight = '80px';
+        
+        // Добавляем обработчик фокуса для улучшения UX
+        textarea.addEventListener('focus', function() {
+          this.style.outline = 'none';
+          this.style.borderBottomColor = '#793eed';
         });
         
-        // Обработка фокуса - убираем ошибку при фокусе
-        field.addEventListener('focus', function() {
-          this.classList.remove('error-field');
-        });
-      });
-      
-      // Обработчик для чекбокса согласия
-      const agreementCheckbox = document.getElementById('agreement');
-      if (agreementCheckbox) {
-        agreementCheckbox.addEventListener('change', function() {
-          const checkboxGroup = this.closest('.checkbox-group');
-          if (this.checked && checkboxGroup) {
-            console.log('Чекбокс отмечен, убираем ошибку');
-            checkboxGroup.classList.remove('error');
-            
-            // Проверяем, можно ли скрыть сообщение об ошибке
-            const formAlert = document.getElementById('form-alert');
-            const hasErrors = form.querySelector('.error-field, .checkbox-group.error');
-            if (!hasErrors && formAlert) {
-              formAlert.style.display = 'none';
-            }
-          }
-        });
-        
-        // Дополнительный обработчик для события click
-        agreementCheckbox.addEventListener('click', function() {
-          setTimeout(() => {
-            const checkboxGroup = this.closest('.checkbox-group');
-            if (this.checked && checkboxGroup) {
-              console.log('Чекбокс кликнут, убираем ошибку');
-              checkboxGroup.classList.remove('error');
-              
-              // Проверяем все поля и скрываем сообщение об ошибке если все в порядке
-              const formAlert = document.getElementById('form-alert');
-              const hasErrors = form.querySelector('.error-field, .checkbox-group.error');
-              if (!hasErrors && formAlert) {
-                formAlert.style.display = 'none';
-              }
-            }
-          }, 0);
+        textarea.addEventListener('blur', function() {
+          this.style.borderBottomColor = 'rgba(255, 255, 255, 0.2)';
         });
       }
     }
@@ -662,9 +617,11 @@ document.addEventListener('DOMContentLoaded', function () {
     initPhoneMask();
     initFollowersMask();
     initSocialAutocomplete();
-    initModalSelect();
+    initMultiSelect();
     updateAccountFieldColor(); // Добавляем вызов новой функции
     initLiveValidation();
+    // Инициализируем стили для textarea
+    initTextareaStyles();
   
     // Финальная настройка селектора для гарантированной работы
     setTimeout(function() {
@@ -793,61 +750,45 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
   
-      // Устанавливаем начальное значение
-      if (!accountInput.value) {
-        accountInput.value = 'https://';
-      }
+      // Не устанавливаем начальное значение, так как это текстовая область
+      // Вместо этого просто добавляем обработчик ввода
+      accountInput.addEventListener('input', handleAccountInput);
   
       socialNetworkInput.addEventListener('change', function () {
-        const domains = {
-          instagram: 'https://instagram.com/',
-          youtube: 'https://youtube.com/',
-          tiktok: 'https://tiktok.com/@',
-          other: 'https://',
-        };
-  
-        // Устанавливаем базовый URL и меняем placeholder
-        const domainValue = domains[this.value.toLowerCase()] || 'https://';
-        accountInput.value = domainValue;
-        accountInput.placeholder = 'Введите ваш аккаунт';
-        
-        // Перемещаем курсор в конец поля
+        // Фокусируемся на поле ввода аккаунта
         accountInput.focus();
-        const len = accountInput.value.length;
-        accountInput.setSelectionRange(len, len);
-  
+        
         // Добавляем обработчик ввода, чтобы проверять заполнение
         accountInput.removeEventListener('input', handleAccountInput);
         accountInput.addEventListener('input', handleAccountInput);
-  
-        // Проверяем сразу после изменения
-        validateAccountField(accountInput);
       });
   
       // Функция проверки поля account
       function validateAccountField(field) {
         const value = field.value.trim();
-        const baseUrls = [
-          'https://instagram.com/',
-          'https://youtube.com/',
-          'https://tiktok.com/@',
-          'https://',
-        ];
-  
-        // Если поле пустое или содержит только базовый URL без дополнения
-        if (!value || baseUrls.some((url) => value === url)) {
+        
+        // Просто проверяем, что поле не пустое
+        if (!value || value === '') {
           showError(field);
           return false;
         }
   
-        // Если поле заполнено правильно
+        // Если поле заполнено
         field.classList.remove('error-field');
         return true;
       }
   
       // Обработчик ввода в поле account
       function handleAccountInput(e) {
-        validateAccountField(e.target);
+        // Get the value and remove any whitespace
+        const value = e.target.value.trim();
+        
+        // Simple validation: just check if there's content
+        if (!value || value === '') {
+          e.target.classList.add('error-field');
+        } else {
+          e.target.classList.remove('error-field');
+        }
       }
   
       // Модифицируем функцию validateForm для проверки account
@@ -885,17 +826,14 @@ document.addEventListener('DOMContentLoaded', function () {
         
         if (socialNetworkInput && socialNetworkInput.value === '') {
           // Подсвечиваем селектор соц. сети, если он не выбран
-          const selectHeader = document.querySelector('.modal-select-header');
+          const selectHeader = document.querySelector('.multi-select-header');
           if (selectHeader) {
             selectHeader.classList.add('error-field');
           }
         }
         
-        if (accountInput && (accountInput.value === 'https://' || 
-            accountInput.value === 'https://instagram.com/' || 
-            accountInput.value === 'https://youtube.com/' || 
-            accountInput.value === 'https://tiktok.com/@')) {
-          // Подсвечиваем поле аккаунта, если оно содержит только шаблон
+        if (accountInput && (!accountInput.value.trim() || accountInput.value.trim() === '')) {
+          // Подсвечиваем поле аккаунта, если оно пустое
           accountInput.classList.add('error-field');
         }
         
@@ -920,16 +858,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const accountInput = document.getElementById('account');
         
         if (socialNetworkInput && socialNetworkInput.value === '') {
-          const selectHeader = document.querySelector('.modal-select-header');
+          const selectHeader = document.querySelector('.multi-select-header');
           if (selectHeader) {
             selectHeader.classList.add('error-field');
           }
         }
         
-        if (accountInput && (accountInput.value === 'https://' || 
-            accountInput.value === 'https://instagram.com/' || 
-            accountInput.value === 'https://youtube.com/' || 
-            accountInput.value === 'https://tiktok.com/@')) {
+        if (accountInput && (!accountInput.value.trim() || accountInput.value.trim() === '')) {
           accountInput.classList.add('error-field');
         }
         
@@ -1042,7 +977,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
   
       // Проверка аккаунта
-      if (!formData.account || ['https://', 'https://instagram.com/', 'https://youtube.com/', 'https://tiktok.com/@'].includes(formData.account)) {
+      if (!formData.account || formData.account.trim() === '') {
         showError(document.getElementById('account'));
         isValid = false;
         console.log('Ошибка: аккаунт не заполнен');
@@ -1112,6 +1047,53 @@ document.addEventListener('DOMContentLoaded', function () {
             header.classList.add('error-field');
           }
         }
+      }
+    }
+  
+    // Добавляем функцию для обработки цвета текста в поле account
+    function updateAccountFieldColor() {
+      const accountInput = document.getElementById('account');
+      if (!accountInput) return;
+
+      // Для textarea просто добавим базовые стили
+      accountInput.style.width = '100%';
+      accountInput.style.color = '#fff';
+      accountInput.style.fontSize = '17px';
+      accountInput.style.fontFamily = 'Manrope, sans-serif';
+    }
+
+    // Функция инициализации живой валидации полей
+    function initLiveValidation() {
+      // Находим все обязательные поля ввода
+      const requiredInputs = document.querySelectorAll('#blogger-form input[required], #blogger-form textarea[required]');
+      
+      // Добавляем обработчики событий для каждого поля
+      requiredInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+          // Проверяем поле при потере фокуса
+          if (!this.value.trim()) {
+            this.classList.add('error-field');
+          } else {
+            this.classList.remove('error-field');
+          }
+        });
+        
+        input.addEventListener('input', function() {
+          // Убираем ошибку при вводе
+          if (this.value.trim()) {
+            this.classList.remove('error-field');
+          }
+        });
+      });
+      
+      // Особая обработка для поля аккаунта
+      const accountInput = document.getElementById('account');
+      if (accountInput) {
+        accountInput.addEventListener('input', function() {
+          if (this.value.trim()) {
+            this.classList.remove('error-field');
+          }
+        });
       }
     }
   });

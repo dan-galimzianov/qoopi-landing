@@ -35,10 +35,10 @@ body.modal-open {
 .open-modal-btn {
   background-color: $primary-color;
   color: $white;
-  padding: 12px 24px;
+  padding: 24px 40px;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 12px;
+  font-size: 24px;
   cursor: pointer;
   transition: all $transition-duration $transition-easing;
 
@@ -49,6 +49,15 @@ body.modal-open {
 
   &:active {
     transform: translateY(0);
+  }
+  @media (max-width: 1700px) {
+    padding: 16px 32px;
+    font-size: 20px;
+  }
+  @media (max-width: 1200px) {
+    padding: 16px 32px;
+    font-size: 15px;
+    line-height: 24px;
   }
 }
 
@@ -104,7 +113,7 @@ body.modal-open {
   }
 
   @media (max-width: 860px) {
-    width: calc(100% - 40px);
+    width: 100%;
     max-width: none;
     margin: 20px; // Для мобильных можно оставить равные отступы
     right: auto; // Сбрасываем right для мобильной версии
@@ -563,7 +572,7 @@ body.modal-open {
 // Адаптивность
 @media (max-width: 860px) {
   .modal-container {
-    width: 95vw;
+    width: 100%;
     margin-left: 0;
     margin-right: 0;
   }
@@ -578,7 +587,6 @@ body.modal-open {
     font-size: 28px;
   }
 }
-
 // Скрываем стандартные сообщения об ошибках
 .error-message {
   display: none !important;
