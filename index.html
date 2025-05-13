@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-BK7DAmYD.js"></script>
-    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-aeoJvvJ7.css">
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-JqErK0z3.js"></script>
+    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-DRy9ivpc.css">
   </head>
   <body class="blot_1">
         <!-- Модальное окно для блоггеров-->
@@ -23,7 +23,6 @@
                 Заполните анкету и мы свяжемся с вами в ближайшее время
               </p>
             </div>
-    
             <!-- Основное содержимое модалки -->
             <div class="modal-content">
               <form id="blogger-form">
@@ -226,6 +225,540 @@
             </footer>
           </div>
         </div>
+        <!-- Модальное окно "Задать вопрос" -->
+        <div class="modal-overlay" id="questionModal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3>Задать вопрос</h3>
+              <button class="close-modal-btn" id="closeQuestionModalBtn">
+                &times;
+              </button>
+            </div>
+            <div class="">
+              <p class="subtitle">
+                Заполните форму или напишите нам на&nbsp;
+                <a href="#" target="_blank" class="text-link">hello@qoopi.ru</a>
+              </p>
+            </div>
+            <div class="modal-content">
+              <form id="question-form">
+                <div class="form-group">
+                  <label for="questionName" class="required">Имя</label>
+                  <input
+                    type="text"
+                    id="questionName"
+                    name="name"
+                    required
+                    placeholder="Константин"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="questionEmail" class="required"
+                    >Электронная почта</label
+                  >
+                  <input
+                    type="email"
+                    id="questionEmail"
+                    name="email"
+                    required
+                    placeholder="example@mail.com"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="questionPhone" class="required">Номер телефона</label>
+                  <input
+                    type="tel"
+                    id="questionPhone"
+                    name="phone"
+                    required
+                    placeholder="+7"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="questionMessage" class="required"
+                    >Ваше сообщение</label
+                  >
+                  <textarea
+                    id="questionMessage"
+                    name="message"
+                    required
+                    placeholder="Сообщение"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+
+            <footer class="modal-footer">
+              <div class="form-alert" id="question-form-alert">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="9"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    fill="none"
+                  />
+                  <path
+                    d="M7 7L13 13M13 7L7 13"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span>Заполните все поля</span>
+              </div>
+
+              <div class="checkboxes">
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="questionAgreement"
+                    name="agreement"
+                    required
+                  />
+                  <label for="questionAgreement"
+                    >Я принимаю условия&nbsp;
+                    <a href="#" target="_blank" class="text-link">
+                      пользовательского соглашения</a
+                    ></label
+                  >
+                </div>
+
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="questionNewsletter"
+                    name="newsletter"
+                  />
+                  <label for="questionNewsletter"
+                    >Я согласен получать письма от qoopi</label
+                  >
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn" id="submitQuestionBtn">
+                Отправить
+              </button>
+            </footer>
+          </div>
+        </div>
+        <!-- Модальное окно для брендов -->
+        <div class="modal-overlay" id="brandModal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3>Стать брендом на qoopi</h3>
+              <button class="close-modal-btn" id="closeBrandModalBtn">
+                &times;
+              </button>
+            </div>
+            <div>
+              <p class="subtitle">
+                Заполните анкету и мы свяжемся с вами в ближайшее время
+              </p>
+            </div>
+
+            <div class="modal-content">
+              <form id="brand-form">
+                <div class="form-group">
+                  <label for="brandName" class="required">Название бренда</label>
+                  <input
+                    type="text"
+                    id="brandName"
+                    name="brandName"
+                    required
+                    placeholder="Бренд"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="categories" class="required">Категории товаров</label>
+                  <div class="multi-select-container">
+                    <div
+                      class="multi-select-header"
+                      id="brandCategoryHeader"
+                      tabindex="0"
+                      role="button"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                    >
+                      <span>Выберите категории</span>
+                      <span class="arrow" aria-hidden="true"></span>
+                    </div>
+                    <div
+                      class="multi-select-dropdown"
+                      id="brandCategoryDropdown"
+                      role="listbox"
+                      aria-multiselectable="true"
+                    >
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="fashion"
+                      >
+                        <span>Мода</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="style"
+                      >
+                        <span>Стиль</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="beauty"
+                      >
+                        <span>Красота</span>
+                      </div>
+                    </div>
+                    <div
+                      class="visually-hidden"
+                      aria-live="polite"
+                      id="brandLiveRegion"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="website" class="required"
+                    >Ссылка на сайт или интернет магазин</label
+                  >
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    placeholder="https://"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactName" class="required">Имя и фамилия</label>
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="contactName"
+                    required
+                    placeholder="Константин Константинопольский"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactEmail" class="required"
+                    >Электронная почта</label
+                  >
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="contactEmail"
+                    required
+                    placeholder="example@mail.com"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="contactPhone" class="required">Номер телефона</label>
+                  <input
+                    type="tel"
+                    id="contactPhone"
+                    name="contactPhone"
+                    required
+                    placeholder="+7"
+                  />
+                </div>
+              </form>
+            </div>
+
+            <footer class="modal-footer">
+              <div class="form-alert" id="brand-form-alert">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="9"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    fill="none"
+                  />
+                  <path
+                    d="M7 7L13 13M13 7L7 13"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span>Заполните все поля</span>
+              </div>
+              <div class="checkboxes">
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="brandAgreement"
+                    name="brandAgreement"
+                    required
+                  />
+                  <label for="brandAgreement"
+                    >Я принимаю условия&nbsp;
+                    <a href="#" target="_blank" class="text-link"
+                      >пользовательского соглашения</a
+                    ></label
+                  >
+                </div>
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="brandNewsletter"
+                    name="brandNewsletter"
+                  />
+                  <label for="brandNewsletter"
+                    >Я согласен получать письма от qoopi</label
+                  >
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn" id="submitBrandBtn">
+                Отправить заявку
+              </button>
+            </footer>
+          </div>
+        </div>
+            <!-- Модальное окно для селлеров -->
+        <div class="modal-overlay" id="sellerModal">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h3>Стать селлером на qoopi</h3>
+              <button class="close-modal-btn" id="closeSellerModalBtn">
+                &times;
+              </button>
+            </div>
+            <div>
+              <p class="subtitle">
+                Заполните анкету и мы свяжемся с вами в ближайшее время
+              </p>
+            </div>
+
+            <div class="modal-content">
+              <form id="seller-form">
+                <div class="form-group">
+                  <label for="companyName" class="required"
+                    >Название компании</label
+                  >
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    required
+                    placeholder="Компания"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="productCategories" class="required"
+                    >Категории товаров</label
+                  >
+                  <div class="multi-select-container">
+                    <div
+                      class="multi-select-header"
+                      id="categoryHeader"
+                      tabindex="0"
+                      role="button"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                    >
+                      <span>Выберите категории</span>
+                      <span class="arrow" aria-hidden="true"></span>
+                    </div>
+                    <div
+                      class="multi-select-dropdown"
+                      id="categoryDropdown"
+                      role="listbox"
+                      aria-multiselectable="true"
+                    >
+                      <div
+                        class="multi-select-option selected"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="true"
+                        data-value="style"
+                      >
+                        <span>Стиль</span>
+                      </div>
+                      <div
+                        class="multi-select-option selected"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="fashion"
+                      >
+                        <span>Мода</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="beauty"
+                      >
+                        <span>Красота</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="item1"
+                      >
+                        <span>Item</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="item2"
+                      >
+                        <span>Item</span>
+                      </div>
+                      <div
+                        class="multi-select-option"
+                        tabindex="0"
+                        role="option"
+                        aria-selected="false"
+                        data-value="item3"
+                      >
+                        <span>Item</span>
+                      </div>
+                    </div>
+                    <div
+                      class="visually-hidden"
+                      aria-live="polite"
+                      id="liveRegion"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="marketplaceLink" class="required"
+                    >Ссылка на магазин Wildberries или Ozon</label
+                  >
+                  <input
+                    type="url"
+                    id="marketplaceLink"
+                    name="marketplaceLink"
+                    placeholder="https://"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="sellerName" class="required">Имя и фамилия</label>
+                  <input
+                    type="text"
+                    id="sellerName"
+                    name="sellerName"
+                    required
+                    placeholder="Константин Константинопольский"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="sellerEmail" class="required"
+                    >Электронная почта</label
+                  >
+                  <input
+                    type="email"
+                    id="sellerEmail"
+                    name="sellerEmail"
+                    placeholder="example@mail.com"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="sellerPhone" class="required">Номер телефона</label>
+                  <input
+                    type="tel"
+                    id="sellerPhone"
+                    name="sellerPhone"
+                    placeholder="+7"
+                    required
+                  />
+                </div>
+              </form>
+            </div>
+
+            <footer class="modal-footer">
+              <div class="form-alert" id="seller-form-alert">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="9"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    fill="none"
+                  />
+                  <path
+                    d="M7 7L13 13M13 7L7 13"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span>Заполните все поля</span>
+              </div>
+
+              <div class="checkboxes">
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="sellerAgreement"
+                    name="sellerAgreement"
+                    required
+                  />
+                  <label for="sellerAgreement"
+                    >Я принимаю условия&nbsp;
+                    <a href="#" target="_blank" class="text-link"
+                      >пользовательского соглашения</a
+                    ></label
+                  >
+                </div>
+
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="sellerNewsletter"
+                    name="sellerNewsletter"
+                  />
+                  <label for="sellerNewsletter"
+                    >Я согласен получать письма от qoopi</label
+                  >
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn" id="submitSellerBtn">
+                Отправить заявку
+              </button>
+            </footer>
+          </div>
+        </div>
          <!-- Success Modal -->
         <div class="success-modal" id="successModal">
           <div class="success-modal__container">
@@ -275,7 +808,7 @@
                     <li><a href="#sellers">Селлерам</a></li>
                 </ul>
             </div>
-            <button class="menu-content__button">Задать вопрос</button>
+            <button class="menu-content__button" id="openQuestionModalBtn">Задать вопрос</button>
         </div>
         
         <section class="hero-section hero__section">
@@ -313,7 +846,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
-            <button class="hero-section__desktop-button button">
+            <button class="hero-section__desktop-button button open-modal-btn" id="openBloggerModalBtn">
               Создать витрину
             </button>
           </div>
@@ -322,9 +855,9 @@
               Продвигайте свои товары и бренд через витрины блогеров и экспертов
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
-              Заказывайте  распаковки или просто разрешите добавить товары на свою витрину в qoopi
+              Заказывайте  распаковки или просто разрешите добавить товары на свою витрину в qoopi
             </div>
-            <button class="hero-section__desktop-button button">
+            <button class="hero-section__desktop-button button open-modal-btn" id="openBrandModalBtn">
               Создать витрину
             </button>
           </div>
@@ -335,7 +868,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn" id="openBloggerModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn" id="openSellerModalBtn">
               Создать витрину
             </button>
           </div>
@@ -459,11 +992,20 @@
         <section class="hero-sliders-mobile" data-section-id="1">
           <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
             <div class="carousel__wrapper">
-              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
                 </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
                   <video loop muted autoplay playsinline class="media-item__video">                                        
@@ -471,23 +1013,56 @@
                   </video>
                 </div>
               </div>
-              <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
               <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
                   <video loop muted autoplay playsinline class="media-item__video">                                        
                     <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
-                  </video>
-                </div>
+                  </video>                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
                 </div>
               </div>
-              <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
               <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
                 </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
                 <div class="media-item">
                   <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
                   <video loop muted autoplay playsinline class="media-item__video">                                        
@@ -495,6 +1070,92 @@
                   </video>
                 </div>
               </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/qoopi-landing/assets/photo5-BFSFIyeD.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/qoopi-landing/assets/photo6-DJREISqC.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/qoopi-landing/assets/photo7-xIfK8qhA.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/qoopi-landing/assets/photo8-BI2qxICL.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/qoopi-landing/assets/photo9-DiW0_1W9.png" class="media-item__image">
+                </div>
+              </div>
+  
+            </div>
+          </section>
+          <div class="sellers-media__app-preview">
+            <video class="sellers-media__app-preview-video" autoplay loop muted playsinline>
+              <source src="./src/assets/sellers/video1.mp4" type="video/mp4">
+            </video>
+            <img src="/qoopi-landing/assets/app-preview-D4ZnQ-t3.png" alt="App preview">
+          </div>
+          <div class="sellers-media__mobile-button-container">
+            <button class="button sellers-media__mobile-button open-modal-btn" id="openSellerMobileBtn">
+              Создать витрину
+            </button>
+          </div>
+        </div>
+        
+        
+        <section class="hero-sliders-mobile" data-section-id="1">
+          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
+            <div class="carousel__wrapper">
+              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="media-item">
+                <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video">                                        
+                  <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
+            <div class="carousel__slide">
+              <div class="media-item">
+                <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video">                                        
+                  <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="media-item">
+                <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
+              </div>
+            </div>
+            <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
+            <div class="carousel__slide">
+              <div class="media-item">
+                <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
+              </div>
+              <div class="media-item">
+                <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video">                                        
+                  <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
               <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
@@ -557,7 +1218,7 @@
               </div>
             </div>
           </section>
-          <button class="button hero-sliders-mobile__button">
+          <button class="button hero-sliders-mobile__button" id="openBloggerMobileBtn">
             Создать витрину
           </button>
         </section>
@@ -837,6 +1498,15 @@
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
+
+      <img class="blot_1" src="data:image/svg+xml,%3csvg%20width='1729'%20height='1055'%20viewBox='0%200%201729%201055'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1172.54%20829.417C1272.91%20824.54%201339.97%20799.549%201354.39%20753.63C1372.27%20697.552%201308.27%20621.562%201191.03%20544.557C1474.07%20607.34%201697.58%20596.165%201725.82%20507.578C1760.57%20398.674%201486.26%20213.779%201113%2094.9181C739.741%20-24.1458%20409.15%20-32.2729%20374.405%2076.632C356.524%20132.71%20420.529%20208.699%20537.77%20285.705C254.726%20222.922%2031.2163%20234.097%202.97287%20322.684C-29.944%20425.696%20214.087%20596.571%20556.463%20715.635C456.087%20720.512%20389.034%20745.503%20374.608%20791.422C339.862%20900.327%20614.169%201085.22%20987.43%201204.08C1360.69%201323.15%201691.28%201331.27%201726.03%201222.37C1758.94%201119.36%201514.91%20948.481%201172.54%20829.417Z'%20fill='%23373737'%20fill-opacity='0.32'/%3e%3c/svg%3e" alt="blot 1" data-section-id="1">
+      <img class="blot_2" src="data:image/svg+xml,%3csvg%20width='1624'%20height='1080'%20viewBox='0%200%201624%201080'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1230.26%201030.26C1285.02%20975.503%201279.68%20871.876%201226.88%20751.959C1204.41%20700.846%201255.66%20649.598%201306.77%20672.067C1426.83%20724.73%201530.31%20730.212%201585.07%20675.453C1686.45%20574.079%201581.68%20304.756%201350.82%2073.9001C1119.97%20-156.956%20850.785%20-261.862%20749.271%20-160.347C694.512%20-105.588%20699.994%20-2.10207%20752.657%20117.956C775.126%20169.069%20723.878%20220.317%20672.765%20197.848C552.707%20145.185%20449.221%20139.703%20394.462%20194.462C339.703%20249.221%20345.045%20352.847%20397.848%20472.765C420.317%20523.878%20369.068%20575.126%20317.956%20552.657C197.898%20499.994%2094.4115%20494.512%2039.6527%20549.271C-61.7214%20650.645%2043.044%20919.968%20273.9%201150.82C504.756%201381.68%20774.079%201486.45%20875.453%201385.07C930.212%201330.31%20924.87%201226.69%20872.067%201106.77C849.597%201055.66%20900.846%201004.41%20951.959%201026.88C1072.02%201079.54%201175.5%201085.02%201230.26%201030.26Z'%20fill='%23373737'%20fill-opacity='0.32'/%3e%3c/svg%3e" alt="blot 2" data-section-id="2">
+      <script src="/src/bloggerModal.js"></script>
+      <script src="/src/brandModals.js"></script>
+      <script src="/src/sellerModal.js"></script>
+      <script src="/src/modalInit.js"></script>
+      <script src="/src/selectDebug.js"></script>
+      <script src="/src/questionModal.js"></script>
       <script src="./src/modalInit.js"></script>
       <script src="./src/bloggerModal.js"></script>
       <script src="./src/selectDebug.js"></script>
