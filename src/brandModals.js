@@ -576,7 +576,21 @@ document.addEventListener('DOMContentLoaded', function () {
   
       // Проверка категорий (мультиселектор)
       if (formData.categories.length === 0) {
-        document.querySelector('.multi-select-container')?.classList.add('error');
+        // Добавляем класс ошибки контейнеру мультиселектора
+        const multiSelectContainer = document.querySelector('.multi-select-container');
+        if (multiSelectContainer) {
+          multiSelectContainer.classList.add('error');
+        }
+        
+        // Подсвечиваем текст заголовка красным
+        const multiSelectHeader = document.getElementById('brandCategoryHeader');
+        if (multiSelectHeader) {
+          const span = multiSelectHeader.querySelector('span');
+          if (span) {
+            span.style.color = '#ff3b30';
+          }
+        }
+        
         isValid = false;
       }
   
@@ -661,6 +675,12 @@ document.addEventListener('DOMContentLoaded', function () {
       brandCategoryHeader.addEventListener('click', function() {
         if (multiSelectContainer.classList.contains('error')) {
           multiSelectContainer.classList.remove('error');
+          
+          // Сбрасываем цвет текста
+          const span = brandCategoryHeader.querySelector('span');
+          if (span) {
+            span.style.removeProperty('color');
+          }
         }
       });
       
@@ -670,6 +690,12 @@ document.addEventListener('DOMContentLoaded', function () {
         option.addEventListener('click', function() {
           if (multiSelectContainer.classList.contains('error')) {
             multiSelectContainer.classList.remove('error');
+            
+            // Сбрасываем цвет текста при выборе категории
+            const span = brandCategoryHeader.querySelector('span');
+            if (span) {
+              span.style.removeProperty('color');
+            }
           }
         });
       });

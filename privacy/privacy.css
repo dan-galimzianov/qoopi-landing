@@ -261,16 +261,18 @@ line-height: 64px;
     flex-direction: column;
     justify-content: space-between;
     position: fixed;
-    top: 20px;
-    right: -520px;
-    width: 500px;
-    height: calc(100% - 40px); 
+    top: 50%;
+    transform: translateY(-50%);
+    right: -100%;
+    max-width: 520px;
+    width: 100%;
+    height: calc(100% - 40px);
     background-color: #373737;
     z-index: 1000;
     transition: right 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
     border-radius: 16px;
-    padding: 30px;
+    padding: 30px 16px 16px 16px;
     box-sizing: border-box;
 }
 
@@ -335,6 +337,9 @@ line-height: 64px;
     transform: translateX(20px);
     transition: opacity 0.4s ease, transform 0.4s ease;
     transition-delay: 0.1s;
+    flex-grow: 1; /* Allow content to take available space */
+    display: flex;
+    flex-direction: column;
 }
 
 .menu-content__button {
@@ -342,19 +347,18 @@ line-height: 64px;
     justify-content: center;
     padding: 24px 40px;
     background-color: #793EED;
-    color: #fff;
+    color: #f1f1f1;
     font-family: "Manrope", sans-serif;
     font-size: 24px;
     line-height: 28px;
-    font-weight: 600;
+    font-weight: 700;
+    gap: 10px;
     border-radius: 12px;
     box-shadow: none;
     cursor: pointer;
     border: none;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    transition-delay: 0.2s;
+    margin: 0 0 16px 0; /* Added bottom margin of 16px */
+    width: calc(100% - 0px); /* Full width minus margins */
 }
 
 .menu-open .menu-content,
@@ -382,9 +386,10 @@ line-height: 64px;
 /* Адаптив для меню */
 @media (max-width: 768px) {
     .menu-overlay {
+        max-width: calc(100% - 40px);
         width: calc(100% - 40px);
-        top: 10px;
-        right: -100%;
+        right: -100%; /* Ensure it's fully off-screen */
+        padding: 20px 16px 16px 16px;
     }
     
     .menu-open .menu-overlay {
@@ -393,7 +398,7 @@ line-height: 64px;
     
     .menu-content ul {
         padding-top: 80px;
-        padding-left: 20px;
+        padding-left: 16px; /* Maintain consistent left padding */
     }
     
     .menu-content li {
@@ -402,7 +407,14 @@ line-height: 64px;
     
     .menu-content a {
         font-size: 18px;
-        padding: 6px 0;
+        padding: 24px 0 0 0; /* Maintain consistent top padding */
+    }
+    
+    .menu-content__button {
+        padding: 16px 24px;
+        font-size: 16px;
+        line-height: 20px;
+        margin: 0 0 16px 0; /* Maintain bottom margin */
     }
     
     .close-btn {
@@ -416,13 +428,15 @@ line-height: 64px;
 /* Дополнительный адаптив для еще меньших экранов */
 @media (max-width: 480px) {
     .menu-overlay {
+        border-radius: 12px;
         width: calc(100% - 32px);
-        padding: 20px;
+        max-width: 100%;
+        padding: 20px 16px 16px 16px; /* Updated padding to maintain button position */
     }
     
     .menu-content ul {
         padding-top: 60px;
-        padding-left: 10px;
+        padding-left: 16px; /* Maintain consistent left padding */
     }
     
     .menu-content li {
@@ -431,7 +445,14 @@ line-height: 64px;
     
     .menu-content a {
         font-size: 16px;
-        padding: 4px 0;
+        padding: 24px 0 0 0; /* Maintain consistent top padding */
+    }
+    
+    .menu-content__button {
+        padding: 12px 16px;
+        font-size: 14px;
+        line-height: 18px;
+        margin: 0 0 16px 0; /* Maintain bottom margin */
     }
     
     .close-btn {
@@ -450,12 +471,13 @@ line-height: 64px;
 @media (max-width: 374px) {
     .menu-overlay {
         width: calc(100% - 20px);
-        padding: 15px;
+        height: calc(100% - 20px);
+        padding: 15px 16px 16px 16px; /* Updated padding to maintain button position */
     }
     
     .menu-content ul {
         padding-top: 50px;
-        padding-left: 5px;
+        padding-left: 10px;
     }
     
     .menu-content li {
@@ -463,11 +485,15 @@ line-height: 64px;
     }
     
     .menu-content a {
-        font-size: 14px;
+        font-size: 15px;
+        padding: 16px 0 0 0; /* Slightly reduced for very small screens */
     }
     
     .menu-content__button {
-        margin-top: 10px;
+        padding: 10px 14px;
+        font-size: 13px;
+        line-height: 16px;
+        margin: 0 0 16px 0; /* Maintain bottom margin */
     }
 }
 
@@ -604,7 +630,7 @@ body:not(.menu-open) .menu-content__button {
 .menu-content ul {
     list-style: none;
     padding-top: 120px;
-    padding-left: 40px;
+    padding-left: 16px; /* Left padding as requested */
     margin: 0;
 }
 
@@ -614,12 +640,13 @@ body:not(.menu-open) .menu-content__button {
 
 .menu-content a {
     text-decoration: none;
-    color: #f1f1f1;
+    color: #fff;
     font-size: 22px;
     font-weight: 500;
     transition: color 0.2s;
     display: block;
-    padding: 8px 0;
+    padding: 24px 0 0 0; /* Top padding as requested */
+    text-align: left; /* Ensure left alignment */
 }
 
 .menu-content a:hover {

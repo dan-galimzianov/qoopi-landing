@@ -168,15 +168,36 @@ document.addEventListener('DOMContentLoaded', function () {
           });
         });
   
+        // Функция для закрытия выпадающего списка
+        function closeDropdown() {
+          multiSelectDropdown.classList.remove('open');
+          if (arrow) arrow.classList.remove('up');
+          multiSelectHeader.setAttribute('aria-expanded', 'false');
+        }
+        
+        // Делаем функцию доступной глобально
+        window.closeCategoryDropdown = closeDropdown;
+        
+        // Добавляем обработчик клика на модальное окно селлеров
+        const sellerModalContainer = document.querySelector('#sellerModal .modal-container');
+        if (sellerModalContainer) {
+          sellerModalContainer.addEventListener('click', function(e) {
+            // Проверяем, что клик был не внутри мультиселектора
+            if (!multiSelectContainer.contains(e.target) && 
+                !multiSelectHeader.contains(e.target) && 
+                multiSelectDropdown.classList.contains('open')) {
+              closeDropdown();
+            }
+          });
+        }
+  
         // Закрыть дропдаун при клике вне элемента
         document.addEventListener('click', function (e) {
           if (
             !multiSelectHeader.contains(e.target) &&
             !multiSelectDropdown.contains(e.target)
           ) {
-            multiSelectDropdown.classList.remove('open');
-            if (arrow) arrow.classList.remove('up');
-            multiSelectHeader.setAttribute('aria-expanded', 'false');
+            closeDropdown();
           }
         });
   
@@ -224,6 +245,20 @@ document.addEventListener('DOMContentLoaded', function () {
         if (multiSelectHeader && multiSelectDropdown && options.length > 0) {
           // Интеграция существующего мультиселектора с окном продавца
           initStandaloneMultiSelect();
+          
+          // Предотвращаем распространение событий клика от мультиселектора
+          // для предотвращения закрытия модального окна
+          multiSelectContainer.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+          
+          multiSelectHeader.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+          
+          multiSelectDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
         }
       }
     }

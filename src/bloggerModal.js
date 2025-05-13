@@ -494,20 +494,30 @@ document.addEventListener('DOMContentLoaded', function () {
       // Обработчик клика на заголовок
       multiSelectHeader.addEventListener('click', function (e) {
         e.stopPropagation(); // Останавливаем распространение события
-        const isExpanded = multiSelectDropdown.classList.toggle('open');
+        const isExpanded = !multiSelectDropdown.classList.contains('open');
+        
+        // Сбрасываем ошибку при клике
+        multiSelectHeader.classList.remove('error-field');
+        const span = multiSelectHeader.querySelector('span');
+        if (span && span.style.color === 'rgb(255, 59, 48)') { // #ff3b30
+          span.style.removeProperty('color');
+        }
         
         // Важно: убедимся, что display не установлен в none
         if (isExpanded) {
+          multiSelectDropdown.classList.add('open');
           multiSelectDropdown.style.display = 'block';
           multiSelectDropdown.style.visibility = 'visible';
           multiSelectDropdown.style.opacity = '1';
           multiSelectDropdown.style.maxHeight = '300px';
           multiSelectDropdown.style.overflowY = 'auto';
+          multiSelectDropdown.style.pointerEvents = 'auto'; // Важно для кликабельности
           multiSelectDropdown.style.transform = 'translateY(0)'; // Сбрасываем transform для анимации
+          arrow.classList.add('up');
+          multiSelectHeader.setAttribute('aria-expanded', 'true');
+        } else {
+          closeSocialNetworkDropdown();
         }
-        
-        arrow.classList.toggle('up', isExpanded);
-        multiSelectHeader.setAttribute('aria-expanded', isExpanded);
       });
       
       // Обработчик клика на опции
@@ -517,6 +527,15 @@ document.addEventListener('DOMContentLoaded', function () {
               const isSelected = !option.classList.contains('selected');
               updateOptionState(option, isSelected);
               updateHeader();
+  
+              // Если опция выбрана, сбрасываем ошибку и красный цвет текста
+              if (isSelected) {
+                const span = multiSelectHeader.querySelector('span');
+                if (span) {
+                  span.style.removeProperty('color');
+                }
+                multiSelectHeader.classList.remove('error-field');
+            }
           });
         });
       
@@ -554,10 +573,10 @@ document.addEventListener('DOMContentLoaded', function () {
             multiSelectDropdown.classList.contains('open')
           ) {
             closeSocialNetworkDropdown();
-          }
-        });
-      }
-      
+        }
+      });
+    }
+  
       // Закрытие при изменении размера окна
       window.addEventListener('resize', closeSocialNetworkDropdown);
       
@@ -622,6 +641,84 @@ document.addEventListener('DOMContentLoaded', function () {
     initLiveValidation();
     // Инициализируем стили для textarea
     initTextareaStyles();
+  
+    // Добавляем обработчики для чекбокса соглашения
+    const agreementCheckbox = document.getElementById('agreement');
+    if (agreementCheckbox) {
+      // Обработчик события change
+      agreementCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          console.log('Чекбокс соглашения отмечен, убираем ошибку');
+          const checkboxGroup = this.closest('.checkbox-group');
+          if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+            checkboxGroup.classList.remove('error');
+          }
+          
+          // Проверяем, можно ли скрыть сообщение об ошибке
+          const formAlert = document.getElementById('form-alert');
+          if (formAlert && formAlert.style.display === 'flex') {
+            // Проверяем наличие других ошибок
+            const hasOtherErrors = document.querySelector('#blogger-form .error-field') || 
+                                document.querySelector('#blogger-form .checkbox-group.error');
+            if (!hasOtherErrors) {
+              formAlert.style.display = 'none';
+            }
+          }
+        }
+      });
+      
+      // Дополнительный обработчик события click для надежности
+      agreementCheckbox.addEventListener('click', function() {
+        setTimeout(() => {
+          if (this.checked) {
+            console.log('Чекбокс соглашения кликнут, убираем ошибку');
+            const checkboxGroup = this.closest('.checkbox-group');
+            if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+              checkboxGroup.classList.remove('error');
+            }
+            
+            // Проверяем, можно ли скрыть сообщение об ошибке
+            const formAlert = document.getElementById('form-alert');
+            if (formAlert && formAlert.style.display === 'flex') {
+              // Проверяем наличие других ошибок
+              const hasOtherErrors = document.querySelector('#blogger-form .error-field') || 
+                                  document.querySelector('#blogger-form .checkbox-group.error');
+              if (!hasOtherErrors) {
+                formAlert.style.display = 'none';
+              }
+            }
+          }
+        }, 0);
+      });
+      
+      // Добавляем обработчик для метки чекбокса
+      const agreementLabel = document.querySelector('label[for="agreement"]');
+      if (agreementLabel) {
+        agreementLabel.addEventListener('click', function() {
+          setTimeout(() => {
+            // Проверяем состояние чекбокса после клика по метке
+            if (agreementCheckbox.checked) {
+              console.log('Клик по метке чекбокса, убираем ошибку');
+              const checkboxGroup = agreementCheckbox.closest('.checkbox-group');
+              if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+                checkboxGroup.classList.remove('error');
+              }
+              
+              // Проверяем, можно ли скрыть сообщение об ошибке
+              const formAlert = document.getElementById('form-alert');
+              if (formAlert && formAlert.style.display === 'flex') {
+                // Проверяем наличие других ошибок
+                const hasOtherErrors = document.querySelector('#blogger-form .error-field') || 
+                                  document.querySelector('#blogger-form .checkbox-group.error');
+                if (!hasOtherErrors) {
+                  formAlert.style.display = 'none';
+                }
+              }
+            }
+          }, 10); // Немного большая задержка для надежности
+        });
+      }
+    }
   
     // Финальная настройка селектора для гарантированной работы
     setTimeout(function() {
@@ -757,7 +854,7 @@ document.addEventListener('DOMContentLoaded', function () {
       socialNetworkInput.addEventListener('change', function () {
         // Фокусируемся на поле ввода аккаунта
         accountInput.focus();
-        
+  
         // Добавляем обработчик ввода, чтобы проверять заполнение
         accountInput.removeEventListener('input', handleAccountInput);
         accountInput.addEventListener('input', handleAccountInput);
@@ -972,6 +1069,16 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!formData.socialNetwork) {
         // Проверяем скрытое поле socialNetwork
         showError(document.getElementById('socialNetwork'));
+        
+        // Дополнительно подсвечиваем текст заголовка красным
+        const multiSelectHeader = document.getElementById('socialNetworkHeader');
+        if (multiSelectHeader) {
+          const span = multiSelectHeader.querySelector('span');
+          if (span) {
+            span.style.color = '#ff3b30';
+          }
+        }
+        
         isValid = false;
         console.log('Ошибка: социальная сеть не выбрана');
       }
@@ -1039,12 +1146,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
   
       // Если поле - скрытый input для селектора, подсветить заголовок селектора
-      if (field.type === 'hidden') {
-        const container = field.closest('.modal-select-container');
-        if (container) {
-          const header = container.querySelector('.modal-select-header');
-          if (header) {
-            header.classList.add('error-field');
+      if (field.type === 'hidden' && field.id === 'socialNetwork') {
+        const multiSelectHeader = document.getElementById('socialNetworkHeader');
+        if (multiSelectHeader) {
+          multiSelectHeader.classList.add('error-field');
+          
+          // Подсвечиваем текст красным
+          const span = multiSelectHeader.querySelector('span');
+          if (span) {
+            span.style.color = '#ff3b30';
           }
         }
       }
@@ -1096,5 +1206,58 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     }
+  });
+  
+  // Отложенная инициализация обработчика для чекбокса соглашения
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ручная инициализация обработчика для чекбокса соглашения после полной загрузки DOM
+    setTimeout(function() {
+      const agreementCheckbox = document.getElementById('agreement');
+      if (agreementCheckbox) {
+        // Проверяем, не имеет ли чекбокс уже обработчики с флагом
+        if (!agreementCheckbox._hasGlobalHandlers) {
+          agreementCheckbox._hasGlobalHandlers = true;
+          
+          // Обработчик события change
+          agreementCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+              console.log('Чекбокс соглашения изменен, убираем ошибку (глобальный обработчик)');
+              const checkboxGroup = this.closest('.checkbox-group');
+              if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+                checkboxGroup.classList.remove('error');
+                
+                // Проверяем, можно ли скрыть сообщение об ошибке
+                const formAlert = document.getElementById('form-alert');
+                if (formAlert && formAlert.style.display === 'flex') {
+                  // Проверяем наличие других ошибок
+                  const hasOtherErrors = document.querySelector('#blogger-form .error-field') || 
+                                      document.querySelector('#blogger-form .checkbox-group.error');
+                  if (!hasOtherErrors) {
+                    formAlert.style.display = 'none';
+                  }
+                }
+              }
+            }
+          });
+          
+          // Дополнительный обработчик для клика
+          agreementCheckbox.addEventListener('click', function(e) {
+            // Остановим всплытие, чтобы предотвратить конфликты
+            e.stopPropagation();
+            
+            // Отложенная проверка состояния
+            setTimeout(() => {
+              if (this.checked) {
+                const checkboxGroup = this.closest('.checkbox-group');
+                if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+                  console.log('Чекбокс соглашения кликнут (глобальный обработчик)');
+                  checkboxGroup.classList.remove('error');
+                }
+              }
+            }, 0);
+          });
+        }
+      }
+    }, 500); // Задержка для гарантии, что DOM полностью загрузился
   });
   
