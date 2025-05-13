@@ -30,6 +30,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // Обработчик клика по пункту меню
   let activeSection = "1";
 
+  // Функция для навигации к секции
+  const navigateToSection = (sectionId: string) => {
+    if (!sectionId) return;
+    
+    // Выделяем активный пункт меню в основной навигации
+    navItems.forEach(navItem => {
+      navItem.classList.remove('hero-section__nav-link_active');
+      if (navItem.getAttribute('data-section-id') === sectionId) {
+        navItem.classList.add('hero-section__nav-link_active');
+      }
+    });
+    
+    // Показываем/скрываем соответствующие секции
+    const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-link):not(.menu-nav-link)');
+    document.body.classList.remove(`blot_${activeSection}`);
+    document.body.classList.add(`blot_${sectionId}`);
+    activeSection = sectionId;
+
+    allSections.forEach(section => {
+      const sectionElement = section as HTMLElement;
+      if (section.getAttribute('data-section-id') === sectionId) {
+        sectionElement.style.setProperty('opacity', '1');
+        sectionElement.style.setProperty('visibility', 'visible');
+      } else {
+        sectionElement.style.setProperty('opacity', '0');
+        sectionElement.style.setProperty('visibility', 'hidden');
+      }
+    });
+  };
+
   navItems.forEach(item => {
     item.addEventListener('click', () => {
       // Получаем id секции из атрибута
@@ -41,29 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         block: 'nearest',
         inline: 'start'
       });
-            // Выделяем активный пункт меню
-      navItems.forEach(navItem => {
-        navItem.classList.remove('hero-section__nav-link_active');
-      });
-      item.classList.add('hero-section__nav-link_active');
       
-      // Показываем/скрываем соответствующие секции
-
-      const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-link)');
-      document.body.classList.remove(`blot_${activeSection}`);
-      document.body.classList.add(`blot_${sectionId}`);
-      activeSection = sectionId;
-
-      allSections.forEach(section => {
-        const sectionElement = section as HTMLElement;
-        if (section.getAttribute('data-section-id') === sectionId) {
-          sectionElement.style.setProperty('opacity', '1');
-          sectionElement.style.setProperty('visibility', 'visible');
-        } else {
-          sectionElement.style.setProperty('opacity', '0');
-          sectionElement.style.setProperty('visibility', 'hidden');
-        }
-      });
+      navigateToSection(sectionId);
     });
   });
   
@@ -126,6 +135,39 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('menu-open');
       }
     }
+  });
+
+  // Обработчики для навигационных ссылок в меню
+  const menuNavLinks = document.querySelectorAll('.menu-nav-link');
+  menuNavLinks.forEach(link => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      
+      // Получаем id секции из элемента
+      const element = event.currentTarget as HTMLElement;
+      const sectionId = element.getAttribute('data-section-id');
+      
+      // Закрываем меню
+      document.body.classList.remove('menu-open');
+      
+      // Переходим к соответствующей секции
+      if (sectionId) {
+        // Небольшая задержка перед навигацией для плавного закрытия меню
+        setTimeout(() => {
+          navigateToSection(sectionId);
+          
+          // Находим соответствующий пункт в основной навигации и делаем скролл к нему
+          const mainNavItem = document.querySelector(`.hero-section__nav-link[data-section-id="${sectionId}"]`) as HTMLElement;
+          if (mainNavItem) {
+            mainNavItem.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'start'
+            });
+          }
+        }, 300);
+      }
+    });
   });
 
   const initHorizontalCarousel = async (id: string, duration: number) => {

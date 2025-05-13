@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Элементы модального окна брендов
     const brandModal = document.getElementById('brandModal');
-    const openBrandModalBtn = document.getElementById('openBrandModalBtn');
+    const openBrandModalBtns = document.querySelectorAll('.openBrandModalBtn');
     const closeBrandModalBtn = document.getElementById('closeBrandModalBtn');
     const brandForm = document.getElementById('brand-form');
     const submitBrandBtn = document.getElementById('submitBrandBtn');
@@ -441,8 +441,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   
     // Обработчики событий для модального окна брендов
-    if (openBrandModalBtn) {
-      openBrandModalBtn.addEventListener('click', openBrandModal);
+    if (openBrandModalBtns && openBrandModalBtns.length > 0) {
+      console.log('Найдено', openBrandModalBtns.length, 'кнопок открытия модалки брендов');
+      
+      // Добавляем обработчик для всех кнопок
+      openBrandModalBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          console.log('Клик по кнопке открытия модального окна брендов');
+          e.preventDefault();
+          e.stopPropagation();
+          openBrandModal();
+        });
+      });
+    } else {
+      console.warn('Кнопки открытия модального окна брендов не найдены');
     }
   
     if (closeBrandModalBtn) {

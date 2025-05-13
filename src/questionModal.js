@@ -20,7 +20,7 @@ function initAutoResizeTextarea() {
     
     // Элементы модального окна
     const questionModal = document.getElementById('questionModal');
-    const openQuestionModalBtn = document.querySelectorAll('.openQuestionModalBtn');
+    const openQuestionModalBtn = document.getElementById('openQuestionModalBtn');
     
     console.log('questionModal:', questionModal);
     console.log('openQuestionModalBtn:', openQuestionModalBtn);

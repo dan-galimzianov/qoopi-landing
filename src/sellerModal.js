@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Элементы модального окна
     const sellerModal = document.getElementById('sellerModal');
-    const openSellerModalBtn = document.getElementById('openSellerModalBtn');
+    const openSellerModalBtns = document.querySelectorAll('.openSellerModalBtn');
     const closeSellerModalBtn = document.getElementById('closeSellerModalBtn');
     const sellerForm = document.getElementById('seller-form');
     const submitSellerBtn = document.getElementById('submitSellerBtn');
@@ -616,8 +616,20 @@ document.addEventListener('DOMContentLoaded', function () {
   
     // Настройка обработчиков событий
     function setupEventListeners() {
-      if (openSellerModalBtn) {
-        openSellerModalBtn.addEventListener('click', openSellerModal);
+      if (openSellerModalBtns && openSellerModalBtns.length > 0) {
+        console.log('Найдено', openSellerModalBtns.length, 'кнопок открытия модалки селлеров');
+        
+        // Добавляем обработчик для всех кнопок селлеров
+        openSellerModalBtns.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            console.log('Клик по кнопке открытия модального окна селлеров');
+            e.preventDefault();
+            e.stopPropagation();
+            openSellerModal();
+          });
+        });
+      } else {
+        console.warn('Кнопки открытия модального окна селлеров не найдены');
       }
   
       if (closeSellerModalBtn) {

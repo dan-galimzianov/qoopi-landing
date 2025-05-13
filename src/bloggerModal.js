@@ -641,19 +641,19 @@ document.addEventListener('DOMContentLoaded', function () {
     initTextareaStyles();
   
     // Добавляем обработчики для чекбокса соглашения
-    const agreementCheckbox = document.getElementById('agreement');
-    if (agreementCheckbox) {
+      const agreementCheckbox = document.getElementById('agreement');
+      if (agreementCheckbox) {
       // Обработчик события change
-      agreementCheckbox.addEventListener('change', function() {
+        agreementCheckbox.addEventListener('change', function() {
         if (this.checked) {
           console.log('Чекбокс соглашения отмечен, убираем ошибку');
           const checkboxGroup = this.closest('.checkbox-group');
           if (checkboxGroup && checkboxGroup.classList.contains('error')) {
             checkboxGroup.classList.remove('error');
           }
-          
-          // Проверяем, можно ли скрыть сообщение об ошибке
-          const formAlert = document.getElementById('form-alert');
+            
+            // Проверяем, можно ли скрыть сообщение об ошибке
+            const formAlert = document.getElementById('form-alert');
           if (formAlert && formAlert.style.display === 'flex') {
             // Проверяем наличие других ошибок
             const hasOtherErrors = document.querySelector('#blogger-form .error-field') || 
@@ -661,22 +661,22 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!hasOtherErrors) {
               formAlert.style.display = 'none';
             }
+            }
           }
-        }
-      });
-      
+        });
+        
       // Дополнительный обработчик события click для надежности
-      agreementCheckbox.addEventListener('click', function() {
-        setTimeout(() => {
+        agreementCheckbox.addEventListener('click', function() {
+          setTimeout(() => {
           if (this.checked) {
             console.log('Чекбокс соглашения кликнут, убираем ошибку');
             const checkboxGroup = this.closest('.checkbox-group');
             if (checkboxGroup && checkboxGroup.classList.contains('error')) {
               checkboxGroup.classList.remove('error');
             }
-            
+              
             // Проверяем, можно ли скрыть сообщение об ошибке
-            const formAlert = document.getElementById('form-alert');
+              const formAlert = document.getElementById('form-alert');
             if (formAlert && formAlert.style.display === 'flex') {
               // Проверяем наличие других ошибок
               const hasOtherErrors = document.querySelector('#blogger-form .error-field') || 
@@ -684,10 +684,10 @@ document.addEventListener('DOMContentLoaded', function () {
               if (!hasOtherErrors) {
                 formAlert.style.display = 'none';
               }
+              }
             }
-          }
-        }, 0);
-      });
+          }, 0);
+        });
       
       // Добавляем обработчик для метки чекбокса
       const agreementLabel = document.querySelector('label[for="agreement"]');
