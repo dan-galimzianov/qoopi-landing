@@ -14,9 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // Находим специально кнопки открытия в разных секциях
   const mainButtons = document.querySelectorAll('[data-section-id="1"] .open-modal-btn');
   const brandButtons = document.querySelectorAll('[data-section-id="2"] .open-modal-btn');
+  // Находим кнопку для брендов в секции 3
+  const brandSection3Button = document.querySelector('[data-section-id="3"] .hero-section__desktop-button');
+  // Находим кнопки для блоггеров
+  const bloggerButton = document.getElementById('openBloggerModalBtn');
+  const bloggerMobileButton = document.getElementById('openBloggerMobileBtn');
+  // Находим кнопку для продавцов (seller) в секции 4
+  const sellerButton = document.getElementById('openSellerModalBtn');
 
   console.log('Кнопки в секции 1:', mainButtons.length);
   console.log('Кнопки в секции 2:', brandButtons.length);
+  console.log('Кнопка бренда в секции 3:', brandSection3Button ? 'найдена' : 'не найдена');
+  console.log('Кнопка блоггера в секции 2:', bloggerButton ? 'найдена' : 'не найдена');
+  console.log('Мобильная кнопка блоггера:', bloggerMobileButton ? 'найдена' : 'не найдена');
+  console.log('Кнопка продавца в секции 4:', sellerButton ? 'найдена' : 'не найдена');
   
   // Инициализация событий только если найдены нужные элементы
   if (modal) {
@@ -98,31 +109,85 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Функция открытия модального окна для брендов
     function openBrandModal() {
-      if (!window.brandModals || !window.brandModals.openBrandModal) {
+      if (typeof openBrandModalFunction === 'function') {
+        openBrandModalFunction();
+      } else if (window.brandMultiSelect) {
+        // Прямой вызов функции из brandModals.js
+        const brandModalElement = document.getElementById('brandModal');
+        if (brandModalElement) {
+          brandModalElement.style.display = 'flex';
+          setTimeout(function() {
+            brandModalElement.classList.add('active');
+          }, 10);
+        } else {
+          console.warn('Элемент модального окна для брендов не найден');
+          openModal();
+        }
+      } else {
         console.warn('Модальное окно для брендов не найдено');
         console.log('Открываем обычное модальное окно вместо модального окна брендов');
         openModal();
-        return;
+      }
+    }
+    
+    // Функция для определения, активна ли секция с данным ID
+    function isSectionActive(sectionId) {
+      const sections = document.querySelectorAll(`[data-section-id="${sectionId}"]`);
+      for (let i = 0; i < sections.length; i++) {
+        if (sections[i].classList.contains('section-active')) {
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    // Обработчик клика по кнопке с проверкой активной секции
+    document.addEventListener('click', function(e) {
+      // Проверка на кнопку блоггеров
+      if (e.target === bloggerButton || e.target.closest('#openBloggerModalBtn')) {
+        e.preventDefault();
+        if (isSectionActive('2')) {
+          console.log('Клик по кнопке блоггеров в активной секции 2');
+          openModal();
+        }
       }
       
-      window.brandModals.openBrandModal();
-    }
+      // Проверка на мобильную кнопку блоггеров
+      if (e.target === bloggerMobileButton || e.target.closest('#openBloggerMobileBtn')) {
+        e.preventDefault();
+        if (isSectionActive('2')) {
+          console.log('Клик по мобильной кнопке блоггеров в активной секции 2');
+          openModal();
+        }
+      }
+      
+      // Проверка на кнопку брендов
+      if (e.target === brandSection3Button || e.target.closest('[data-section-id="3"] .hero-section__desktop-button')) {
+        e.preventDefault();
+        if (isSectionActive('3')) {
+          console.log('Клик по кнопке брендов в активной секции 3');
+          openBrandModal();
+        }
+      }
+      
+      // Проверка на кнопку продавцов
+      if (e.target === sellerButton || e.target.closest('#openSellerModalBtn')) {
+        e.preventDefault();
+        if (isSectionActive('4')) {
+          console.log('Клик по кнопке продавцов в активной секции 4');
+          openModal();
+        }
+      }
+    });
     
     // Добавляем обработчики событий для кнопок в секции 1
     mainButtons.forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
-        console.log('Клик по кнопке в секции 1');
-        openModal();
-      });
-    });
-    
-    // Добавляем обработчики событий для кнопок в секции 2
-    brandButtons.forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('Клик по кнопке в секции 2');
-        openBrandModal();
+        if (isSectionActive('1')) {
+          console.log('Клик по кнопке в активной секции 1');
+          openModal();
+        }
       });
     });
     

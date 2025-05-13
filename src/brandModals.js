@@ -519,6 +519,9 @@ document.addEventListener('DOMContentLoaded', function () {
       openBrandModal,
       closeBrandModal
     };
+
+    // Make the function available globally for modalInit.js
+    window.openBrandModalFunction = openBrandModal;
   });
   
   // Общая функция закрытия success modal
