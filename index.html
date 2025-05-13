@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Qoopi</title>
+    <script type="module" crossorigin src="/assets/index-DY454jwC.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CG9JRh46.css">
+  </head>
+  <body>
+        <!-- Модальное окно для блоггеров-->
+        <div class="modal-overlay" id="modal">
+          <div class="modal-container">
+            <!-- Заголовок и кнопка закрытия -->
+            <div class="modal-header">
+              <h3>Стать блогером на qoopi</h3>
+              <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div>
+              <p class="subtitle">
+                Заполните анкету и мы свяжемся с вами в ближайшее время
+              </p>
+            </div>
+    
+            <!-- Основное содержимое модалки -->
+            <div class="modal-content">
+              <form id="blogger-form">
+                <!-- Группа полей ввода -->
+                <div class="form-group">
+                  <label for="name" class="required">Имя и фамилия</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="Константин Константинопольский"
+                  />
+                  <div class="error-message" id="name-error"></div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="email" class="required">Электронная почта</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="example@mail.com"
+                    required
+                  />
+                  <div class="error-message" id="email-error"></div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="phone" class="required">Номер телефона</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+7"
+                    required
+                  />
+                  <div class="error-message" id="phone-error"></div>
+                </div>
+                <div class="form-group">
+                  <label for="socialNetwork" class="required"
+                    >Социальная сеть</label
+                  >
+    
+                  <div class="modal-select-container">
+                    <!-- Скрытое поле для отправки данных формы -->
+                    <input
+                      type="hidden"
+                      name="socialNetwork"
+                      id="socialNetwork"
+                      value=""
+                    />
+    
+                    <!-- Заголовок селектора -->
+                    <div
+                      class="modal-select-header"
+                      tabindex="0"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-controls="socialNetworkDropdown"
+                      data-placeholder="Выберите социальную сеть"
+                    >
+                      <span>Выберите социальную сеть</span>
+                      <div class="modal-select-arrow"></div>
+                    </div>
+    
+                    <!-- Выпадающий список опций -->
+                    <div
+                      id="socialNetworkDropdown"
+                      class="modal-select-dropdown"
+                      role="listbox"
+                    >
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="instagram"
+                      >
+                        <span>Instagram</span>
+                      </div>
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="youtube"
+                      >
+                        <span>YouTube</span>
+                      </div>
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="tiktok"
+                      >
+                        <span>TikTok</span>
+                      </div>
+                      <div
+                        class="modal-select-option"
+                        role="option"
+                        tabindex="0"
+                        aria-selected="false"
+                        data-value="other"
+                      >
+                        <span>Другая</span>
+                      </div>
+                    </div>
+    
+                    <!-- Элемент для скринридеров -->
+                    <div class="modal-select-live-region" aria-live="polite"></div>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="account" class="required"
+                    >Ссылка на ваш аккаунт</label
+                  >
+                  <input
+                    type="url"
+                    id="account"
+                    name="account"
+                    placeholder="https://"
+                    required
+                  />
+                  <div class="error-message" id="account-error"></div>
+                </div>
+    
+                <div class="form-group">
+                  <label for="followers" class="required"
+                    >Количество подписчиков</label
+                  >
+                  <input
+                    type="text"
+                    id="followers"
+                    name="followers"
+                    placeholder="Укажите количество"
+                    required
+                  />
+                  <div class="error-message" id="followers-error"></div>
+                </div>
+              </form>
+            </div>
+            <footer class="modal-footer">
+              <div class="form-alert" id="form-alert">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Круг-обруч -->
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="9"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    fill="none"
+                  />
+                  <!-- Восклицательный знак -->
+                  <path
+                    d="M10 5v6M10 14v1"
+                    stroke="#FF3B30"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span>Заполните все поля</span>
+              </div>
+              <!-- Чекбоксы -->
+              <div class="checkboxes">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="agreement" name="agreement" required />
+                  <label for="agreement"
+                    >Я принимаю условия&nbsp;
+                    <a href="#" target="_blank" class="text-link"
+                      >пользовательского соглашения</a
+                    ></label
+                  >
+                </div>
+    
+                <div class="checkbox-group">
+                  <input
+                    type="checkbox"
+                    id="newsletter"
+                    name="newsletter"
+                    checked
+                  />
+                  <label for="newsletter"
+                    >Я согласен получать письма от qoopi</label
+                  >
+                </div>
+              </div>
+    
+              <!-- Кнопка отправки -->
+              <button type="submit" class="submit-btn">Отправить заявку</button>
+            </footer>
+          </div>
+        </div>
+         <!-- Success Modal -->
+        <div class="success-modal" id="successModal">
+          <div class="success-modal__container">
+            <button class="success-modal__close" id="successModalClose">
+              &times;
+            </button>
+            <div class="success-modal__icon">
+              <svg
+                width="84"
+                height="84"
+                viewBox="0 0 84 84"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M42 83.6663C65.0116 83.6663 83.6666 65.0113 83.6666 41.9997C83.6666 35.563 82.2071 29.4669 79.6008 24.0248L48.0275 55.598C42.9429 60.683 34.6983 60.683 29.6134 55.598L17.169 43.1534C15.135 41.1193 15.135 37.8218 17.169 35.7876C19.2029 33.7538 22.5007 33.7538 24.5346 35.7876L36.9791 48.2322C37.9962 49.2493 39.645 49.2493 40.6621 48.2322L73.8087 15.0853C66.1658 6.06142 54.7516 0.333008 42 0.333008C18.9881 0.333008 0.333313 18.9878 0.333313 41.9997C0.333313 65.0113 18.9881 83.6663 42 83.6663Z"
+                  fill="#15B385"
+                />
+              </svg>
+            </div>
+            <div class="success-modal__message">Ваша заявка отправлена</div>
+          </div>
+        </div>
+
+      <main class="hero">
+        <header class="header">
+          <div class="header__logo">
+            <img src="/assets/logo-C6872_Bd.svg" alt="Qoopi">
+          </div>
+          <div class="header__menu-burger">
+            <div class="header__menu-burger-line"></div>
+            <div class="header__menu-burger-line"></div>
+            <div class="header__menu-burger-line"></div>
+          </div>
+        </header>
+        
+        <div class="menu-overlay" id="menuOverlay">
+            <div class="close-btn" id="closeBtn">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-content">
+                <ul>
+                    <li><a href="#">О qoopi</a></li>
+                    <li><a href="#">Блогерам</a></li>
+                    <li><a href="#">Брендам</a></li>
+                    <li><a href="#">Селлерам</a></li>
+                </ul>
+            </div>
+            <button class="menu-content__button">Задать вопрос</button>
+        </div>
+        
+        <section class="hero-section hero__section">
+          <nav class="hero-section__nav">
+            <ul class="hero-section__nav-list">
+              <li class="hero-section__nav-item" data-section-id="1">
+                О qoopi
+              </li>
+              <li class="hero-section__nav-item" data-section-id="2">
+                Блогерам
+              </li>
+              <li class="hero-section__nav-item" data-section-id="3">
+                Брендам
+              </li>
+              <li class="hero-section__nav-item" data-section-id="4">
+                Селлерам
+              </li>
+              
+            </ul>
+          </nav>
+          <div class="hero-section__content" data-section-id="1">
+            <div class="hero-section__content-title title title_h1">
+              Создайте собственную <br> витрину на qoopi
+            </div>
+            <div class="title title_h4 title_secondary hero-section__content-description">
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
+            </div>
+            <button class="button hero-section__desktop-button open-modal-btn" id="openMainModalBtn">
+              Создать витрину
+            </button>
+          </div>
+          <div class="hero-section__content" data-section-id="2">
+            <div class="hero-section__content-title title title_h1">
+              Рекомендуйте любимые товары и бренды и зарабатывайте
+            </div>
+            <div class="title title_h4 title_secondary hero-section__content-description">
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
+            </div>
+            <button class="hero-section__desktop-button button">
+              Создать витрину
+            </button>
+          </div>
+          <div class="hero-section__content" data-section-id="3">
+            <div class="hero-section__content-title title title_h1">
+              Продвигайте свои товары и бренд через витрины блогеров и экспертов
+            </div>
+            <div class="title title_h4 title_secondary hero-section__content-description">
+              Заказывайте  распаковки или просто разрешите добавить товары на свою витрину в qoopi
+            </div>
+            <button class="hero-section__desktop-button button">
+              Создать витрину
+            </button>
+          </div>
+          <div class="hero-section__content" data-section-id="4">
+            <div class="hero-section__content-title title title_h1">
+              Внешний трафик на карточки товаров маркетплейсов с оплатой за результат
+            </div>
+            <div class="title title_h4 title_secondary hero-section__content-description">
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
+            </div>
+            <button class="hero-section__desktop-button button open-modal-btn" id="openBloggerModalBtn">
+              Создать витрину
+            </button>
+          </div>
+        </section>
+
+        <div class="hero-sliders" data-section-id="1">
+          <section class="carousel hero-sliders__carousel" id="carousel1">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo4-Cioi-40q.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+            </div>
+          </section>
+          <section class="carousel hero-sliders__carousel" id="carousel2">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video">                                        
+                      <source src="/assets/video1-CBqWmmji.mp4" type="video/mp4">
+                    </video>
+                </div>
+              <div class="carousel__slide">
+
+                <div class="media-item">
+                  <img src="/assets/photo1-DaTbND-6.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                 <div class="media-item">
+                    <img src="/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video">                                        
+                      <source src="/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                    </video>
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo2-B_9jW6mP.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                    <img src="/assets/outline6-to4KD5xY.png" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video">                                        
+                      <source src="/assets/video3-D64JwrUn.mp4" type="video/mp4">
+                    </video>
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo3-CBSjtr_g.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                 <div class="media-item">
+                    <img src="/assets/outline7-0JwI4XPa.png" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video">                                        
+                      <source src="/assets/video4-BXKcBcEb.mp4" type="video/mp4">
+                    </video>
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo4-z0fEuEMe.png" class="media-item__image">
+                </div>
+                
+            </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="brands-media" data-section-id="3">
+          <section class="carousel brands-media__carousel" id="carousel3">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo4-Cioi-40q.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+            </div>
+          </section>
+          <section class="carousel carousel_horizontal brands-media__mobile-carousel" id="brands-media-mobile-carousel">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo4-Cioi-40q.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                  <div class="media-item">
+                      <img src="/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video">                                        
+                        <source src="/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                      </video>
+                  </div>
+              </div>
+            </div>
+          </section>
+          <div class="brands-media__app-preview">
+            <video class="brands-media__app-preview-video" autoplay loop muted playsinline>
+              <source src="/assets/video1-CD49TGnt.mp4" type="video/mp4">
+            </video>
+            <img src="/assets/app-preview-BojDKGPC.png" alt="App preview">
+          </div>
+          <div class="brands-media__mobile-button-container">
+            <button class="button brands-media__mobile-button">
+              Создать витрину
+            </button>
+          </div>
+        </div>
+
+        <div class="sellers-media" data-section-id="4">
+          <section class="carousel sellers-media__carousel" id="sellers-media-carousel">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo1-BKHTqNMK.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo2-DIjaSbwK.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo3-QPE9ZKLm.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo4-Bf24Kh2E.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo5-BFSFIyeD.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo6-DJREISqC.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo7-xIfK8qhA.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo8-BI2qxICL.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo9-DiW0_1W9.png" class="media-item__image">
+                </div>
+              </div>
+  
+            </div>
+          </section>
+          <section class="carousel carousel_horizontal sellers-media__mobile-carousel" id="sellers-media-mobile-carousel">
+            <div class="carousel__wrapper">
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo1-BKHTqNMK.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo2-DIjaSbwK.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo3-QPE9ZKLm.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo4-Bf24Kh2E.png" class="media-item__image">
+                </div>
+              </div>
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo5-BFSFIyeD.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo6-DJREISqC.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo7-xIfK8qhA.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo8-BI2qxICL.png" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo9-DiW0_1W9.png" class="media-item__image">
+                </div>
+              </div>
+  
+            </div>
+          </section>
+          <div class="sellers-media__app-preview">
+            <video class="sellers-media__app-preview-video" autoplay loop muted playsinline>
+              <source src="./src/assets/sellers/video1.mp4" type="video/mp4">
+            </video>
+            <img src="/assets/app-preview-D4ZnQ-t3.png" alt="App preview">
+          </div>
+          <div class="sellers-media__mobile-button-container">
+            <button class="button sellers-media__mobile-button">
+              Создать витрину
+            </button>
+          </div>
+        </div>
+        
+        
+        <section class="hero-sliders-mobile" data-section-id="1">
+          <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
+            <div class="carousel__wrapper">
+              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video1-CBqWmmji.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/assets/photo1-DaTbND-6.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/assets/photo2-B_9jW6mP.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/assets/outline6-to4KD5xY.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video3-D64JwrUn.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/assets/photo3-CBSjtr_g.png" class="media-item__image">
+                </div>
+              </div>
+              <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/photo4-Cioi-40q.png" class="media-item__image">
+                </div>
+                <div class="media-item">
+                  <img src="/assets/outline7-0JwI4XPa.png" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video4-BXKcBcEb.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>
+              <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
+              <div class="carousel__slide">
+                <div class="media-item">
+                  <img src="/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video">                                        
+                    <source src="/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="media-item">
+                  <img src="/assets/photo4-z0fEuEMe.png" class="media-item__image">
+                </div>
+              </div>
+            </div>
+          </section>
+          <button class="button hero-sliders-mobile__button">
+            Создать витрину
+          </button>
+        </section>
+
+        <section class="media-container" data-section-id="2">
+          <div class="media-section" data-section-id="2">
+            <div class="video-photo-container">
+              <div class="video-container">
+                <video class="blogers-video" autoplay loop muted playsinline>
+                  <source src="../src/assets/blogers/blogers-video.mp4" type="video/mp4">
+                </video>
+                <img src="../src/assets/blogers/blogers-video__outline.png" class="video-mask" alt="Video mask">
+              </div>
+              <img src="../src/assets/blogers/blogers-photo.jpg" class="blogers-photo" alt="Blogers photo">
+              <img src="../src/assets/blogers/photo_outline.png" class="blogers-photo" alt="">
+            </div>
+            <img src="../src/assets/blogers/blogers-phone.png" class="phone-image" alt="Phone">
+          </div>
+        </section>
+        
+        <div class="policy">
+          <div class="policy__copy">© qoopi 2025</div>
+          <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
+        </div>
+      </main>
+      <img class="blot_1" src="data:image/svg+xml,%3csvg%20width='1729'%20height='1055'%20viewBox='0%200%201729%201055'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1172.54%20829.417C1272.91%20824.54%201339.97%20799.549%201354.39%20753.63C1372.27%20697.552%201308.27%20621.562%201191.03%20544.557C1474.07%20607.34%201697.58%20596.165%201725.82%20507.578C1760.57%20398.674%201486.26%20213.779%201113%2094.9181C739.741%20-24.1458%20409.15%20-32.2729%20374.405%2076.632C356.524%20132.71%20420.529%20208.699%20537.77%20285.705C254.726%20222.922%2031.2163%20234.097%202.97287%20322.684C-29.944%20425.696%20214.087%20596.571%20556.463%20715.635C456.087%20720.512%20389.034%20745.503%20374.608%20791.422C339.862%20900.327%20614.169%201085.22%20987.43%201204.08C1360.69%201323.15%201691.28%201331.27%201726.03%201222.37C1758.94%201119.36%201514.91%20948.481%201172.54%20829.417Z'%20fill='%23373737'%20fill-opacity='0.32'/%3e%3c/svg%3e" alt="blot 1" data-section-id="1">
+      <img class="blot_2" src="data:image/svg+xml,%3csvg%20width='1624'%20height='1080'%20viewBox='0%200%201624%201080'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M1230.26%201030.26C1285.02%20975.503%201279.68%20871.876%201226.88%20751.959C1204.41%20700.846%201255.66%20649.598%201306.77%20672.067C1426.83%20724.73%201530.31%20730.212%201585.07%20675.453C1686.45%20574.079%201581.68%20304.756%201350.82%2073.9001C1119.97%20-156.956%20850.785%20-261.862%20749.271%20-160.347C694.512%20-105.588%20699.994%20-2.10207%20752.657%20117.956C775.126%20169.069%20723.878%20220.317%20672.765%20197.848C552.707%20145.185%20449.221%20139.703%20394.462%20194.462C339.703%20249.221%20345.045%20352.847%20397.848%20472.765C420.317%20523.878%20369.068%20575.126%20317.956%20552.657C197.898%20499.994%2094.4115%20494.512%2039.6527%20549.271C-61.7214%20650.645%2043.044%20919.968%20273.9%201150.82C504.756%201381.68%20774.079%201486.45%20875.453%201385.07C930.212%201330.31%20924.87%201226.69%20872.067%201106.77C849.597%201055.66%20900.846%201004.41%20951.959%201026.88C1072.02%201079.54%201175.5%201085.02%201230.26%201030.26Z'%20fill='%23373737'%20fill-opacity='0.32'/%3e%3c/svg%3e" alt="blot 2" data-section-id="2">
+      <script src="./src/modalInit.js"></script>
+      <script src="./src/bloggerModal.js"></script>
+      <script src="./src/selectDebug.js"></script>
+  </body>
+</html>
