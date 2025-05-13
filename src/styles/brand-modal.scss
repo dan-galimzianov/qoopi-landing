@@ -59,9 +59,7 @@ $transition-easing: ease;
     transform: translateY(0);
     opacity: 1;
 
-    @media (max-width: 860px) {
-      padding: 0;
-    }
+    
   }
 
   @media (max-width: 860px) {
