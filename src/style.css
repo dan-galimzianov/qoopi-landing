@@ -7,3 +7,5 @@
 @import './styles/sections.scss';
 @import './styles/blogger-modal.scss';
 @import './styles/success.scss';
+@import './styles/brands/main.scss';
+@import './styles/sellers/main.scss';
