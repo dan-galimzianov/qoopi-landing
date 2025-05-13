@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const multiSelectDropdown = document.getElementById(
         'brandCategoryDropdown'
       );
+      
+      if (!multiSelectHeader || !multiSelectDropdown) {
+        console.error('Элементы мультиселектора не найдены');
+        return;
+      }
+      
+      // Удаляем все inline стили, которые могли быть применены
+      multiSelectDropdown.removeAttribute('style');
+      
       const arrow = multiSelectHeader.querySelector('.arrow');
       const options = multiSelectDropdown.querySelectorAll(
         '.multi-select-option'
@@ -43,12 +52,19 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedOptions.length === 0) {
           headerSpan.textContent = 'Выберите категории';
           headerSpan.style.color = '#8a8a8a'; // Серый цвет, когда ничего не выбрано
+          multiSelectHeader.classList.remove('has-selection');
         } else {
           const selectedLabels = selectedOptions.map(
             (opt) => opt.querySelector('span').textContent
           );
           headerSpan.textContent = selectedLabels.join(', ');
           headerSpan.style.color = '#ffffff'; // Белый цвет, когда есть выбор
+          multiSelectHeader.classList.add('has-selection');
+        }
+        
+        // Убедимся, что нет border-bottom, если нет ошибки
+        if (!multiSelectContainer.classList.contains('error')) {
+          multiSelectHeader.style.borderBottom = 'none';
         }
       }
   
@@ -79,6 +95,15 @@ document.addEventListener('DOMContentLoaded', function () {
       multiSelectHeader.addEventListener('click', function (e) {
         e.stopPropagation();
         const isExpanded = multiSelectDropdown.classList.toggle('open');
+        
+        // Важно: убедимся, что display не установлен в none
+        if (isExpanded) {
+          multiSelectDropdown.style.display = 'block';
+          multiSelectDropdown.style.visibility = 'visible';
+          multiSelectDropdown.style.opacity = '1';
+          multiSelectDropdown.style.maxHeight = '50vh';
+        }
+        
         arrow.classList.toggle('up', isExpanded);
         multiSelectHeader.setAttribute('aria-expanded', isExpanded);
       });
@@ -185,6 +210,18 @@ document.addEventListener('DOMContentLoaded', function () {
       // Сначала сбрасываем мультиселектор
       resetBrandMultiSelect();
       
+      // Убедимся, что dropdown не имеет display:none
+      const multiSelectDropdown = document.getElementById('brandCategoryDropdown');
+      const multiSelectHeader = document.getElementById('brandCategoryHeader');
+      if (multiSelectDropdown) {
+        multiSelectDropdown.removeAttribute('style');
+      }
+      
+      // Убедимся, что заголовок не имеет нижней границы
+      if (multiSelectHeader) {
+        multiSelectHeader.style.borderBottom = 'none';
+      }
+      
       brandModal.style.display = 'flex';
       brandModal.style.opacity = '0';
       brandModal.style.visibility = 'visible';
@@ -259,7 +296,8 @@ document.addEventListener('DOMContentLoaded', function () {
       
       // Принудительно закрываем выпадающий список
       multiSelectDropdown.classList.remove('open');
-      multiSelectDropdown.style.display = 'none';
+      // Убираем display:none, который мешает корректной работе мультиселектора
+      // multiSelectDropdown.style.display = 'none';
       multiSelectHeader.setAttribute('aria-expanded', 'false');
       
       // Сбрасываем стрелку
@@ -477,6 +515,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         isValid = false;
         console.log('Ошибка соглашения, состояние:', agreementElement ? agreementElement.checked : 'элемент не найден');
+      } else {
+        // Если соглашение принято, убеждаемся что ошибка снята
+        const checkbox = agreementElement.closest('.checkbox-group');
+        if (checkbox) {
+          checkbox.classList.remove('error');
+        }
       }
   
       if (!isValid) {
@@ -519,6 +563,109 @@ document.addEventListener('DOMContentLoaded', function () {
       openBrandModal,
       closeBrandModal
     };
+
+    // Make the function available globally for modalInit.js
+    window.openBrandModalFunction = openBrandModal;
+    
+    // Добавляем обработчики для сброса ошибок при выборе категорий
+    const brandCategoryHeader = document.getElementById('brandCategoryHeader');
+    const multiSelectContainer = document.querySelector('.multi-select-container');
+    
+    if (brandCategoryHeader && multiSelectContainer) {
+      brandCategoryHeader.addEventListener('click', function() {
+        if (multiSelectContainer.classList.contains('error')) {
+          multiSelectContainer.classList.remove('error');
+        }
+      });
+      
+      // Также добавим обработчик для удаления ошибки при выборе категории
+      const options = document.querySelectorAll('#brandCategoryDropdown .multi-select-option');
+      options.forEach(option => {
+        option.addEventListener('click', function() {
+          if (multiSelectContainer.classList.contains('error')) {
+            multiSelectContainer.classList.remove('error');
+          }
+        });
+      });
+    }
+    
+    // Добавляем обработчики для чекбокса соглашения
+    const agreementCheckbox = document.getElementById('brandAgreement');
+    if (agreementCheckbox) {
+      // Обработчик события change
+      agreementCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+          console.log('Чекбокс соглашения отмечен, убираем ошибку');
+          const checkboxGroup = this.closest('.checkbox-group');
+          if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+            checkboxGroup.classList.remove('error');
+          }
+          
+          // Проверяем, можно ли скрыть сообщение об ошибке
+          const brandAlert = document.getElementById('brand-form-alert');
+          if (brandAlert) {
+            // Проверяем наличие других ошибок
+            const hasOtherErrors = document.querySelector('.error-field') || 
+                                document.querySelector('.multi-select-container.error');
+            if (!hasOtherErrors) {
+              brandAlert.style.display = 'none';
+            }
+          }
+        }
+      });
+      
+      // Дополнительный обработчик события click для надежности
+      agreementCheckbox.addEventListener('click', function() {
+        setTimeout(() => {
+          if (this.checked) {
+            console.log('Чекбокс соглашения кликнут, убираем ошибку');
+            const checkboxGroup = this.closest('.checkbox-group');
+            if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+              checkboxGroup.classList.remove('error');
+            }
+            
+            // Проверяем, можно ли скрыть сообщение об ошибке
+            const brandAlert = document.getElementById('brand-form-alert');
+            if (brandAlert) {
+              // Проверяем наличие других ошибок
+              const hasOtherErrors = document.querySelector('.error-field') || 
+                                  document.querySelector('.multi-select-container.error');
+              if (!hasOtherErrors) {
+                brandAlert.style.display = 'none';
+              }
+            }
+          }
+        }, 0);
+      });
+      
+      // Добавляем обработчик для метки чекбокса
+      const agreementLabel = document.querySelector('label[for="brandAgreement"]');
+      if (agreementLabel) {
+        agreementLabel.addEventListener('click', function() {
+          setTimeout(() => {
+            // Проверяем состояние чекбокса после клика по метке
+            if (agreementCheckbox.checked) {
+              console.log('Клик по метке чекбокса, убираем ошибку');
+              const checkboxGroup = agreementCheckbox.closest('.checkbox-group');
+              if (checkboxGroup && checkboxGroup.classList.contains('error')) {
+                checkboxGroup.classList.remove('error');
+              }
+              
+              // Проверяем, можно ли скрыть сообщение об ошибке
+              const brandAlert = document.getElementById('brand-form-alert');
+              if (brandAlert) {
+                // Проверяем наличие других ошибок
+                const hasOtherErrors = document.querySelector('.error-field') || 
+                                   document.querySelector('.multi-select-container.error');
+                if (!hasOtherErrors) {
+                  brandAlert.style.display = 'none';
+                }
+              }
+            }
+          }, 10); // Немного большая задержка для надежности
+        });
+      }
+    }
   });
   
   // Общая функция закрытия success modal

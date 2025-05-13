@@ -4,6 +4,8 @@ $background-color: #1e1e1e;
 $secondary-color: #262626;
 $text-color:#8A8A8A;
 $primary-color-2: #793EED;
+$transition-duration: 0.3s;
+$transition-easing: ease;
 
 body {
   background-color: $background-color;
@@ -305,14 +307,6 @@ body {
 
 .image {
   width: 250px;
-}
-
-@media (max-width: 1200px) {
-  .hero-sliders-mobile__button {
-    display: block;
-    flex-grow: 1;
-    margin: 0 16px;
-  }
 }
 
 .hero-sliders-mobile__slider_horizontal {

@@ -223,14 +223,65 @@ document.addEventListener('DOMContentLoaded', function () {
     // Обработчики событий для основного модального окна
     if (openModalBtns.length) {
       console.log(`Найдено ${openModalBtns.length} кнопок открытия модалки`);
-      openModalBtns.forEach((btn, index) => {
-        console.log(`Добавлен обработчик для кнопки ${index + 1}`);
-        btn.addEventListener('click', function(e) {
-          console.log('Клик по кнопке открытия модального окна');
+      
+      // ВОССТАНАВЛИВАЕМ обработчик для кнопок БЛОГЕРОВ
+      console.log('ВОССТАНАВЛИВАЕМ обработчики кликов для кнопок блогеров');
+      
+      // Добавляем обработчик только для кнопок в секции блогеров
+      openModalBtns.forEach(button => {
+        // Проверяем, находится ли кнопка в нужной секции
+        const parentSection = button.closest('[data-section-id]');
+        if (parentSection && parentSection.getAttribute('data-section-id') === '2') {
+          console.log('Добавляем обработчик для кнопки блогеров в секции 2:', button);
+          
+          button.addEventListener('click', function(e) {
+            console.log('Клик по кнопке открытия модального окна блогеров в секции 2');
+            e.preventDefault();
+            e.stopPropagation();
+            openModal();
+          });
+        }
+      });
+      
+      // Добавляем специальный обработчик для кнопки с ID openBloggerModalBtn
+      const bloggerBtn = document.getElementById('openBloggerModalBtn');
+      if (bloggerBtn) {
+        console.log('Добавляем отдельный обработчик для кнопки с ID openBloggerModalBtn');
+        
+        bloggerBtn.addEventListener('click', function(e) {
+          console.log('Клик по кнопке с ID openBloggerModalBtn');
           e.preventDefault();
+          e.stopPropagation();
           openModal();
         });
-      });
+      }
+      
+      // Проверяем, существует ли уже объект window.bloggerModalFunctions
+      if (window.bloggerModalFunctions) {
+        console.warn('Объект window.bloggerModalFunctions уже существует, не перезаписываем его');
+      } else {
+        // Сохраняем функцию openModal для доступа из modalInit.js
+        console.log('Создаем объект window.bloggerModalFunctions с функциями для модального окна блогеров');
+        window.bloggerModalFunctions = {
+          openModal: openModal,
+          closeModal: closeModal,
+          openSuccessModal: openSuccessModal,
+          closeSuccessModal: closeSuccessModal
+        };
+        
+        // Экспортируем функции напрямую для обратной совместимости
+        window.openBloggerModal = openModal;
+        window.closeBloggerModal = closeModal;
+        
+        // Выводим информацию для отладки
+        console.log('Созданы следующие глобальные функции:');
+        console.log('- window.bloggerModalFunctions.openModal');
+        console.log('- window.bloggerModalFunctions.closeModal');
+        console.log('- window.bloggerModalFunctions.openSuccessModal');
+        console.log('- window.bloggerModalFunctions.closeSuccessModal');
+        console.log('- window.openBloggerModal');
+        console.log('- window.closeBloggerModal');
+      }
     } else {
       console.log('Не найдены кнопки открытия модального окна');
     }
@@ -551,12 +602,69 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   
+    // Функция инициализации лайв-валидации полей
+    function initLiveValidation() {
+      // Находим все текстовые поля ввода
+      const inputFields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"]');
+      inputFields.forEach(field => {
+        field.addEventListener('input', function() {
+          // Если поле непустое, убираем класс ошибки
+          if (this.value.trim() !== '') {
+            this.classList.remove('error-field');
+          }
+        });
+        
+        // Обработка фокуса - убираем ошибку при фокусе
+        field.addEventListener('focus', function() {
+          this.classList.remove('error-field');
+        });
+      });
+      
+      // Обработчик для чекбокса согласия
+      const agreementCheckbox = document.getElementById('agreement');
+      if (agreementCheckbox) {
+        agreementCheckbox.addEventListener('change', function() {
+          const checkboxGroup = this.closest('.checkbox-group');
+          if (this.checked && checkboxGroup) {
+            console.log('Чекбокс отмечен, убираем ошибку');
+            checkboxGroup.classList.remove('error');
+            
+            // Проверяем, можно ли скрыть сообщение об ошибке
+            const formAlert = document.getElementById('form-alert');
+            const hasErrors = form.querySelector('.error-field, .checkbox-group.error');
+            if (!hasErrors && formAlert) {
+              formAlert.style.display = 'none';
+            }
+          }
+        });
+        
+        // Дополнительный обработчик для события click
+        agreementCheckbox.addEventListener('click', function() {
+          setTimeout(() => {
+            const checkboxGroup = this.closest('.checkbox-group');
+            if (this.checked && checkboxGroup) {
+              console.log('Чекбокс кликнут, убираем ошибку');
+              checkboxGroup.classList.remove('error');
+              
+              // Проверяем все поля и скрываем сообщение об ошибке если все в порядке
+              const formAlert = document.getElementById('form-alert');
+              const hasErrors = form.querySelector('.error-field, .checkbox-group.error');
+              if (!hasErrors && formAlert) {
+                formAlert.style.display = 'none';
+              }
+            }
+          }, 0);
+        });
+      }
+    }
+  
     // Инициализация
     initPhoneMask();
     initFollowersMask();
     initSocialAutocomplete();
     initModalSelect();
     updateAccountFieldColor(); // Добавляем вызов новой функции
+    initLiveValidation();
   
     // Финальная настройка селектора для гарантированной работы
     setTimeout(function() {

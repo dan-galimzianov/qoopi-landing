@@ -15,7 +15,6 @@
   body {
     background-color: #222;
     color: var(--text-color);
-    padding: 20px;
   }
   
   .multi-select-container {
@@ -34,6 +33,7 @@
     align-items: stretch;
     cursor: pointer;
     user-select: none;
+    border-bottom: none;
   }
   
   .arrow {
@@ -105,5 +105,15 @@
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
     white-space: nowrap;
+  }
+  
+  /* Add border-bottom only when container has error class */
+  .multi-select-container.error .multi-select-header {
+    border-bottom: 1px solid #ff3b30;
+  }
+  
+  /* When the container is not in error state, ensure no border */
+  .multi-select-container:not(.error) .multi-select-header {
+    border-bottom: none !important;
   }
   

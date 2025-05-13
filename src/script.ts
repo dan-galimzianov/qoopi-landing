@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       item.classList.add('hero-section__nav-link_active');
       
       // Показываем/скрываем соответствующие секции
+
       const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-link)');
       document.body.classList.remove(`blot_${activeSection}`);
       document.body.classList.add(`blot_${sectionId}`);

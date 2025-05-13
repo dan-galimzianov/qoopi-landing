@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
           '.multi-select-option'
         );
         const liveRegion = document.getElementById('liveRegion');
+        const multiSelectContainer = document.querySelector('.multi-select-container');
   
         // Сбросить все выбранные элементы при инициализации
         options.forEach((option) => {
@@ -47,10 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
           const selectedOptions = Array.from(options).filter((opt) =>
             opt.classList.contains('selected')
           );
+          const localMultiSelectContainer = document.querySelector('.multi-select-container');
   
           if (selectedOptions.length === 0) {
             multiSelectHeader.querySelector('span').textContent =
               'Выберите категории';
+            multiSelectHeader.classList.remove('has-selection');
           } else {
             // Берем категории для отображения
             const selectedLabels = selectedOptions.map(
@@ -58,6 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
             );
             multiSelectHeader.querySelector('span').textContent =
               selectedLabels.join(', ');
+            multiSelectHeader.classList.add('has-selection');
+          }
+
+          // Убедимся, что нет border-bottom, если нет ошибки
+          if (localMultiSelectContainer && !localMultiSelectContainer.classList.contains('error')) {
+            multiSelectHeader.style.borderBottom = 'none';
           }
         }
   
@@ -222,22 +231,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Сбросить ошибку категорий
     function resetCategoryError() {
       const multiSelectHeader = document.getElementById('categoryHeader');
-      const multiSelectContainer =
-        document.querySelector('.multiselect-container') ||
-        document.querySelector('.multiselect-dropdown');
+      const multiSelectContainer = document.querySelector('.multi-select-container');
   
       if (multiSelectContainer) {
         multiSelectContainer.classList.remove('error');
       }
   
       if (multiSelectHeader) {
-        multiSelectHeader.style.borderBottomColor = '#515151';
-  
-        const span = multiSelectHeader.querySelector('span');
-        if (span) {
-          const hasSelected =
-            document.querySelectorAll('.multi-select-option.selected').length > 0;
-          span.style.color = hasSelected ? '#ffffff' : '#8a8a8a';
+        multiSelectHeader.classList.remove('error');
+        // Явно удаляем стили границы
+        multiSelectHeader.style.borderBottom = 'none';
+        multiSelectHeader.style.borderBottomColor = '';
+        
+        // Обновляем класс has-selection в зависимости от наличия выбранных опций
+        const hasSelected = document.querySelectorAll('.multi-select-option.selected').length > 0;
+        if (hasSelected) {
+          multiSelectHeader.classList.add('has-selection');
+        } else {
+          multiSelectHeader.classList.remove('has-selection');
         }
       }
     }
@@ -288,6 +299,17 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   
       resetFormState();
+      
+      // Дополнительно сбрасываем ошибки на чекбоксах
+      document.querySelectorAll('.checkbox-group.error').forEach((group) => {
+        group.classList.remove('error');
+      });
+      
+      // Скрываем сообщение об ошибке
+      if (formAlert) {
+        formAlert.style.display = 'none';
+      }
+      
       document.body.style.overflow = 'hidden';
     }
   
@@ -406,7 +428,8 @@ document.addEventListener('DOMContentLoaded', function () {
   
         if (multiSelectHeader) {
           multiSelectHeader.classList.add('error');
-          multiSelectHeader.style.borderBottomColor = '#ff3b30';
+          // Удаляем inline стиль, используем только классы
+          // multiSelectHeader.style.borderBottomColor = '#ff3b30';
   
           const span = multiSelectHeader.querySelector('span');
           if (span) {
@@ -439,6 +462,13 @@ document.addEventListener('DOMContentLoaded', function () {
           if (agreementGroup) agreementGroup.classList.add('error');
         }
         isValid = false;
+      } else {
+        // Если соглашение принято, убеждаемся что ошибка снята
+        const agreementCheckbox = document.getElementById('sellerAgreement');
+        if (agreementCheckbox) {
+          const agreementGroup = agreementCheckbox.closest('.checkbox-group');
+          if (agreementGroup) agreementGroup.classList.remove('error');
+        }
       }
   
       if (!isValid) {
@@ -464,15 +494,28 @@ document.addEventListener('DOMContentLoaded', function () {
         field.style.color = '#ffffff'; // Возвращаем стандартный цвет текста
         field.style.borderBottomColor = '#515151'; // Возвращаем стандартный цвет границы
       });
-  
+
       // Сброс ошибок мультиселекта (как для старого, так и для нового)
       resetCategoryError();
-  
+      
+      // Дополнительно убедимся, что у заголовка мультиселекта нет границы
+      const multiSelectHeader = document.getElementById('categoryHeader');
+      if (multiSelectHeader) {
+        multiSelectHeader.style.borderBottom = 'none';
+      }
+
       // Сброс ошибок чекбоксов
       document.querySelectorAll('.checkbox-group.error').forEach((group) => {
         group.classList.remove('error');
       });
-  
+      
+      // Дополнительно проверяем соглашение - если оно отмечено, убираем ошибку
+      const agreementCheckbox = document.getElementById('sellerAgreement');
+      if (agreementCheckbox && agreementCheckbox.checked) {
+        const checkboxGroup = agreementCheckbox.closest('.checkbox-group');
+        if (checkboxGroup) checkboxGroup.classList.remove('error');
+      }
+
       // Скрываем сообщение об ошибке
       if (formAlert) {
         formAlert.style.display = 'none';
@@ -582,6 +625,112 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
       });
+      
+      // Сброс ошибок при изменении чекбоксов
+      document.querySelectorAll('#seller-form input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', function() {
+          const checkboxGroup = this.closest('.checkbox-group');
+          if (this.checked && checkboxGroup) {
+            console.log('Чекбокс отмечен, убираем ошибку');
+            checkboxGroup.classList.remove('error');
+            
+            // Если это чекбокс соглашения, проверяем можно ли скрыть сообщение об ошибке
+            if (this.id === 'sellerAgreement') {
+              // Проверяем наличие других ошибок
+              const hasOtherErrors = document.querySelector('.error-field') || 
+                                  document.querySelector('.checkbox-group.error');
+              if (!hasOtherErrors && formAlert) {
+                formAlert.style.display = 'none';
+              }
+            }
+          }
+        });
+        
+        // Дополнительный обработчик события click для надежности
+        if (checkbox.id === 'sellerAgreement') {
+          checkbox.addEventListener('click', function() {
+            setTimeout(() => {
+              if (this.checked) {
+                console.log('Чекбокс соглашения кликнут, убираем ошибку');
+                const checkboxGroup = this.closest('.checkbox-group');
+                if (checkboxGroup) {
+                  checkboxGroup.classList.remove('error');
+                }
+                
+                // Проверяем все поля и скрываем сообщение об ошибке если все в порядке
+                const hasOtherErrors = document.querySelector('.error-field') || 
+                                    document.querySelector('.checkbox-group.error');
+                if (!hasOtherErrors && formAlert) {
+                  formAlert.style.display = 'none';
+                }
+              }
+            }, 0);
+          });
+          
+          // Добавляем обработчик для метки чекбокса
+          const label = document.querySelector(`label[for="${checkbox.id}"]`);
+          if (label) {
+            label.addEventListener('click', function() {
+              setTimeout(() => {
+                const agreementCheckbox = document.getElementById('sellerAgreement');
+                if (agreementCheckbox && agreementCheckbox.checked) {
+                  console.log('Клик по метке чекбокса, убираем ошибку');
+                  const checkboxGroup = agreementCheckbox.closest('.checkbox-group');
+                  if (checkboxGroup) {
+                    checkboxGroup.classList.remove('error');
+                  }
+                  
+                  // Проверяем все поля и скрываем сообщение об ошибке если все в порядке
+                  const hasOtherErrors = document.querySelector('.error-field') || 
+                                      document.querySelector('.checkbox-group.error');
+                  if (!hasOtherErrors && formAlert) {
+                    formAlert.style.display = 'none';
+                  }
+                }
+              }, 10); // Увеличенная задержка для надежности
+            });
+          }
+        }
+      });
     }
+    
+    // Экспортируем функции для доступа из modalInit.js
+    window.sellerModalFunctions = {
+      openSellerModal,
+      closeSellerModal
+    };
+    
+    // Экспортируем функцию напрямую для доступа из modalInit.js
+    window.openSellerModalFunction = openSellerModal;
+    
+    // Ручная инициализация обработчика для чекбокса соглашения при загрузке
+    setTimeout(function() {
+      const agreementCheckbox = document.getElementById('sellerAgreement');
+      if (agreementCheckbox) {
+        // Проверяем, не имеет ли чекбокс уже обработчиков
+        if (!agreementCheckbox._hasEventHandlers) {
+          agreementCheckbox._hasEventHandlers = true;
+          
+          // Принудительно заменяем обработчики события для надежности
+          agreementCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+              console.log('Чекбокс соглашения изменен, убираем ошибку (глобальный обработчик)');
+              const checkboxGroup = this.closest('.checkbox-group');
+              if (checkboxGroup) {
+                checkboxGroup.classList.remove('error');
+                
+                // Проверяем все поля и скрываем сообщение об ошибке если все в порядке
+                const formAlert = document.getElementById('seller-form-alert');
+                const hasOtherErrors = document.querySelector('.error-field') || 
+                                    document.querySelector('.checkbox-group.error');
+                if (!hasOtherErrors && formAlert) {
+                  formAlert.style.display = 'none';
+                }
+              }
+            }
+          });
+        }
+      }
+    }, 500); // Задержка для гарантии, что DOM полностью загрузился
   });
   

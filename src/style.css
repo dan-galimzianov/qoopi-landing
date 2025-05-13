@@ -6,6 +6,10 @@
 @import './styles/carousel.scss';
 @import './styles/sections.scss';
 @import './styles/blogger-modal.scss';
+@import './styles/question-modal.scss';
+@import './styles/brand-modal.scss';
+@import './styles/seller-modal.scss';
+@import './styles/dropped-list.scss';
 @import './styles/success.scss';
 @import './styles/brands/main.scss';
 @import './styles/sellers/main.scss';
