@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove(`blot_${activeSection}`);
     document.body.classList.add(`blot_${sectionId}`);
     activeSection = sectionId;
+    document.body.classList.remove('loading');
 
     allSections.forEach(section => {
       const sectionElement = section as HTMLElement;
@@ -101,33 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const sectionId = item.getAttribute('data-section-id');
       
       if (!sectionId) return;
-      item.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'start'
-      });
-      
       navigateToSection(sectionId);
     });
   });
   
-    function getCleanHash() {
-    const hash = window.location.hash; // "#about?utm_source=google"
-    return hash ? hash.split('?')[0].slice(1) : null;
-  }
 
-  const hash = getCleanHash();
 
-  const activeNavItem = Array.from(navItems).find(item => item.getAttribute('href')?.includes(hash));
-    if (activeNavItem) {
-      (activeNavItem as HTMLElement).click();
-    } else {
-      const firstNavItem = navItems[0] as HTMLElement;
+  const firstNavItem = navItems[0] as HTMLElement;
       if (firstNavItem) {
         firstNavItem.click();
       }
-    }
-  document.body.classList.remove('loading');
 
   // Объект для хранения инициализированных каруселей
   const initializedCarousels: Record<string, { type: 'vertical' | 'horizontal', wrapper: HTMLElement, duration: number }> = {};
@@ -143,9 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const videos = Array.from(carousel.querySelectorAll('video'));
 
     await waitForAllImages(images);
-    
-    // Загружаем отложенные видео в карусели
-    loadLazyVideos(carousel);
     
     await waitForAllVideos(videos);
 

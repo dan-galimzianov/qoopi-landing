@@ -27,7 +27,6 @@ body {
   height: 100vh;
   min-height: 752px;
   padding: 10px 40px 16px 40px;
-  overflow: hidden;
 
   &__section {
     margin-top: 90px;
@@ -127,6 +126,10 @@ body {
     display: flex;
     gap: 32px;
     width: max-content;
+
+    @media (max-width: 374px) {
+      gap: 16px;
+    }
   }
 
   &__nav-link {
@@ -148,7 +151,7 @@ body {
     }
 
     @media (max-width: 1700px) {
-      font-size: 20px;
+      font-size: 17px;
       line-height: 25px;
     }
   }
