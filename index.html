@@ -2,19 +2,16 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/qoopi-landing/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-DhnCYQe2.js"></script>
-    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-rwWAxTXE.css">
+    <script type="module" crossorigin src="/assets/index-CVQ2pRKZ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DZwaWWIR.css">
   </head>
-  <body class="blot_1">
-
-    
-    
-    <div class="modal" data-modal-id="ask-question">
+  <body class="blot_1 loading">    
+    <div class="modal" data-modal-id="become-blogger">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-blogger">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать блогером на qoopi
@@ -74,28 +71,28 @@
                 <input class="form__item-input multiselect__input" type="text" name="socialNetwork" hidden>
             </div>
             </div>
-            <div class="form__item" data-form-validation-required="true" data-form-validation-is-url="true">
+            <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Ссылка на ваши аккаунты*</label>
-              <textarea class="form__item-textarea" placeholder="https://" name="account"></textarea>
+              <textarea class="textarea-auto-resize form__item-input" placeholder="https://" name="account" rows="1"></textarea>
             </div>
-          </div>
-          <div class="form__item" data-form-validation-required="true">
-            <label class="form__item-label">Количество подписчиков *</label>
-            <input class="form__item-input" type="text" placeholder="Укажитие количество" name="followers">
+            <div class="form__item" data-form-validation-required="true">
+              <label class="form__item-label">Количество подписчиков *</label>
+              <input class="form__item-input" type="text" placeholder="Укажитие количество" name="followers">
+            </div>
           </div>
         </section>
         <footer class="modal__footer">
           <div class="modal__footer-content">
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <input type="checkbox" class="form__item-input" id="agreement_blogger" name="agreement">
+                <label for="agreement_blogger"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
-                <label for="newsletter">Я согласен получать письма от qoopi</label>
+                <input type="checkbox" class="form__item-input" id="newsletter_blogger" name="newsletter" value="true">
+                <label for="newsletter_blogger">Я согласен получать письма от qoopi</label>
               </div>
             </label>
           </div>
@@ -108,9 +105,9 @@
       </form>
     </div>
     
-    <div class="modal" data-modal-id="ask-question">
+    <div class="modal" data-modal-id="become-brand">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-brand">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать брендом на qoopi
@@ -126,7 +123,7 @@
               <label class="form__item-label">Название компании *</label>
               <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-multiselect="true">
               <label class="form__item-label">Категории товаров *</label>
               <div class="multiselect">
                 <div class="multiselect__header">
@@ -190,7 +187,7 @@
               <label class="form__item-label">Электронная почта *</label>
               <input class="form__item-input" type="text" placeholder="example@mail.com" name="contactEmail">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-phone="true">
               <label class="form__item-label">Телефон *</label>
               <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="contactPhone">
             </div>
@@ -201,7 +198,7 @@
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
                 <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <label for="agreement"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
@@ -220,9 +217,9 @@
       </form>
     </div>
     
-    <div class="modal" data-modal-id="ask-question">
+    <div class="modal" data-modal-id="become-seller">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-form">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать селлером на qoopi
@@ -236,9 +233,9 @@
           <div class="form__container">
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Название компании *</label>
-              <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
+              <input class="form__item-input" type="text" placeholder="Бренд" name="companyName">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-multiselect="true">
               <label class="form__item-label">Категории товаров *</label>
               <div class="multiselect">
                 <div class="multiselect__header">
@@ -251,32 +248,60 @@
                         <div class="multiselect__checkmark" aria-hidden="true"></div>
                     </li>
                     <li class="multiselect__option" data-value="fashion" role="option" aria-selected="false">
-                        <span class="multiselect__text">Мода</span>
-                        <div class="multiselect__checkmark" aria-hidden="true"></div>
-                    </li>
-                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
                         <span class="multiselect__text">Красота</span>
                         <div class="multiselect__checkmark" aria-hidden="true"></div>
                     </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Здоровье</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Спорт</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Дом</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Дети</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Гаджеты</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Авто</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Хобби</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Другое</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
                 </ul>
-                <input class="form__item-input multiselect__input" type="text" name="categories" hidden>
+                <input class="form__item-input multiselect__input" type="text" name="productCategories" hidden>
             </div>
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-url="true">
               <label class="form__item-label">Ссылка на сайт или интернет магазин*</label>
-              <input class="form__item-input" type="text" placeholder="https://" name="website">
+              <input class="form__item-input" type="text" placeholder="https://" name="marketplaceLink">
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Имя и фамилия *</label>
-              <input class="form__item-input" type="text" placeholder="Константин Константинопольский" name="name">
+              <input class="form__item-input" type="text" placeholder="Константин Константинопольский" name="sellerName">
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-email="true">
               <label class="form__item-label">Электронная почта *</label>
-              <input class="form__item-input" type="text" placeholder="example@mail.com" name="email">
+              <input class="form__item-input" type="text" placeholder="example@mail.com" name="sellerEmail">
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Телефон *</label>
-              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="phone">
+              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="sellerPhone">
             </div>
           </div>
         </section>
@@ -284,14 +309,14 @@
           <div class="modal__footer-content">
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <input type="checkbox" class="form__item-input" id="agreement_seller" name="agreement">
+                <label for="agreement_seller"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
-                <label for="newsletter">Я согласен получать письма от qoopi</label>
+                <input type="checkbox" class="form__item-input" id="newsletter_seller" name="newsletter" value="true">
+                <label for="newsletter_seller">Я согласен получать письма от qoopi</label>
               </div>
             </label>
           </div>
@@ -306,7 +331,7 @@
 
     <div class="modal" data-modal-id="ask-question">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-question">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Задать вопрос
@@ -332,7 +357,7 @@
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Ваше сообщение *</label>
-              <textarea class="form__item-textarea" placeholder="Сообщение" name="message"></textarea>
+              <textarea class="form__item-input textarea-auto-resize" placeholder="Сообщение" name="message"></textarea>
             </div>
           </div>
         </section>
@@ -340,14 +365,14 @@
           <div class="modal__footer-content">
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <input type="checkbox" class="form__item-input" id="agreement_question" name="agreement">
+                <label for="agreement_question"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
-                <label for="newsletter">Я согласен получать письма от qoopi</label>
+                <input type="checkbox" class="form__item-input" id="newsletter_question" name="newsletter" value="true">
+                <label for="newsletter_question">Я согласен получать письма от qoopi</label>
               </div>
             </label>
           </div>
@@ -360,13 +385,33 @@
       </form>
     </div>
 
-  
-
+      <div class="success-modal" id="successModal">
+          <div class="success-modal__container">
+            <button class="success-modal__close" id="successModalClose">
+              &times;
+            </button>
+            <div class="success-modal__icon">
+              <svg
+                width="84"
+                height="84"
+                viewBox="0 0 84 84"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M42 83.6663C65.0116 83.6663 83.6666 65.0113 83.6666 41.9997C83.6666 35.563 82.2071 29.4669 79.6008 24.0248L48.0275 55.598C42.9429 60.683 34.6983 60.683 29.6134 55.598L17.169 43.1534C15.135 41.1193 15.135 37.8218 17.169 35.7876C19.2029 33.7538 22.5007 33.7538 24.5346 35.7876L36.9791 48.2322C37.9962 49.2493 39.645 49.2493 40.6621 48.2322L73.8087 15.0853C66.1658 6.06142 54.7516 0.333008 42 0.333008C18.9881 0.333008 0.333313 18.9878 0.333313 41.9997C0.333313 65.0113 18.9881 83.6663 42 83.6663Z"
+                  fill="#15B385"
+                />
+              </svg>
+            </div>
+            <div class="success-modal__message">Ваша заявка отправлена</div>
+          </div>
+        </div>
         
       <main class="hero">
         <header class="header">
           <div class="header__logo">
-            <img src="/qoopi-landing/assets/logo-C6872_Bd.svg" alt="Qoopi">
+            <img src="/assets/logo-C6872_Bd.svg" alt="Qoopi">
           </div>
           <div class="header__menu-burger">
             <div class="header__menu-burger-line"></div>
@@ -382,10 +427,10 @@
             </div>
             <div class="menu-content">
                 <ul>
-                    <li><a href="#about" data-section-id="1" class="menu-nav-link">О qoopi</a></li>
-                    <li><a href="#bloggers" data-section-id="2" class="menu-nav-link">Блогерам</a></li>
-                    <li><a href="#brands" data-section-id="3" class="menu-nav-link">Брендам</a></li>
-                    <li><a href="#sellers" data-section-id="4" class="menu-nav-link">Селлерам</a></li>
+                    <li><a data-section-id="1" class="menu-nav-link">О qoopi</a></li>
+                    <li><a data-section-id="2" class="menu-nav-link">Блогерам</a></li>
+                    <li><a data-section-id="3" class="menu-nav-link">Брендам</a></li>
+                    <li><a data-section-id="4" class="menu-nav-link">Селлерам</a></li>
                 </ul>
             </div>
             <button class="menu-content__button" data-modal-id="ask-question">Задать вопрос</button>
@@ -395,16 +440,16 @@
           <nav class="hero-section__nav">
             <ul class="hero-section__nav-list">
               <li class="hero-section__nav-item">
-                <a class="hero-section__nav-link" data-section-id="1" href="#about">О qoopi</a>
+                <a class="hero-section__nav-link" data-section-id="1">О qoopi</a>
               </li>
               <li class="hero-section__nav-item">
-                <a class="hero-section__nav-link" data-section-id="2" href="#bloggers">Блогерам</a>
+                <a class="hero-section__nav-link" data-section-id="2" >Блогерам</a>
               </li>
               <li class="hero-section__nav-item">
-                <a class="hero-section__nav-link" data-section-id="3" href="#brands">Брендам</a>
+                <a class="hero-section__nav-link" data-section-id="3">Брендам</a>
               </li>
               <li class="hero-section__nav-item">
-                <a class="hero-section__nav-link" data-section-id="4" href="#sellers">Селлерам</a>
+                <a class="hero-section__nav-link" data-section-id="4">Селлерам</a>
               </li>
             </ul>
           </nav>
@@ -415,18 +460,15 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Смотрите обзоры и распаковки от любимых блогеров и экспертов, вдохновляйтесь, находите идеи и покупайте товары прямо из публикаций
             </div>
-            <button class="button hero-section__desktop-button open-modal-btn" id="openMainModalBtn">
-              Создать витрину
-            </button>
           </div>
           <div class="hero-section__content" data-section-id="2">
             <div class="hero-section__content-title title title_h1">
-              Рекомендуйте любимые товары&nbsp;и&nbsp;бренды и&nbsp;зарабатывайте
+              Рекомендуйте любимые товары и&nbsp;бренды и&nbsp;зарабатывайте
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
               Создайте собственную витрину, публикуйте обзоры,распаковки или просто добавляйте товары на свою витрину в Qoopi
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn openBloggerModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-blogger">
               Создать витрину
             </button>
           </div>
@@ -437,7 +479,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Позвольте тысячам блогеров и экспертов продвигать и продавать ваши товары за вас. Увеличивайте продажи и платите только за результат
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn openBrandModalBtn" >
+            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-brand">
               Начать продавать
             </button>
           </div>
@@ -448,7 +490,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Сотрудничайте с лучшими блогерами и экспертами для продвижения ваших товаров на маркетплейсах
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn openSellerModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-seller">
               Начать продвигать
             </button>
           </div>
@@ -459,53 +501,53 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                    <img src="/assets/photo1-MKMQPnmh.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      <img src="/assets/outline1-BjMi98YE.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video1-poster-B5cZzAJX.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                    <img src="/assets/photo2-g9nqJTS-.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      <img src="/assets/outline2-C6NnsqCK.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video2-poster-DX9LWhvH.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                    <img src="/assets/photo3-OR98LY1N.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      <img src="/assets/outline3-15YpR6jC.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video3-poster-9_LovgRl.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo4-Cioi-40q.png" class="media-item__image">
+                    <img src="/assets/photo4-C2kMc-TP.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                      <img src="/assets/outline4-t9_cqxGM.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video4-poster-B_LeMqgF.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
@@ -515,53 +557,53 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
+                    <img src="/assets/outline5-DPAqHbuX.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video1-poster-DgVFG2LF.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
                     </video>
                 </div>
                 </div>
               <div class="carousel__slide">
 
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
+                  <img src="/assets/photo1-CUEQZl7p.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                  <div class="media-item">
-                    <img src="/qoopi-landing/assets/outline8-sIbx13zU.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                    <img src="/assets/outline8-DOyFpFLt.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video2-poster-BmiM-XBA.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
                     </video>
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo2-B_9jW6mP.png" class="media-item__image">
+                  <img src="/assets/photo2-DN2CFhWC.webp" class="media-item__image">
                 </div>
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/outline6-to4KD5xY.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="/qoopi-landing/assets/video3-D64JwrUn.mp4" type="video/mp4">
+                    <img src="/assets/outline6-BL5T8Y3X.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video3-poster-CG-MQgv3.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
                     </video>
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo3-CBSjtr_g.png" class="media-item__image">
+                  <img src="data:image/webp;base64,UklGRqQPAABXRUJQVlA4WAoAAAAQAAAAXQEAXQEAQUxQSAIBAAABgFXbdtzmQhAEQREUM4gYVAwkBgoDhYEhCIIgPAieh8/71RsRE4CHIbZhC22ttxTwvvuzhcCj+ndcXmhc/QsfW4g8pkd5IXO+5+aFzt3d6Quh5xt5oXS+mBZSxxM/WGXuUBdaZwB+IbYDKrMSMJhlCAu1Q+JWbNz6dW4N45Yt8r/8L//L//K//C//y//yv/wv/8v/8r/8L//L//K//C//y//yv/wv/8v/8r/8/49q45YNbvXGrV/kVgrcCjBmDSAxqwKOWR5A4VUFAGesGv6AyKoJ54VTBdczozpuus6n2d0BCpsKnk6DSRbx3H95VBxe9d/BIEsO74fUuvHGRosBDwFWUDggfA4AANBhAJ0BKl4BXgE+bTKXSKQioiYlEDmQwA2JZ27PT9d0+A56ksAcIJp/9O3CQ0QtE9pbfk7ff0en7/Lemh0dOdh3Y/1vei9vpnsL1qK+P/c+uH+z8TZkRFH7wn2XmVpqsifo5f9XnU1Ev136yI+lzLz5dK7u7u7uz3rSUP/EP+szMzMzGqc3rOLkZmJejR1+NY/gCbEOdaisb1pgP4EiVVQhngbyeBxPe6fBKCH+lBbK9ZaHV6FZx53daBnPVS0M9zFpQWyvWW2TbIbU7OkAu9wOOmTu1OL2Q/gvf4Eof+E9x3WozIlfswwCgRYy4t+XERxMUlxg6+CtKXv+5vWTnZ7gUynoo5SNHYgf+5rE6AOUkfZmPgD1zFdCyFSgHAkdayRPVrDRH/c1ichMzsx9JFxfZ42g3NVX0ertmnEznKMHuKlhStFRyyzi9V2eLT0P1f0TB7mKk1ap+F0buDozsaBvbZscP6GHgAKb+TtSNiNbZB1Lf1fGvhhXaXhlD+iuyNq62C20AGw5lStWoLa5MyoaK47ycdWXYKFxsoMm4qbVDf6Bjicam6dhekOXL9wPwHHTRaRTGk4eAH68pdpiEzUI1XNQd69tPgF/m9jpUYciCaNMQmI2Xraso9L6GQ4zPiro9b3lLy6D/qWcr5yyUTSYdt/V9BSf2sQkgI0s6UVFmes9jBvi8Oz/b4TA3bTFakKcbnMXF4QmvfBj35O1naN2bZl6r9SAImfHrGueH7A40psLLUFwTsbkLeQm++EuDD2coYNWKk9qmGid6V1m0nTCxkrjuT0KGnJ04jouBR4zYo4JzbNeyfN0V6hkwIc667Vcp6URZEx/VS79RZG2TYkJUomkyUPXHCK/qIuKHyf5KNLCPjjdt5pJO/p6x/gC1oP4MVpXfcD5ygOGgBuNp6VagOaKzNK9Yg6eaZ/i0AVFplQO2TyRdCAUqjP0sD26m3H2WUu9CWFJqw+ObUbl3d3dw6XW1kZ20XHqLkLFH/BEY6IyfDvkRELrdhU/7X/kWcCDcOHDhw4arHDhtcmTRUcOae9YnYwAAP6aQ/Eub0W3fW87SXbObrsaEIEHyTiAD1Fyq9+CYdnzl2jFcP11UDLEhDdWD7Geao38pgTjIfYAAl5edaXSZ5OWaBVC78doAQ9K1/iZbYzt7E9JgQZ1oFcLyy3z9XU1RY8j4E5VTYaQLt25TPBHLdD3UHL+2iqYoJgVvXpXWk7ujCvndobNasojojRwo5fJNlCKvmccjQJBj8MDDq6sC4EL2Hki69aERJd3MEM7JkzG62NcrfKge6KS5G9CSyMulFlCUZS6zcNyQQDtnwibMtNVIz0PAs2FAJHSQ7IxnNMwBNAQ5gCaxCjeIy43/HxB4C8Tnm1OLEyLyl9tlgl+150hW7HhuttUyrGTBUZ+331AALHWNPc1ZQ+WWrqbvUSkRKzTDD2wa+glmrS1C5fWRGCu7ScXFLiqOjEHyB4fcZYBsMcVQGnknhBWtXjWTv4YO3O6jW0ebDYIR9F78DEmJ5WjpUWG3dCRRkMIYs2H9PUbDCIej+J3ox/CiX364lwvKXifb1nb7A5lYt0ZG1EHJeu37+zDhc4cppy51HuTRHw9bJZG2NTxH3SkJeCOWCO012RNzq2RS71oQ11WdIhKf28YWUHyXqBsj5wf7nSp5Al0GjDWhuU4wQvSN1CLf4cNuDCM5QyJepcAWvKENW+Zj2R8RTYftm+P8FAtXDKDDVeK8HNVsCnp9V8KXPuQc5cx5wy/Ma+HxzqQzxQs+F+I5V8mQhyG752ni4n59c8PV6pm8oNfYmlNEevrfa7i9cTJio/MDqulClEtinzOvtsDNZdNQ5BjmALCJNLKt7f2whtmcy7oGb/G9sZLVy6dcGWe8C4MEdW2rw13FVGogutVjgIIILPPUwZiQDmXlGn9vOiT9FRscxLV4JTKWsQyF5Bjii/kClceGKPNeG7iVCY9X66HRdej3MenigyiokwZFE5+QDA+YSXc3ZyUWwrbx5KF1bZW7uLS46ZjxP4MORyIy9/fGhV0RpdEnY3JYe0XdPDiViMz55FlaqM0vsN+zEP0JuEjfr9rnjy0dtlB/3vBzZWAvK99y/D5Xzr3oA7jFT/1LjyblcFnpiHl3Ps47lJRXOckjIUF+BvxHz74PdvIn32/MBId7v3lQq/zvjxovnJLQ9bU/D7kOr+8Q6HY6fh20FhlyV2mA9RILnTDjplTZ9lqKi68jiSwYVxhicRWEDlTs0UHmreAfyj+28obKihWbeIjd/Mn7oKbhE1/DMY8O2L017lPKxvjfIrIcIVHymCl59eV8KBa3nv6dexQrVCEvfpV0NnhQkRBHj+VY6BPuiwZyuw8ROTqV+UEV8yYLDBndpSI3H5ySUM8qLldZvdnZtBW7d9VOntZEyZjPNb2FNmINZp6gVoOM+iNUEFPIya1PkY79YsNnbeg9RCRAhCOxZlYeu3VK7qgu/qcFa0YphyDG4rOA81W62u+hREpo4BUl3lAMGe2vqnOUGKpM4mh3ymJ2pWVr7Hv1FPSQfYPxr0OMSzo0NhuDUafHxM0P/HjuAC6QB/l3ymZLMygU0Ap1jl+J9x4q7LM0zBCfT6UaBLaN5fxH8oJCOp+Yhd2A9fpoQ8Fog8a7TiGeS3OV53HiAY3qXKvHz4Apf9JqFzAZEaA4+Zvz5j0EN9sTKDy/bBVf9IEN75sQ+EClvLQUcZMIwTpgAc7pCfzXxJnjGJTXmEtRFjhXylwaaBZ3TMyru7HRHG3OJbu0qPyhwD1HY+WsePYU9LCnJ1gsc8+c/NUITxUKziE936SLlf7BOYolmYWxk3njQYx0eGls8KGGgtfYgKcCSCg0tEIfHMF07n2u2O4aDOjMtSy8YuclTKUPplTkHsKi/FxaCVPoz5G4EFarCD1060rY8PcsdL2HtcNSEeAXE816rCh/F10Fb6a9cz9OOjTQ9gQuvt3d9gLbmftzFp/ujs/C3sd8lheu+5vD9jUVHVEMHTDu30/OgNs2hN2EST0lUHu5/ZGIszyztLJ99sdsVJF0nWnIKQDD5Jtvl2Rn2SgSa621BOIYYwjX8/lMAskw+GlBto9yUjxktMSZ8HclbNs6jxVLkoDp4jdJaPjwR9ZQSdHAMKj0UekLeCeAQ52gFGnGZWXLYFvTMjNMDihzf7vlA2MMVUsGi3Uyugk1uZ6N/CzweQxjZdcMUmpWli/+ndy8azhatjC+OtApGcOibbwGEkQ+I2qgdobjOMw8TfdzFLxFHkvBQ3BMxPR2BvDl2qGIKIcGTqFDLpy/cMLtlETqW1oHsfc8/0jBAxMAxvCgzGGJThqcEK0B7+9cm9QTv4sBNhDCGzBwoHdOnqYxMyeNCH+P8eD9qxqaDOTb0PwJnm8iLb0r79J3o3Tz1URbuP4FX33HMecuj1O2ZmzyrX0AlWxQEh/yHDvvl+F0RQa7lv+BAlYPUB8eE/Wzw+JjkSyxBEH4O8yTcoGvkdolRGrnouSzQataKJ5imrQMELyzJBOL2tBHAWbXejHrYQVYpCD+dOdx+VOYYoDIrKkEAK6lrl3uZ6n+RI/7rE2Tq+qP8NXpt+HLCrnoyyO40F2CORt5LG5ppc8Sn7/Arq+v0Q70wrdvbfljAlKukh+BvCdtglEy+BFUdXPRbfVyfLTyTDluMZ0mme1CisUk9PesrWZXUrl7jKU8D1XT4h9ILNfaiByuEoM+TduE7dxqnolkHpwHysu1fOo4L8Gk8eSJEbWTJp1e7BmG1ov+18AdY/jCdS6XCjWHSUTSmPLkrKAP5jgXWF8dzHyyzRWzV+LeyYSYE9iDSLo3ay/5mxEl6PNoAflnyGXoDKZ+9RLRJ60Jskw4BzgCywRHXitF8kCljRiVqKO+PzUSBjPLVz3qGLILzUXMqOPN0Y3EpxzZbhGyKAQFN4BFaFRi2rR+ipnPC+6GK7A2VBLhJVnTyTVHg/xZCbWSlEWLUN+VuKkP49xZjnC0San/fKXIb8i1VKFl1RRP/ylfLDR6zqxxgjHI7vxPiHWh3CdXvHFIxFtuAzUUy0K1Zt/1K740Az9UKNN8btHVfOgeJfxod5NX1i2O76fyzIJ2HEJg0g/4zwNAQlCsAmtdaz5MdvboV8hBfJZJwKUu0Q/0FHDtRjK+OXCTw3B0nwzFreTsrCX54lf5c4S3qXLUMiXitrfgHaFNxArS2Hcw2uale8/wToxPYK/ihdspLr2djWfaE148VJsvja8gznOLD2PGQkOoIT91V+Gd6EDz89Y4wS7fjx0ujkoRxxe0Hd3qELJZSUE7f6oP0mcIdeBOb1XPIqXYf+1rm0SDZCm5U/dkBnUn8IDoCqNzjnweNhw1Mh1HEFQ2rDVGfOAzrrgvDhx+0CrBMrnLH1SqKTV3xTM6rOvts87NUc8krjwCvxYO2EAAAOWcNszmcn8ayylOcrbzOnnIy9/TwkZ2MfNFcMt7s9J6nzxleaELkYZd8bl5vS88PUL7m8oTlwnwW7GIWHS/V5YRV77d91baw3Oij+TWT/ISn6wxd/W78KtROgEzf4o+qe80tP49/v/k/9AL1IXfEIqsj4VGTwqfo6SH5bBq53W4YrP5FY30Yhvu//aBhVNvX9sKvPeWP+MDoSwML2+gnFV9D20fnGo3WYobwZQWhPX6IylCyJ/RckMRfWI7+tnY/SS5Z08mqEiWkfqam6UbtM8/Z93qAvPV5lsZ4QNZX/IuIV+sX+Wr3f9mnOfMq2gAB0CNT2ypqCpvwAbusb3F7WxH03C6pobEZVXZoMoM2q6FA/dEf5vRvpzEH5ktqEgOe3j5HwumqQW8ACZz0Siex33DqZuJxS8wZ0cVaxmXBwCP51R4IJ7mG/Yy0acYjs9NcAA/qfcs/dQayjPIWTT4YGGOGrGBrnPjLHIAAJexdR1Zja25bIOE/BSOjIn0fii+CzfvkRWwAAAAA==" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                  <div class="media-item">
-                    <img src="/qoopi-landing/assets/outline7-0JwI4XPa.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="/qoopi-landing/assets/video4-BXKcBcEb.mp4" type="video/mp4">
+                    <img src="/assets/outline7-Chwpazfg.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video4-poster-BofYvDSg.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
                     </video>
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo4-z0fEuEMe.png" class="media-item__image">
+                  <img src="/assets/photo4-BpcLOkTK.webp" class="media-item__image">
                 </div>
                 
             </div>
@@ -575,97 +617,97 @@
               <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                  <img src="/assets/photo1-MKMQPnmh.webp" class="media-item__image">
               </div>
               <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video1-CBqWmmji.mp4" type="video/mp4">
+                  <img src="/assets/outline5-DPAqHbuX.webp" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video1-poster-DgVFG2LF.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
             <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
             <div class="carousel__slide">
               <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                  <img src="/assets/outline1-BjMi98YE.webp" alt="" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video1-poster-B5cZzAJX.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                 </video>
               </div>
               <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo1-DaTbND-6.png" class="media-item__image">
+                  <img src="/assets/photo1-CUEQZl7p.webp" class="media-item__image">
               </div>
             </div>
             <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
             <div class="carousel__slide">
               <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                  <img src="/assets/photo2-g9nqJTS-.webp" class="media-item__image">
               </div>
               <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline5-BSx0e3uX.png" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video2-C62Lrxrn.mp4" type="video/mp4">
+                  <img src="/assets/outline5-DPAqHbuX.webp" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video2-poster-BmiM-XBA.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
               <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                  <img src="/assets/outline2-C6NnsqCK.webp" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video2-poster-DX9LWhvH.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo2-B_9jW6mP.png" class="media-item__image">
+                  <img src="/assets/photo2-DN2CFhWC.webp" class="media-item__image">
                 </div>
               </div>
               <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                  <img src="/assets/photo3-OR98LY1N.webp" class="media-item__image">
                 </div>
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline6-to4KD5xY.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video3-D64JwrUn.mp4" type="video/mp4">
+                  <img src="/assets/outline6-BL5T8Y3X.webp" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video3-poster-CG-MQgv3.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
                   </video>
                 </div>
               </div>
               <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                  <img src="/assets/outline3-15YpR6jC.webp" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video3-poster-9_LovgRl.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo3-CBSjtr_g.png" class="media-item__image">
+                  <img src="data:image/webp;base64,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" class="media-item__image">
                 </div>
               </div>
               <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo4-Cioi-40q.png" class="media-item__image">
+                  <img src="/assets/photo4-C2kMc-TP.webp" class="media-item__image">
                 </div>
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline7-0JwI4XPa.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video4-BXKcBcEb.mp4" type="video/mp4">
+                  <img src="/assets/outline7-Chwpazfg.webp" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video4-poster-BofYvDSg.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
                   </video>
                 </div>
               </div>
               <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="/qoopi-landing/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                  <img src="/assets/outline4-t9_cqxGM.webp" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video4-poster-B_LeMqgF.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="media-item">
-                  <img src="/qoopi-landing/assets/photo4-z0fEuEMe.png" class="media-item__image">
+                  <img src="/assets/photo4-BpcLOkTK.webp" class="media-item__image">
                 </div>
               </div>
             </div>
@@ -676,20 +718,20 @@
         <section class="blogers-media" data-section-id="2">
           <div class="blogers-media__container">
             <div class="blogers-media__video-container">
-              <video class="blogers-media__video" autoplay loop muted playsinline>
-                <source src="/qoopi-landing/assets/video1-Cw5nYvc-.mp4" type="video/mp4">
+              <video class="blogers-media__video" autoplay loop muted playsinline poster="/assets/video1-poster-BvKtOyLo.jpeg">
+                <source data-src="./src/assets/blogers/video1.mp4" type="video/mp4">
                 </video>
-              <img src="/qoopi-landing/assets/video1-outline-DiGHoEvp.png" alt="Video outline" class="blogers-media__video-outline-image">
+              <img src="data:image/webp;base64,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" alt="Video outline" class="blogers-media__video-outline-image">
               </div>
             <div class="blogers-media__app-preview">
-              <img src="/qoopi-landing/assets/app-preview-DaeUGzVM.png" alt="App preview" class="blogers-media__app-preview-image">
+              <img src="/assets/app-preview-CbEFxB2u.webp" alt="App preview" class="blogers-media__app-preview-image">
             </div>
             <div class="blogers-media__good">
-              <img src="/qoopi-landing/assets/photo1-CRasDhbp.png" alt="Bloger photo" class="blogers-media__good-image">
+              <img src="/assets/photo1-BR9sce7n.webp" alt="Bloger photo" class="blogers-media__good-image">
             </div>
           </div>
           <div class="blogers-media__mobile-button-container">
-            <button class="button blogers-media__mobile-button openBloggerModalBtn">
+            <button class="button blogers-media__mobile-button" data-modal-id="become-blogger">
                 Создать витрину
             </button>
           </div>
@@ -700,53 +742,53 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                    <img src="/assets/photo1-MKMQPnmh.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      <img src="/assets/outline1-BjMi98YE.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video1-poster-B5cZzAJX.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                    <img src="/assets/photo2-g9nqJTS-.webp" class="media-item__image">
           </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      <img src="/assets/outline2-C6NnsqCK.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video2-poster-DX9LWhvH.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                    <img src="/assets/photo3-OR98LY1N.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      <img src="/assets/outline3-15YpR6jC.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video3-poster-9_LovgRl.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo4-Cioi-40q.png" class="media-item__image">
+                    <img src="/assets/photo4-C2kMc-TP.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                      <img src="/assets/outline4-t9_cqxGM.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video4-poster-B_LeMqgF.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
@@ -756,66 +798,66 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo1-D5YkX-qs.png" class="media-item__image">
+                    <img src="/assets/photo1-MKMQPnmh.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline1-B70WWdWN.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video1-CpveqOSv.mp4" type="video/mp4">
+                      <img src="/assets/outline1-BjMi98YE.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video1-poster-B5cZzAJX.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo2-C2SA7Sma.png" class="media-item__image">
+                    <img src="/assets/photo2-g9nqJTS-.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline2-B_Q5sQVJ.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video2-D_QP3E2j.mp4" type="video/mp4">
+                      <img src="/assets/outline2-C6NnsqCK.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video2-poster-DX9LWhvH.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo3-C-T2gWd2.png" class="media-item__image">
+                    <img src="/assets/photo3-OR98LY1N.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline3-CpgYJY9b.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video3-D6Yfqz3s.mp4" type="video/mp4">
+                      <img src="/assets/outline3-15YpR6jC.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video3-poster-9_LovgRl.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo4-Cioi-40q.png" class="media-item__image">
+                    <img src="/assets/photo4-C2kMc-TP.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="/qoopi-landing/assets/outline4-BLIx-Emp.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="/qoopi-landing/assets/video4-XW4ss8Lb.mp4" type="video/mp4">
+                      <img src="/assets/outline4-t9_cqxGM.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="/assets/video4-poster-B_LeMqgF.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
             </div>
           </section>
           <div class="brands-media__app-preview">
-            <video class="brands-media__app-preview-video" autoplay loop muted playsinline>
-              <source src="/qoopi-landing/assets/video1-CD49TGnt.mp4" type="video/mp4">
+            <video class="brands-media__app-preview-video" autoplay loop muted playsinline poster="/assets/video1-poster-dqR6O578.jpeg">
+              <source data-src="./src/assets/brands/video1.mp4" type="video/mp4">
             </video>
-            <img src="/qoopi-landing/assets/app-preview-BojDKGPC.png" alt="App preview">
+            <img src="/assets/app-preview-7uwrJJGb.webp" alt="App preview">
           </div>
           <div class="brands-media__mobile-button-container">
-            <button class="button brands-media__mobile-button openBrandModalBtn">
+            <button class="button brands-media__mobile-button openBrandModalBtn" data-modal-id="become-brand">
               Начать продавать
             </button>
           </div>
@@ -826,51 +868,51 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo1-BKHTqNMK.png" class="media-item__image">
+                    <img src="/assets/photo1-aQ_DenvI.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo2-DIjaSbwK.png" class="media-item__image">
+                    <img src="/assets/photo2-CnZHfDIN.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo3-QPE9ZKLm.png" class="media-item__image">
+                    <img src="/assets/photo3-DJaogJE7.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo4-Bf24Kh2E.png" class="media-item__image">
+                    <img src="/assets/photo4-87CM9KEI.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo5-BFSFIyeD.png" class="media-item__image">
-                </div>
-              </div>
-
-              <div class="carousel__slide">
-                <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo6-DJREISqC.png" class="media-item__image">
+                    <img src="/assets/photo5-CavEWHIV.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo7-xIfK8qhA.png" class="media-item__image">
+                    <img src="/assets/photo6-OUxBiLqC.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo8-BI2qxICL.png" class="media-item__image">
+                    <img src="/assets/photo7-BYlbcOnt.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo9-DiW0_1W9.png" class="media-item__image">
+                    <img src="/assets/photo8-DhEbZPy_.webp" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo9-D9y0oOat.webp" class="media-item__image">
                 </div>
               </div>
   
@@ -880,64 +922,64 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo1-BKHTqNMK.png" class="media-item__image">
+                    <img src="/assets/photo1-aQ_DenvI.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo2-DIjaSbwK.png" class="media-item__image">
+                    <img src="/assets/photo2-CnZHfDIN.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo3-QPE9ZKLm.png" class="media-item__image">
+                    <img src="/assets/photo3-DJaogJE7.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo4-Bf24Kh2E.png" class="media-item__image">
+                    <img src="/assets/photo4-87CM9KEI.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo5-BFSFIyeD.png" class="media-item__image">
-                </div>
-              </div>
-
-              <div class="carousel__slide">
-                <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo6-DJREISqC.png" class="media-item__image">
+                    <img src="/assets/photo5-CavEWHIV.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo7-xIfK8qhA.png" class="media-item__image">
+                    <img src="/assets/photo6-OUxBiLqC.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo8-BI2qxICL.png" class="media-item__image">
+                    <img src="/assets/photo7-BYlbcOnt.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="/qoopi-landing/assets/photo9-DiW0_1W9.png" class="media-item__image">
+                    <img src="/assets/photo8-DhEbZPy_.webp" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="/assets/photo9-D9y0oOat.webp" class="media-item__image">
                 </div>
               </div>
   
             </div>
           </section>
           <div class="sellers-media__app-preview">
-            <video class="sellers-media__app-preview-video" autoplay loop muted playsinline>
-              <source src="./src/assets/sellers/video1.mp4" type="video/mp4">
+            <video class="sellers-media__app-preview-video" autoplay loop muted playsinline poster="./src/assets/sellers/video1-poster.jpeg">
+              <source data-src="./src/assets/sellers/video1.mp4" type="video/mp4">
             </video>
-            <img src="/qoopi-landing/assets/app-preview-D4ZnQ-t3.png" alt="App preview">
+            <img src="/assets/app-preview-CFT7oWdZ.webp" alt="App preview">
           </div>
           <div class="sellers-media__mobile-button-container">
-            <button class="button sellers-media__mobile-button openSellerModalBtn">
+            <button class="button sellers-media__mobile-button" data-modal-id="become-seller">
               Начать продвигать
             </button>
           </div>
@@ -948,14 +990,6 @@
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
-      <script src="/src/bloggerModal.js"></script>
-      <link rel="stylesheet" href="/src/styles/dropped-list.scss">
-      <script src="/src/brandModals.js"></script>
-      <script src="/src/sellerModal.js"></script>
-      <script src="/src/modalInit.js"></script>
-      <script src="/src/selectDebug.js"></script>
-      <script src="/src/questionModal.js"></script>
-      <script src="/src/menuNavigation.js"></script>
-      <link rel="stylesheet" href="/src/styles/checkbox-fix.scss">
+
   </body>
 </html>
