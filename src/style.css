@@ -5,14 +5,12 @@
 @import './styles/ui.scss';
 @import './styles/carousel.scss';
 @import './styles/sections.scss';
-@import './styles/blogger-modal.scss';
-@import './styles/question-modal.scss';
-@import './styles/brand-modal.scss';
-@import './styles/seller-modal.scss';
-@import './styles/dropped-list.scss';
 @import './styles/success.scss';
 @import './styles/brands/main.scss';
 @import './styles/sellers/main.scss';
 @import './styles/menu/main.scss';
 @import './styles/blogers/main.scss';
 @import './styles/blots/main.scss';
+@import './styles/modal/main.scss';
+@import './forms/main.scss';
+@import './multiselect/main.scss';

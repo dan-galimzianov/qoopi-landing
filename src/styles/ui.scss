@@ -9,6 +9,11 @@
     color: $text-color;
     border-radius: 12px;
     font-family: inherit;
+    cursor: pointer;
+
+    &_full-width {
+        width: 100%;
+    }
 
     @media (max-width: 1700px) {
         padding: 16px 32px;

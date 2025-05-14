@@ -1,7 +1,12 @@
+import './modal';
+import './forms/main';
+import './multiselect/main';
+
+import { initMask } from './mask.js';
+
 const waitForVideo = (video: HTMLVideoElement) => {
   return new Promise((resolve) => {
     if (video.readyState >= 3) {
-      console.log("video is ready");
       resolve(video);
     } else {
       video.addEventListener('loadeddata', resolve);
@@ -23,7 +28,7 @@ const waitForAllImages = (images: HTMLImageElement[]) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Загрузка страницы...');
-  
+  initMask();
   // Получаем все пункты навигации
   const navItems = document.querySelectorAll('.hero-section__nav-link');
   

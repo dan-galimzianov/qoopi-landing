@@ -1,0 +1,95 @@
+        .multiselect {
+            position: relative;
+            width: 100%;
+
+            &__title--empty {
+                color: #888;
+            }
+        }
+        
+        .multiselect__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        
+        .multiselect__arrow {
+            width: 24px;
+            height: 24px;
+            background: url("./chevron-down.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: transform 0.3s ease;
+            transform: rotate(180deg);
+        }
+        
+        .multiselect__arrow--up {
+            transform: rotate(0);
+        }
+        
+        .multiselect__dropdown {
+            position: absolute;
+            width: 100%;
+            background-color: #444;
+            border-radius: 16px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            z-index: 10;
+        }
+        
+        .multiselect__dropdown--visible {
+            max-height: 500px;
+        }
+        
+        .multiselect__option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 24px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+
+            &:first-child {
+                padding-top: 12px;
+            }
+
+            &:last-child {
+                padding-bottom: 12px;
+            }
+        }
+        
+        .multiselect__option:hover {
+            background-color: #555;
+        }
+        
+        .multiselect__checkmark {
+            background: url("./check.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 24px;
+            height: 24px;
+            opacity: 0;
+        }
+        
+        .multiselect__option--selected .multiselect__checkmark {
+            opacity: 1;
+        }
+        
+        /* Скрытые инпуты для отправки формы */
+        .multiselect__input {
+            display: none;
+        }
+
+@media (max-width: 1200px) {
+    .multiselect {
+        &__title {
+            font-size: 15px;
+            line-height: 24px;
+        }
+    }
+}
