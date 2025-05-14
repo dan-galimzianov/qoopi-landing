@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
        buttons.forEach(button => {
         button.addEventListener('click', () => {
+            document.body.classList.remove('menu-open');
             modal.classList.add('modal_active');
         })
        })

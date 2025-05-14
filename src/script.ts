@@ -1,8 +1,13 @@
-import './modal';
-import './forms/main';
-import './multiselect/main';
-
 import { initMask } from './mask.js';
+
+// Функция debounce для оптимизации обработки событий
+const debounce = (func: Function, delay: number) => {
+  let timeoutId: number;
+  return function(this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => func.apply(this, args), delay);
+  };
+};
 
 const waitForVideo = (video: HTMLVideoElement) => {
   return new Promise((resolve) => {
@@ -26,9 +31,31 @@ const waitForAllImages = (images: HTMLImageElement[]) => {
   return Promise.all(images.map(image => waitForImage(image)));
 }
 
+// Функция для загрузки отложенных видео
+const loadLazyVideos = (container?: HTMLElement) => {
+  const parent = container || document;
+  const sources = parent.querySelectorAll('source[data-src]');
+  
+  sources.forEach(source => {
+    const src = source.getAttribute('data-src');
+    if (src) {
+      source.setAttribute('src', src);
+      // Удаляем атрибут data-src, чтобы не загружать повторно
+      source.removeAttribute('data-src');
+      
+      // Перезагружаем видео, чтобы применить новый src
+      const video = source.parentElement as HTMLVideoElement;
+      if (video) {
+        video.load();
+      }
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Загрузка страницы...');
   initMask();
+  
+  
   // Получаем все пункты навигации
   const navItems = document.querySelectorAll('.hero-section__nav-link');
   
@@ -58,6 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (section.getAttribute('data-section-id') === sectionId) {
         sectionElement.style.setProperty('opacity', '1');
         sectionElement.style.setProperty('visibility', 'visible');
+        
+        // Загружаем видео для активной секции
+        loadLazyVideos(sectionElement);
       } else {
         sectionElement.style.setProperty('opacity', '0');
         sectionElement.style.setProperty('visibility', 'hidden');
@@ -81,11 +111,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Активируем первую секцию по умолчанию
-  const firstNavItem = navItems[0] as HTMLElement;
-  if (firstNavItem) {
-    firstNavItem.click();
+    function getCleanHash() {
+    const hash = window.location.hash; // "#about?utm_source=google"
+    return hash ? hash.split('?')[0].slice(1) : null;
   }
+
+  const hash = getCleanHash();
+
+  const activeNavItem = Array.from(navItems).find(item => item.getAttribute('href')?.includes(hash));
+    if (activeNavItem) {
+      (activeNavItem as HTMLElement).click();
+    } else {
+      const firstNavItem = navItems[0] as HTMLElement;
+      if (firstNavItem) {
+        firstNavItem.click();
+      }
+    }
+  document.body.classList.remove('loading');
+
+  // Объект для хранения инициализированных каруселей
+  const initializedCarousels: Record<string, { type: 'vertical' | 'horizontal', wrapper: HTMLElement, duration: number }> = {};
 
   const initCarousel = async (id: string, duration: number) => {
     const carousel = document.getElementById(id);
@@ -98,18 +143,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const videos = Array.from(carousel.querySelectorAll('video'));
 
     await waitForAllImages(images);
+    
+    // Загружаем отложенные видео в карусели
+    loadLazyVideos(carousel);
+    
     await waitForAllVideos(videos);
-    console.log("all images and videos are ready");
 
     let totalHeight = carouselWrapper.clientHeight;
 
-    console.log(totalHeight);
     const originalContent = carouselWrapper.innerHTML;
     carouselWrapper.innerHTML = originalContent + originalContent;
 
     carouselWrapper.style.setProperty('--total-slider-height', `-${totalHeight}px`);
     carouselWrapper.style.setProperty('--iteration-time', `${duration}s`);
     carouselWrapper.style.setProperty('animation', "scroll var(--iteration-time) linear infinite");
+    
+    // Сохраняем карусель в списке инициализированных
+    initializedCarousels[id] = { type: 'vertical', wrapper: carouselWrapper, duration };
   }
 
   // Функционал для меню
@@ -189,24 +239,124 @@ document.addEventListener('DOMContentLoaded', () => {
     await waitForAllVideos(videos);
 
     let totalWidth = carouselWrapper.clientWidth;
-    console.log(totalWidth);
     const originalContent = carouselWrapper.innerHTML;
     carouselWrapper.innerHTML = originalContent + originalContent;
 
     carouselWrapper.style.setProperty('--total-slider-width', `-${totalWidth}px`);
     carouselWrapper.style.setProperty('--iteration-time', `${duration}s`);
     carouselWrapper.style.setProperty('animation', "scroll-horizontal var(--iteration-time) linear infinite");
+    
+    // Сохраняем карусель в списке инициализированных
+    initializedCarousels[id] = { type: 'horizontal', wrapper: carouselWrapper, duration };
   }
-
-  // Инициализация вертикальных каруселей для десктопа
-  initCarousel('carousel1', 17);
-  initCarousel('carousel2', 15);
-  initCarousel('carousel3', 15);
-  initCarousel('sellers-media-carousel', 15);
   
-  // Инициализация горизонтальной карусели
-  initHorizontalCarousel('hero-sliders-mobile', 20);
-  initHorizontalCarousel('brands-media-mobile-carousel', 20);
-  initHorizontalCarousel('sellers-media-mobile-carousel', 20);
+  // Функция для обновления размеров карусели
+  const updateCarouselSize = (id: string) => {
+    if (!initializedCarousels[id]) return;
+    
+    const { type, wrapper, duration } = initializedCarousels[id];
+    
+    if (type === 'vertical') {
+      // Останавливаем анимацию перед пересчетом размеров
+      wrapper.style.animation = 'none';
+      // Форсируем перерасчет DOM
+      void wrapper.offsetWidth;
+      
+      const totalHeight = wrapper.clientHeight / 2; // Делим на 2, т.к. контент дублирован
+      wrapper.style.setProperty('--total-slider-height', `-${totalHeight}px`);
+      wrapper.style.setProperty('animation', `scroll ${duration}s linear infinite`);
+    } else {
+      // Останавливаем анимацию перед пересчетом размеров
+      wrapper.style.animation = 'none';
+      // Форсируем перерасчет DOM
+      void wrapper.offsetWidth;
+      
+      const totalWidth = wrapper.clientWidth / 2; // Делим на 2, т.к. контент дублирован
+      wrapper.style.setProperty('--total-slider-width', `-${totalWidth}px`);
+      wrapper.style.setProperty('animation', `scroll-horizontal ${duration}s linear infinite`);
+    }
+  };
+  
+  // Функция для инициализации каруселей в зависимости от размера экрана
+  const initCarouselsBasedOnScreenSize = async () => {
+    const desktopCarouselIds = ['carousel1', 'carousel2', 'carousel3', 'sellers-media-carousel'];
+    const mobileCarouselIds = ['hero-sliders-mobile', 'brands-media-mobile-carousel', 'sellers-media-mobile-carousel'];
+    
+    const isDesktop = window.innerWidth >= 1200;
+    
+    // Сбрасываем все предыдущие инициализации
+    Object.keys(initializedCarousels).forEach(id => {
+      const carousel = document.getElementById(id);
+      if (carousel) {
+        const wrapper = carousel.querySelector('.carousel__wrapper') as HTMLElement;
+        if (wrapper) {
+          wrapper.style.animation = 'none';
+          
+          // Восстанавливаем оригинальный контент (без дублирования)
+          if (wrapper.children.length > 0) {
+            const childrenCount = wrapper.children.length;
+            // Удаляем вторую половину дублированных элементов
+            for (let i = childrenCount - 1; i >= childrenCount / 2; i--) {
+              wrapper.children[i].remove();
+            }
+          }
+        }
+      }
+    });
+    
+    // Очищаем список инициализированных каруселей
+    Object.keys(initializedCarousels).forEach(key => {
+      delete initializedCarousels[key];
+    });
+    
+    if (isDesktop) {
+      // Инициализируем десктопные карусели 
+      for (const id of desktopCarouselIds) {
+        const duration = id === 'carousel1' ? 17 : 15;
+        await initCarousel(id, duration);
+      }
+    } else {
+      // Инициализируем мобильные карусели
+      for (const id of mobileCarouselIds) {
+        await initHorizontalCarousel(id, 20);
+      }
+    }
+  };
+  
+  // Функция для обновления всех каруселей
+  const updateAllCarousels = () => {
+    Object.keys(initializedCarousels).forEach(id => {
+      updateCarouselSize(id);
+    });
+  };
+  
+  // Инициализируем карусели при загрузке
+  initCarouselsBasedOnScreenSize();
+  
+  // Обработчик изменения размера окна с debounce
+  window.addEventListener('resize', debounce(() => {
+    // Если ширина окна меняется с десктопа на мобильный или наоборот
+    const isDesktopNow = window.innerWidth >= 1200;
+    const wasDesktop = Object.keys(initializedCarousels).some(id => 
+      ['carousel1', 'carousel2', 'carousel3', 'sellers-media-carousel'].includes(id)
+    );
+    
+    if (isDesktopNow !== wasDesktop) {
+      // Полная реинициализация каруселей
+      initCarouselsBasedOnScreenSize();
+    } else {
+      // Только обновляем размеры
+      updateAllCarousels();
+    }
+  }, 150));
+
+  const textarea = document.querySelectorAll('.textarea-auto-resize');
+
+  textarea?.forEach(item => {
+    item.addEventListener('input', () => {
+      (item as HTMLTextAreaElement).style.height = 'auto'; // сбросить текущую высоту
+      (item as HTMLTextAreaElement).style.height = (item as HTMLTextAreaElement).scrollHeight + 'px'; // установить высоту по содержимому
+    });
+  });
 }); 
 

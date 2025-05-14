@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/style.css">
     <title>Qoopi</title>
+    <script type="module" src="/src/script.ts"></script>
+    <script type="module" src="/src/modal.ts"></script>
+    <script type="module" src="/src/forms/main.js" defer></script>
+    <script type="module" src="/src/multiselect/main.js" defer></script>
   </head>
-  <body class="blot_1">
-
-    
-    
-    <div class="modal" data-modal-id="ask-question">
+  <body class="blot_1 loading">    
+    <div class="modal" data-modal-id="become-blogger">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-blogger">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать блогером на qoopi
@@ -73,28 +74,28 @@
                 <input class="form__item-input multiselect__input" type="text" name="socialNetwork" hidden>
             </div>
             </div>
-            <div class="form__item" data-form-validation-required="true" data-form-validation-is-url="true">
+            <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Ссылка на ваши аккаунты*</label>
-              <textarea class="form__item-textarea" placeholder="https://" name="account"></textarea>
+              <textarea class="textarea-auto-resize form__item-input" placeholder="https://" name="account" rows="1"></textarea>
             </div>
-          </div>
-          <div class="form__item" data-form-validation-required="true">
-            <label class="form__item-label">Количество подписчиков *</label>
-            <input class="form__item-input" type="text" placeholder="Укажитие количество" name="followers">
+            <div class="form__item" data-form-validation-required="true">
+              <label class="form__item-label">Количество подписчиков *</label>
+              <input class="form__item-input" type="text" placeholder="Укажитие количество" name="followers">
+            </div>
           </div>
         </section>
         <footer class="modal__footer">
           <div class="modal__footer-content">
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <input type="checkbox" class="form__item-input" id="agreement_blogger" name="agreement">
+                <label for="agreement_blogger"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
-                <label for="newsletter">Я согласен получать письма от qoopi</label>
+                <input type="checkbox" class="form__item-input" id="newsletter_blogger" name="newsletter" value="true">
+                <label for="newsletter_blogger">Я согласен получать письма от qoopi</label>
               </div>
             </label>
           </div>
@@ -107,9 +108,9 @@
       </form>
     </div>
     
-    <div class="modal" data-modal-id="ask-question">
+    <div class="modal" data-modal-id="become-brand">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-brand">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать брендом на qoopi
@@ -125,7 +126,7 @@
               <label class="form__item-label">Название компании *</label>
               <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-multiselect="true">
               <label class="form__item-label">Категории товаров *</label>
               <div class="multiselect">
                 <div class="multiselect__header">
@@ -200,7 +201,7 @@
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
                 <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <label for="agreement"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
@@ -219,9 +220,9 @@
       </form>
     </div>
     
-    <div class="modal" data-modal-id="ask-question">
+    <div class="modal" data-modal-id="become-seller">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-form">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать селлером на qoopi
@@ -283,14 +284,14 @@
           <div class="modal__footer-content">
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <input type="checkbox" class="form__item-input" id="agreement_seller" name="agreement">
+                <label for="agreement_seller"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
-                <label for="newsletter">Я согласен получать письма от qoopi</label>
+                <input type="checkbox" class="form__item-input" id="newsletter_seller" name="newsletter" value="true">
+                <label for="newsletter_seller">Я согласен получать письма от qoopi</label>
               </div>
             </label>
           </div>
@@ -305,7 +306,7 @@
 
     <div class="modal" data-modal-id="ask-question">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-question">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Задать вопрос
@@ -339,14 +340,14 @@
           <div class="modal__footer-content">
             <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
-                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
+                <input type="checkbox" class="form__item-input" id="agreement_question" name="agreement">
+                <label for="agreement_question"><span>Я принимаю условия <a href="/privacy/privacy.html" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
             </label>
             <label for="newsletter" class="modal__footer-label form__item">
               <div class="checkbox">
-                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
-                <label for="newsletter">Я согласен получать письма от qoopi</label>
+                <input type="checkbox" class="form__item-input" id="newsletter_question" name="newsletter" value="true">
+                <label for="newsletter_question">Я согласен получать письма от qoopi</label>
               </div>
             </label>
           </div>
@@ -358,9 +359,6 @@
         </footer>
       </form>
     </div>
-
-  
-
 
       <div class="success-modal" id="successModal">
           <div class="success-modal__container">
@@ -437,18 +435,15 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Смотрите обзоры и распаковки от любимых блогеров и экспертов, вдохновляйтесь, находите идеи и покупайте товары прямо из публикаций
             </div>
-            <button class="button hero-section__desktop-button open-modal-btn" id="openMainModalBtn">
-              Создать витрину
-            </button>
           </div>
           <div class="hero-section__content" data-section-id="2">
             <div class="hero-section__content-title title title_h1">
-              Рекомендуйте любимые товары&nbsp;и&nbsp;бренды и&nbsp;зарабатывайте
+              Рекомендуйте любимые товары и&nbsp;бренды и&nbsp;зарабатывайте
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
               Создайте собственную витрину, публикуйте обзоры,распаковки или просто добавляйте товары на свою витрину в Qoopi
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn openBloggerModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-blogger">
               Создать витрину
             </button>
           </div>
@@ -459,7 +454,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Позвольте тысячам блогеров и экспертов продвигать и продавать ваши товары за вас. Увеличивайте продажи и платите только за результат
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn openBrandModalBtn" >
+            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-brand">
               Начать продавать
             </button>
           </div>
@@ -470,7 +465,7 @@
             <div class="title title_h4 title_secondary hero-section__content-description">
               Сотрудничайте с лучшими блогерами и экспертами для продвижения ваших товаров на маркетплейсах
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn openSellerModalBtn">
+            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-seller">
               Начать продвигать
             </button>
           </div>
@@ -481,53 +476,53 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline1.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video1-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo2.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline2.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video2-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline3.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video3-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo4.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo4.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline4.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline4.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video4-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
@@ -537,53 +532,53 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
+                    <img src="./src/assets/carousel/about-slider/outlines/outline5.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video1-poster.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
                     </video>
                 </div>
                 </div>
               <div class="carousel__slide">
 
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo1.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                  <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/outlines/outline8.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
+                    <img src="./src/assets/carousel/about-slider/outlines/outline8.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video2-poster.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
                     </video>
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo2.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo2.webp" class="media-item__image">
                 </div>
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/outlines/outline6.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
+                    <img src="./src/assets/carousel/about-slider/outlines/outline6.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video3-poster.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
                     </video>
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo3.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                  <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/outlines/outline7.png" class="media-item__outline-image">
-                    <video loop muted autoplay playsinline class="media-item__video">                                        
-                      <source src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
+                    <img src="./src/assets/carousel/about-slider/outlines/outline7.webp" class="media-item__outline-image">
+                    <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video4-poster.jpeg">                                        
+                      <source data-src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
                     </video>
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo4.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo4.webp" class="media-item__image">
                 </div>
                 
             </div>
@@ -597,97 +592,97 @@
               <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo1.webp" class="media-item__image">
               </div>
               <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline5.webp" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video1-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video1.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
             <!-- Слайд 2: видео из 1 карусели + картинка из 2 карусели -->
             <div class="carousel__slide">
               <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline1.webp" alt="" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video1-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                 </video>
               </div>
               <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo1.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo1.webp" class="media-item__image">
               </div>
             </div>
             <!-- Слайд 3: картинка из 1 карусели + видео из 2 карусели -->
             <div class="carousel__slide">
               <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo2.webp" class="media-item__image">
               </div>
               <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline5.png" class="media-item__outline-image">
-                <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline5.webp" class="media-item__outline-image">
+                <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video2-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video2.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
               <!-- Слайд 4: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline2.webp" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video2-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo2.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo2.webp" class="media-item__image">
                 </div>
               </div>
               <!-- Слайд 5: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo3.webp" class="media-item__image">
                 </div>
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline6.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline6.webp" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video3-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video3.mp4" type="video/mp4">
                   </video>
                 </div>
               </div>
               <!-- Слайд 6: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline3.webp" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video3-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo3.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <!-- Слайд 7: картинка из 1 карусели + видео из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/left-half/photo4.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/left-half/photo4.webp" class="media-item__image">
                 </div>
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline7.png" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline7.webp" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/right-half/video4-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/right-half/video4.mp4" type="video/mp4">
                   </video>
                 </div>
               </div>
               <!-- Слайд 8: видео из 1 карусели + картинка из 2 карусели -->
               <div class="carousel__slide">
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/outlines/outline4.png" alt="" class="media-item__outline-image">
-                  <video loop muted autoplay playsinline class="media-item__video">                                        
-                    <source src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
+                  <img src="./src/assets/carousel/about-slider/outlines/outline4.webp" alt="" class="media-item__outline-image">
+                  <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video4-poster.jpeg">                                        
+                    <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                   </video>
                 </div>
                 <div class="media-item">
-                  <img src="./src/assets/carousel/about-slider/right-half/photo4.png" class="media-item__image">
+                  <img src="./src/assets/carousel/about-slider/right-half/photo4.webp" class="media-item__image">
                 </div>
               </div>
             </div>
@@ -698,20 +693,20 @@
         <section class="blogers-media" data-section-id="2">
           <div class="blogers-media__container">
             <div class="blogers-media__video-container">
-              <video class="blogers-media__video" autoplay loop muted playsinline>
-                <source src="./src/assets/blogers/video1.mp4" type="video/mp4">
+              <video class="blogers-media__video" autoplay loop muted playsinline poster="./src/assets/blogers/video1-poster.jpeg">
+                <source data-src="./src/assets/blogers/video1.mp4" type="video/mp4">
                 </video>
-              <img src="./src/assets/blogers/video1-outline.png" alt="Video outline" class="blogers-media__video-outline-image">
+              <img src="./src/assets/blogers/video1-outline.webp" alt="Video outline" class="blogers-media__video-outline-image">
               </div>
             <div class="blogers-media__app-preview">
-              <img src="./src/assets/blogers/app-preview.png" alt="App preview" class="blogers-media__app-preview-image">
+              <img src="./src/assets/blogers/app-preview.webp" alt="App preview" class="blogers-media__app-preview-image">
             </div>
             <div class="blogers-media__good">
-              <img src="./src/assets/blogers/photo1.png" alt="Bloger photo" class="blogers-media__good-image">
+              <img src="./src/assets/blogers/photo1.webp" alt="Bloger photo" class="blogers-media__good-image">
             </div>
           </div>
           <div class="blogers-media__mobile-button-container">
-            <button class="button blogers-media__mobile-button openBloggerModalBtn">
+            <button class="button blogers-media__mobile-button" data-modal-id="become-blogger">
                 Создать витрину
             </button>
           </div>
@@ -722,53 +717,53 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline1.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video1-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                 </video>
               </div>
             </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo2.webp" class="media-item__image">
           </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline2.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video2-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline3.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video3-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo4.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo4.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline4.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline4.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video4-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
@@ -778,63 +773,63 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo1.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline1.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline1.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video1-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo2.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo2.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline2.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline2.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video2-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video2.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo3.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline3.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline3.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video3-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video3.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/carousel/about-slider/left-half/photo4.png" class="media-item__image">
+                    <img src="./src/assets/carousel/about-slider/left-half/photo4.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline4.png" alt="" class="media-item__outline-image">
-                      <video loop muted autoplay playsinline class="media-item__video">                                        
-                        <source src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
+                      <img src="./src/assets/carousel/about-slider/outlines/outline4.webp" alt="" class="media-item__outline-image">
+                      <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video4-poster.jpeg">                                        
+                        <source data-src="./src/assets/carousel/about-slider/left-half/video4.mp4" type="video/mp4">
                       </video>
                   </div>
               </div>
             </div>
           </section>
           <div class="brands-media__app-preview">
-            <video class="brands-media__app-preview-video" autoplay loop muted playsinline>
-              <source src="./src/assets/brands/video1.mp4" type="video/mp4">
+            <video class="brands-media__app-preview-video" autoplay loop muted playsinline poster="./src/assets/brands/video1-poster.jpeg">
+              <source data-src="./src/assets/brands/video1.mp4" type="video/mp4">
             </video>
-            <img src="./src/assets/brands/app-preview.png" alt="App preview">
+            <img src="./src/assets/brands/app-preview.webp" alt="App preview">
           </div>
           <div class="brands-media__mobile-button-container">
             <button class="button brands-media__mobile-button openBrandModalBtn">
@@ -848,51 +843,51 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo1.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo2.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo2.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo3.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo4.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo4.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo5.png" class="media-item__image">
-                </div>
-              </div>
-
-              <div class="carousel__slide">
-                <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo6.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo5.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo7.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo6.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo8.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo7.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo9.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo8.webp" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="./src/assets/sellers/carousel/photo9.webp" class="media-item__image">
                 </div>
               </div>
   
@@ -902,61 +897,61 @@
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo1.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo2.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo2.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo3.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo3.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo4.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo4.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo5.png" class="media-item__image">
-                </div>
-              </div>
-
-              <div class="carousel__slide">
-                <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo6.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo5.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo7.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo6.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo8.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo7.webp" class="media-item__image">
                 </div>
               </div>
 
               <div class="carousel__slide">
                 <div class="media-item">
-                    <img src="./src/assets/sellers/carousel/photo9.png" class="media-item__image">
+                    <img src="./src/assets/sellers/carousel/photo8.webp" class="media-item__image">
+                </div>
+              </div>
+
+              <div class="carousel__slide">
+                <div class="media-item">
+                    <img src="./src/assets/sellers/carousel/photo9.webp" class="media-item__image">
                 </div>
               </div>
   
             </div>
           </section>
           <div class="sellers-media__app-preview">
-            <video class="sellers-media__app-preview-video" autoplay loop muted playsinline>
-              <source src="./src/assets/sellers/video1.mp4" type="video/mp4">
+            <video class="sellers-media__app-preview-video" autoplay loop muted playsinline poster="./src/assets/sellers/video1-poster.jpeg">
+              <source data-src="./src/assets/sellers/video1.mp4" type="video/mp4">
             </video>
-            <img src="./src/assets/sellers/app-preview.png" alt="App preview">
+            <img src="./src/assets/sellers/app-preview.webp" alt="App preview">
           </div>
           <div class="sellers-media__mobile-button-container">
             <button class="button sellers-media__mobile-button openSellerModalBtn">
@@ -971,15 +966,5 @@
         </div>
       </main>
 
-      <script type="module" src="/src/script.ts"></script>
-      <script src="/src/bloggerModal.js"></script>
-      <link rel="stylesheet" href="/src/styles/dropped-list.scss">
-      <script src="/src/brandModals.js"></script>
-      <script src="/src/sellerModal.js"></script>
-      <script src="/src/modalInit.js"></script>
-      <script src="/src/selectDebug.js"></script>
-      <script src="/src/questionModal.js"></script>
-      <script src="/src/menuNavigation.js"></script>
-      <link rel="stylesheet" href="/src/styles/checkbox-fix.scss">
   </body>
 </html>

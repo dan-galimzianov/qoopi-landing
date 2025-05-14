@@ -16,6 +16,12 @@ $transition-easing: ease;
         gap: 32px;
     }
 
+    &__item-textarea {
+        height: auto;
+        overflow: hidden;
+        resize: none;
+    }
+
     &__item {
         display: flex;
         flex-direction: column;

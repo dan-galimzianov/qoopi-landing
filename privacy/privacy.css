@@ -54,7 +54,7 @@ h2{
 
 @media (max-width: 1200px) {
     .hero {
-        padding: 60px 16px 16px 16px;
+        padding: 16px;
     }
 }
 
@@ -142,17 +142,8 @@ margin-top: 0;
 
 .container{
     display: flex;
-    padding-left: 40px;
-    padding-right: 40px;
     box-sizing: border-box;
     max-width: 100%;
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
 }
 
 .privacy-container {
@@ -563,10 +554,6 @@ line-height: 64px;
     
     .policy__copy {
         font-size: 12px;
-    }
-    
-    .hero {
-        padding-bottom: 80px; /* Extra padding to accommodate footer */
     }
 }
 
