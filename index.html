@@ -5,14 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/qoopi-landing/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-DNYFUT3P.js"></script>
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-DhnCYQe2.js"></script>
     <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-rwWAxTXE.css">
   </head>
   <body class="blot_1">
 
     <div class="modal" data-modal-id="ask-question">
       <div class="modal__overlay"></div>
-      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-question">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-form">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать селлером на qoopi
@@ -26,7 +26,7 @@
           <div class="form__container">
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Название компании *</label>
-              <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
+              <input class="form__item-input" type="text" placeholder="Бренд" name="companyName">
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-multiselect="true">
               <label class="form__item-label">Категории товаров *</label>
@@ -49,24 +49,24 @@
                         <div class="multiselect__checkmark" aria-hidden="true"></div>
                     </li>
                 </ul>
-                <input class="form__item-input multiselect__input" type="text" name="categories" hidden>
+                <input class="form__item-input multiselect__input" type="text" name="productCategories" hidden>
             </div>
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-url="true">
               <label class="form__item-label">Ссылка на сайт или интернет магазин*</label>
-              <input class="form__item-input" type="text" placeholder="https://" name="website">
+              <input class="form__item-input" type="text" placeholder="https://" name="marketplaceLink">
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Имя и фамилия *</label>
-              <input class="form__item-input" type="text" placeholder="Имя и фамилия" name="name">
+              <input class="form__item-input" type="text" placeholder="Имя и фамилия" name="sellerName">
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-email="true">
               <label class="form__item-label">Электронная почта *</label>
-              <input class="form__item-input" type="text" placeholder="Электронная почта" name="email">
+              <input class="form__item-input" type="text" placeholder="Электронная почта" name="sellerEmail">
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Телефон *</label>
-              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="phone">
+              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="sellerPhone">
             </div>
           </div>
         </section>
