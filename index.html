@@ -5,21 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="/qoopi-landing/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-COTpIqvT.js"></script>
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-DNYFUT3P.js"></script>
     <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-rwWAxTXE.css">
   </head>
   <body class="blot_1">
 
     <div class="modal" data-modal-id="ask-question">
       <div class="modal__overlay"></div>
-      <form class="modal__content form">
+      <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-question">
         <header class="modal__header">
           <h3 class="modal__header-title">
             Стать селлером на qoopi
           </h3>
           <button class="modal__close-button" type="button"></button>
           <p class="modal__header-description">
-            Задайте вопрос, и мы ответим на него в течение 24 часов.
+            Заполните анкету и мы свяжемся с вами в ближайшее время
           </p>
         </header>
         <section class="modal__content-body">
@@ -28,7 +28,7 @@
               <label class="form__item-label">Название компании *</label>
               <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-multiselect="true">
               <label class="form__item-label">Категории товаров *</label>
               <div class="multiselect">
                 <div class="multiselect__header">
