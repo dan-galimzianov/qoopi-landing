@@ -236,9 +236,9 @@
           <div class="form__container">
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Название компании *</label>
-              <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
+              <input class="form__item-input" type="text" placeholder="Бренд" name="companyName">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-multiselect="true">
               <label class="form__item-label">Категории товаров *</label>
               <div class="multiselect">
                 <div class="multiselect__header">
@@ -251,32 +251,60 @@
                         <div class="multiselect__checkmark" aria-hidden="true"></div>
                     </li>
                     <li class="multiselect__option" data-value="fashion" role="option" aria-selected="false">
-                        <span class="multiselect__text">Мода</span>
-                        <div class="multiselect__checkmark" aria-hidden="true"></div>
-                    </li>
-                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
                         <span class="multiselect__text">Красота</span>
                         <div class="multiselect__checkmark" aria-hidden="true"></div>
                     </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Здоровье</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Спорт</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Дом</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Дети</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Гаджеты</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Авто</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Хобби</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Другое</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
                 </ul>
-                <input class="form__item-input multiselect__input" type="text" name="categories" hidden>
+                <input class="form__item-input multiselect__input" type="text" name="productCategories" hidden>
             </div>
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-url="true">
               <label class="form__item-label">Ссылка на сайт или интернет магазин*</label>
-              <input class="form__item-input" type="text" placeholder="https://" name="website">
+              <input class="form__item-input" type="text" placeholder="https://" name="marketplaceLink">
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Имя и фамилия *</label>
-              <input class="form__item-input" type="text" placeholder="Константин Константинопольский" name="name">
+              <input class="form__item-input" type="text" placeholder="Константин Константинопольский" name="sellerName">
             </div>
             <div class="form__item" data-form-validation-required="true" data-form-validation-is-email="true">
               <label class="form__item-label">Электронная почта *</label>
-              <input class="form__item-input" type="text" placeholder="example@mail.com" name="email">
+              <input class="form__item-input" type="text" placeholder="example@mail.com" name="sellerEmail">
             </div>
             <div class="form__item" data-form-validation-required="true">
               <label class="form__item-label">Телефон *</label>
-              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="phone">
+              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="sellerPhone">
             </div>
           </div>
         </section>
@@ -832,7 +860,7 @@
             <img src="./src/assets/brands/app-preview.webp" alt="App preview">
           </div>
           <div class="brands-media__mobile-button-container">
-            <button class="button brands-media__mobile-button openBrandModalBtn">
+            <button class="button brands-media__mobile-button openBrandModalBtn" data-modal-id="become-brand">
               Начать продавать
             </button>
           </div>
@@ -954,7 +982,7 @@
             <img src="./src/assets/sellers/app-preview.webp" alt="App preview">
           </div>
           <div class="sellers-media__mobile-button-container">
-            <button class="button sellers-media__mobile-button openSellerModalBtn">
+            <button class="button sellers-media__mobile-button" data-modal-id="become-seller">
               Начать продвигать
             </button>
           </div>
