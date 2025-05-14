@@ -5,846 +5,95 @@
     <link rel="icon" type="image/svg+xml" href="/qoopi-landing/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Qoopi</title>
-    <script type="module" crossorigin src="/qoopi-landing/assets/index-BO8XgEFJ.js"></script>
-    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-0uUq2NEf.css">
+    <script type="module" crossorigin src="/qoopi-landing/assets/index-COTpIqvT.js"></script>
+    <link rel="stylesheet" crossorigin href="/qoopi-landing/assets/index-rwWAxTXE.css">
   </head>
   <body class="blot_1">
-        <!-- Модальное окно для блоггеров-->
-        <div class="modal-overlay" id="modal">
-          <div class="modal-container">
-            <!-- Заголовок и кнопка закрытия -->
-            <div class="modal-header">
-              <h3>Стать блогером на qoopi</h3>
-              <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+
+    <div class="modal" data-modal-id="ask-question">
+      <div class="modal__overlay"></div>
+      <form class="modal__content form">
+        <header class="modal__header">
+          <h3 class="modal__header-title">
+            Стать селлером на qoopi
+          </h3>
+          <button class="modal__close-button" type="button"></button>
+          <p class="modal__header-description">
+            Задайте вопрос, и мы ответим на него в течение 24 часов.
+          </p>
+        </header>
+        <section class="modal__content-body">
+          <div class="form__container">
+            <div class="form__item" data-form-validation-required="true">
+              <label class="form__item-label">Название компании *</label>
+              <input class="form__item-input" type="text" placeholder="Бренд" name="brandName">
             </div>
-            <div>
-              <p class="subtitle">
-                Заполните анкету и мы свяжемся с вами в ближайшее время
-              </p>
+            <div class="form__item" data-form-validation-required="true">
+              <label class="form__item-label">Категории товаров *</label>
+              <div class="multiselect">
+                <div class="multiselect__header">
+                    <span class="multiselect__title"></span>
+                    <div class="multiselect__arrow"></div>
+                </div>
+                <ul class="multiselect__dropdown" role="listbox" aria-multiselectable="true">
+                    <li class="multiselect__option" data-value="style" role="option" aria-selected="false">
+                        <span class="multiselect__text">Стиль</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="fashion" role="option" aria-selected="false">
+                        <span class="multiselect__text">Мода</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                    <li class="multiselect__option" data-value="beauty" role="option" aria-selected="false">
+                        <span class="multiselect__text">Красота</span>
+                        <div class="multiselect__checkmark" aria-hidden="true"></div>
+                    </li>
+                </ul>
+                <input class="form__item-input multiselect__input" type="text" name="categories" hidden>
             </div>
-            <!-- Основное содержимое модалки -->
-            <div class="modal-content">
-              <form id="blogger-form">
-                <!-- Группа полей ввода -->
-                <div class="form-group">
-                  <label for="name" class="required">Имя и фамилия</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="Константин Константинопольский"
-                  />
-                  <div class="error-message" id="name-error"></div>
-                </div>
-    
-                <div class="form-group">
-                  <label for="email" class="required">Электронная почта</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="example@mail.com"
-                    required
-                  />
-                  <div class="error-message" id="email-error"></div>
-                </div>
-    
-                <div class="form-group">
-                  <label for="phone" class="required">Номер телефона</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder="+7"
-                    required
-                  />
-                  <div class="error-message" id="phone-error"></div>
-                </div>
-                <div class="form-group">
-                  <label for="socialNetwork" class="required"
-                    >Социальные сети</label
-                  >
-    
-                  <div class="multi-select-container">
-                    <!-- Скрытое поле для отправки данных формы -->
-                    <input
-                      type="hidden"
-                      name="socialNetwork"
-                      id="socialNetwork"
-                      value=""
-                    />
-    
-                    <!-- Заголовок мультиселектора -->
-                    <div
-                      class="multi-select-header"
-                      id="socialNetworkHeader"
-                      tabindex="0"
-                      role="button"
-                      aria-haspopup="listbox"
-                      aria-expanded="false"
-                    >
-                      <span>Выберите социальные сети</span>
-                      <span class="arrow" aria-hidden="true"></span>
-                    </div>
-    
-                    <!-- Выпадающий список опций -->
-                    <div
-                      id="socialNetworkDropdown"
-                      class="multi-select-dropdown"
-                      role="listbox"
-                      aria-multiselectable="true"
-                    >
-                      <div
-                        class="multi-select-option"
-                        role="option"
-                        tabindex="0"
-                        aria-selected="false"
-                        data-value="instagram"
-                      >
-                        <span>Instagram</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        role="option"
-                        tabindex="0"
-                        aria-selected="false"
-                        data-value="youtube"
-                      >
-                        <span>YouTube</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        role="option"
-                        tabindex="0"
-                        aria-selected="false"
-                        data-value="tiktok"
-                      >
-                        <span>TikTok</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        role="option"
-                        tabindex="0"
-                        aria-selected="false"
-                        data-value="other"
-                      >
-                        <span>Другая</span>
-                      </div>
-                    </div>
-    
-                    <!-- Элемент для скринридеров -->
-                    <div class="visually-hidden" aria-live="polite" id="socialNetworkLiveRegion"></div>
-                  </div>
-                </div>
-    
-                <div class="form-group">
-                  <label for="account" class="required"
-                    >Ссылки на ваши аккаунты</label
-                  >
-                  <textarea
-                    id="account"
-                    name="account"
-                    placeholder="Введите ссылки на ваши аккаунты"
-                    required
-                  ></textarea>
-                  <div class="error-message" id="account-error"></div>
-                </div>
-    
-                <div class="form-group">
-                  <label for="followers" class="required"
-                    >Количество подписчиков</label
-                  >
-                  <input
-                    type="text"
-                    id="followers"
-                    name="followers"
-                    placeholder="Укажите количество"
-                    required
-                  />
-                  <div class="error-message" id="followers-error"></div>
-                </div>
-              </form>
             </div>
-            <footer class="modal-footer">
-              <div class="form-alert" id="form-alert">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <!-- Круг-обруч -->
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    fill="none"
-                  />
-                  <!-- Восклицательный знак -->
-                  <path
-                    d="M10 5v6M10 14v1"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <span>Заполните все поля</span>
-              </div>
-              <!-- Чекбоксы -->
-              <div class="checkboxes">
-                <div class="checkbox-group">
-                  <input type="checkbox" id="agreement" name="agreement" required />
-                  <label for="agreement"
-                    >Я принимаю условия&nbsp;
-                    <a href="#" target="_blank" class="text-link"
-                      >пользовательского соглашения</a
-                    ></label
-                  >
-                </div>
-    
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="newsletter"
-                    name="newsletter"
-                    checked
-                  />
-                  <label for="newsletter"
-                    >Я согласен получать письма от qoopi</label
-                  >
-                </div>
-              </div>
-    
-              <!-- Кнопка отправки -->
-              <button type="submit" class="submit-btn">Отправить заявку</button>
-            </footer>
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-url="true">
+              <label class="form__item-label">Ссылка на сайт или интернет магазин*</label>
+              <input class="form__item-input" type="text" placeholder="https://" name="website">
+            </div>
+            <div class="form__item" data-form-validation-required="true">
+              <label class="form__item-label">Имя и фамилия *</label>
+              <input class="form__item-input" type="text" placeholder="Имя и фамилия" name="name">
+            </div>
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-email="true">
+              <label class="form__item-label">Электронная почта *</label>
+              <input class="form__item-input" type="text" placeholder="Электронная почта" name="email">
+            </div>
+            <div class="form__item" data-form-validation-required="true">
+              <label class="form__item-label">Телефон *</label>
+              <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="phone">
+            </div>
           </div>
-        </div>
-        <!-- Модальное окно "Задать вопрос" -->
-        <div class="modal-overlay" id="questionModal">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3>Задать вопрос</h3>
-              <button class="close-modal-btn" id="closeQuestionModalBtn">
-                &times;
-              </button>
-            </div>
-            <div class="">
-              <p class="subtitle">
-                Заполните форму или напишите нам на&nbsp;
-                <a href="#" target="_blank" class="text-link">hello@qoopi.ru</a>
-              </p>
-            </div>
-            <div class="modal-content">
-              <form id="question-form">
-                <div class="form-group">
-                  <label for="questionName" class="required">Имя</label>
-                  <input
-                    type="text"
-                    id="questionName"
-                    name="name"
-                    required
-                    placeholder="Константин"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="questionEmail" class="required"
-                    >Электронная почта</label
-                  >
-                  <input
-                    type="email"
-                    id="questionEmail"
-                    name="email"
-                    required
-                    placeholder="example@mail.com"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="questionPhone" class="required">Номер телефона</label>
-                  <input
-                    type="tel"
-                    id="questionPhone"
-                    name="phone"
-                    required
-                    placeholder="+7"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="questionMessage" class="required"
-                    >Ваше сообщение</label
-                  >
-                  <textarea
-                    id="questionMessage"
-                    name="message"
-                    required
-                    placeholder="Сообщение"
-                  ></textarea>
-                </div>
-              </form>
-            </div>
-
-            <footer class="modal-footer">
-              <div class="form-alert" id="question-form-alert">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    fill="none"
-                  />
-                  <path
-                    d="M7 7L13 13M13 7L7 13"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <span>Заполните все поля</span>
+        </section>
+        <footer class="modal__footer">
+          <div class="modal__footer-content">
+            <label for="agreement" class="modal__footer-label form__item" data-form-validation-required="true">
+              <div class="checkbox">
+                <input type="checkbox" class="form__item-input" id="agreement" name="agreement">
+                <label for="agreement"><span>Я принимаю условия <a href="#" target="_blank" class="text-link">пользовательского соглашения</a></span></label>
               </div>
-
-              <div class="checkboxes">
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="questionAgreement"
-                    name="agreement"
-                    required
-                  />
-                  <label for="questionAgreement"
-                    >Я принимаю условия&nbsp;
-                    <a href="#" target="_blank" class="text-link">
-                      пользовательского соглашения</a
-                    ></label
-                  >
-                </div>
-
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="questionNewsletter"
-                    name="newsletter"
-                  />
-                  <label for="questionNewsletter"
-                    >Я согласен получать письма от qoopi</label
-                  >
-                </div>
+            </label>
+            <label for="newsletter" class="modal__footer-label form__item">
+              <div class="checkbox">
+                <input type="checkbox" class="form__item-input" id="newsletter" name="newsletter" value="true">
+                <label for="newsletter">Я согласен получать письма от qoopi</label>
               </div>
-
-              <button type="submit" class="submit-btn" id="submitQuestionBtn">
-                Отправить
-              </button>
-            </footer>
+            </label>
           </div>
-        </div>
-        <!-- Модальное окно для брендов -->
-        <div class="modal-overlay" id="brandModal">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3>Стать брендом на qoopi</h3>
-              <button class="close-modal-btn" id="closeBrandModalBtn">
-                &times;
-              </button>
-            </div>
-            <div>
-              <p class="subtitle">
-                Заполните анкету и мы свяжемся с вами в ближайшее время
-              </p>
-            </div>
-
-            <div class="modal-content">
-              <form id="brand-form">
-                <div class="form-group">
-                  <label for="brandName" class="required">Название бренда</label>
-                  <input
-                    type="text"
-                    id="brandName"
-                    name="brandName"
-                    required
-                    placeholder="Бренд"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="categories" class="required">Категории товаров</label>
-                  <div class="multi-select-container">
-                    <div
-                      class="multi-select-header"
-                      id="brandCategoryHeader"
-                      tabindex="0"
-                      role="button"
-                      aria-haspopup="listbox"
-                      aria-expanded="false"
-                    >
-                      <span>Выберите категории</span>
-                      <span class="arrow" aria-hidden="true"></span>
-                    </div>
-                    <div
-                      class="multi-select-dropdown"
-                      id="brandCategoryDropdown"
-                      role="listbox"
-                      aria-multiselectable="true"
-                    >
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="fashion"
-                      >
-                        <span>Мода</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="style"
-                      >
-                        <span>Стиль</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="beauty"
-                      >
-                        <span>Красота</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="health"
-                      >
-                        <span>Здоровье</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="sport"
-                      >
-                        <span>Спорт</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="auto"
-                      >
-                        <span>Авто</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="home"
-                      >
-                        <span>Дом</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="gadget"
-                      >
-                        <span>Гаджеты</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="child"
-                      >
-                        <span>Дети</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="other"
-                      >
-                        <span>Другое</span>
-                      </div>
-                    </div>
-                    <div
-                      class="visually-hidden"
-                      aria-live="polite"
-                      id="brandLiveRegion"
-                    ></div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="website" class="required"
-                    >Ссылка на сайт или интернет магазин</label
-                  >
-                  <input
-                    type="url"
-                    id="website"
-                    name="website"
-                    placeholder="https://"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="contactName" class="required">Имя и фамилия</label>
-                  <input
-                    type="text"
-                    id="contactName"
-                    name="contactName"
-                    required
-                    placeholder="Константин Константинопольский"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="contactEmail" class="required"
-                    >Электронная почта</label
-                  >
-                  <input
-                    type="email"
-                    id="contactEmail"
-                    name="contactEmail"
-                    required
-                    placeholder="example@mail.com"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="contactPhone" class="required">Номер телефона</label>
-                  <input
-                    type="tel"
-                    id="contactPhone"
-                    name="contactPhone"
-                    required
-                    placeholder="+7"
-                  />
-                </div>
-              </form>
-            </div>
-
-            <footer class="modal-footer">
-              <div class="form-alert" id="brand-form-alert">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    fill="none"
-                  />
-                  <path
-                    d="M7 7L13 13M13 7L7 13"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <span>Заполните все поля</span>
-              </div>
-              <div class="checkboxes">
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="brandAgreement"
-                    name="brandAgreement"
-                    required
-                  />
-                  <label for="brandAgreement"
-                    >Я принимаю условия&nbsp;
-                    <a href="#" target="_blank" class="text-link"
-                      >пользовательского соглашения</a
-                    ></label
-                  >
-                </div>
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="brandNewsletter"
-                    name="brandNewsletter"
-                  />
-                  <label for="brandNewsletter"
-                    >Я согласен получать письма от qoopi</label
-                  >
-                </div>
-              </div>
-
-              <button type="submit" class="submit-btn" id="submitBrandBtn">
-                Отправить заявку
-              </button>
-            </footer>
-          </div>
-        </div>
-            <!-- Модальное окно для селлеров -->
-        <div class="modal-overlay" id="sellerModal">
-          <div class="modal-container">
-            <div class="modal-header">
-              <h3>Стать селлером на qoopi</h3>
-              <button class="close-modal-btn" id="closeSellerModalBtn">
-                &times;
-              </button>
-            </div>
-            <div>
-              <p class="subtitle">
-                Заполните анкету и мы свяжемся с вами в ближайшее время
-              </p>
-            </div>
-
-            <div class="modal-content">
-              <form id="seller-form">
-                <div class="form-group">
-                  <label for="companyName" class="required"
-                    >Название компании</label
-                  >
-                  <input
-                    type="text"
-                    id="companyName"
-                    name="companyName"
-                    required
-                    placeholder="Компания"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="productCategories" class="required"
-                    >Категории товаров</label
-                  >
-                  <div class="multi-select-container">
-                    <div
-                      class="multi-select-header"
-                      id="categoryHeader"
-                      tabindex="0"
-                      role="button"
-                      aria-haspopup="listbox"
-                      aria-expanded="false"
-                    >
-                      <span>Выберите категории</span>
-                      <span class="arrow" aria-hidden="true"></span>
-                    </div>
-                    <div
-                      class="multi-select-dropdown"
-                      id="categoryDropdown"
-                      role="listbox"
-                      aria-multiselectable="true"
-                    >
-                      <div
-                        class="multi-select-option selected"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="true"
-                        data-value="style"
-                      >
-                        <span>Стиль</span>
-                      </div>
-                      <div
-                        class="multi-select-option selected"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="fashion"
-                      >
-                        <span>Мода</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="beauty"
-                      >
-                        <span>Красота</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="item1"
-                      >
-                        <span>Item</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="item2"
-                      >
-                        <span>Item</span>
-                      </div>
-                      <div
-                        class="multi-select-option"
-                        tabindex="0"
-                        role="option"
-                        aria-selected="false"
-                        data-value="item3"
-                      >
-                        <span>Item</span>
-                      </div>
-                    </div>
-                    <div
-                      class="visually-hidden"
-                      aria-live="polite"
-                      id="liveRegion"
-                    ></div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="marketplaceLink" class="required"
-                    >Ссылка на магазин Wildberries или Ozon</label
-                  >
-                  <input
-                    type="url"
-                    id="marketplaceLink"
-                    name="marketplaceLink"
-                    placeholder="https://"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="sellerName" class="required">Имя и фамилия</label>
-                  <input
-                    type="text"
-                    id="sellerName"
-                    name="sellerName"
-                    required
-                    placeholder="Константин Константинопольский"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="sellerEmail" class="required"
-                    >Электронная почта</label
-                  >
-                  <input
-                    type="email"
-                    id="sellerEmail"
-                    name="sellerEmail"
-                    placeholder="example@mail.com"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="sellerPhone" class="required">Номер телефона</label>
-                  <input
-                    type="tel"
-                    id="sellerPhone"
-                    name="sellerPhone"
-                    placeholder="+7"
-                    required
-                  />
-                </div>
-              </form>
-            </div>
-
-            <footer class="modal-footer">
-              <div class="form-alert" id="seller-form-alert">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    fill="none"
-                  />
-                  <path
-                    d="M7 7L13 13M13 7L7 13"
-                    stroke="#FF3B30"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                  />
-                </svg>
-                <span>Заполните все поля</span>
-              </div>
-
-              <div class="checkboxes">
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="sellerAgreement"
-                    name="sellerAgreement"
-                    required
-                  />
-                  <label for="sellerAgreement"
-                    >Я принимаю условия&nbsp;
-                    <a href="#" target="_blank" class="text-link"
-                      >пользовательского соглашения</a
-                    ></label
-                  >
-                </div>
-
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="sellerNewsletter"
-                    name="sellerNewsletter"
-                  />
-                  <label for="sellerNewsletter"
-                    >Я согласен получать письма от qoopi</label
-                  >
-                </div>
-              </div>
-
-              <button type="submit" class="submit-btn" id="submitSellerBtn">
-                Отправить заявку
-              </button>
-            </footer>
-          </div>
-        </div>
-         <!-- Success Modal -->
-        <div class="success-modal" id="successModal">
-          <div class="success-modal__container">
-            <button class="success-modal__close" id="successModalClose">
-              &times;
+          <div class="modal__footer-button">
+            <button class="button button_full-width modal__footer-button-button" type="submit">
+              Отправить
             </button>
-            <div class="success-modal__icon">
-              <svg
-                width="84"
-                height="84"
-                viewBox="0 0 84 84"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M42 83.6663C65.0116 83.6663 83.6666 65.0113 83.6666 41.9997C83.6666 35.563 82.2071 29.4669 79.6008 24.0248L48.0275 55.598C42.9429 60.683 34.6983 60.683 29.6134 55.598L17.169 43.1534C15.135 41.1193 15.135 37.8218 17.169 35.7876C19.2029 33.7538 22.5007 33.7538 24.5346 35.7876L36.9791 48.2322C37.9962 49.2493 39.645 49.2493 40.6621 48.2322L73.8087 15.0853C66.1658 6.06142 54.7516 0.333008 42 0.333008C18.9881 0.333008 0.333313 18.9878 0.333313 41.9997C0.333313 65.0113 18.9881 83.6663 42 83.6663Z"
-                  fill="#15B385"
-                />
-              </svg>
-            </div>
-            <div class="success-modal__message">Ваша заявка отправлена</div>
           </div>
-        </div>
-
+        </footer>
+      </form>
+    </div>
+        
       <main class="hero">
         <header class="header">
           <div class="header__logo">
@@ -870,7 +119,7 @@
                     <li><a href="#sellers" data-section-id="4" class="menu-nav-link">Селлерам</a></li>
                 </ul>
             </div>
-            <button class="menu-content__button" id="openQuestionModalBtn">Задать вопрос</button>
+            <button class="menu-content__button" data-modal-id="ask-question">Задать вопрос</button>
         </div>
         
         <section class="hero-section hero__section">
@@ -892,18 +141,21 @@
           </nav>
           <div class="hero-section__content" data-section-id="1">
             <div class="hero-section__content-title title title_h1">
-              Qoopi - это новый формат шоппинга
+              Создайте собственную <br> витрину на qoopi
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
-              Смотрите обзоры и распаковки от любимых блогеров и экспертов, вдохновляйтесь, находите идеи и покупайте товары прямо из публикаций
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
+            <button class="button hero-section__desktop-button open-modal-btn" data-modal-id="ask-question">
+              Создать витрину
+            </button>
           </div>
           <div class="hero-section__content" data-section-id="2">
             <div class="hero-section__content-title title title_h1">
-              Рекомендуйте любимые товары&nbsp;и&nbsp;бренды и&nbsp;зарабатывайте
+              Рекомендуйте любимые товары и бренды и зарабатывайте
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
-              Создайте собственную витрину, публикуйте обзоры,распаковки или просто добавляйте товары на свою витрину в Qoopi
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
             <button class="hero-section__desktop-button button open-modal-btn openBloggerModalBtn">
               Создать витрину
@@ -911,13 +163,13 @@
           </div>
           <div class="hero-section__content" data-section-id="3">
             <div class="hero-section__content-title title title_h1">
-              Продвигайте свои товары и бренд через витрины блогеров и&nbsp;экспертов
+              Продвигайте свои товары и бренд через витрины блогеров и экспертов
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
-              Позвольте тысячам блогеров и экспертов продвигать и продавать ваши товары за вас. Увеличивайте продажи и платите только за результат
+              Заказывайте  распаковки или просто разрешите добавить товары на свою витрину в qoopi
             </div>
             <button class="hero-section__desktop-button button open-modal-btn openBrandModalBtn" >
-              Начать продавать
+              Создать витрину
             </button>
           </div>
           <div class="hero-section__content" data-section-id="4">
@@ -925,10 +177,10 @@
               Внешний трафик на карточки товаров маркетплейсов с оплатой за результат
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
-              Сотрудничайте с лучшими блогерами и экспертами для продвижения ваших товаров на маркетплейсах
+              Публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину
             </div>
             <button class="hero-section__desktop-button button open-modal-btn openSellerModalBtn">
-              Начать продвигать
+              Создать витрину
             </button>
           </div>
         </section>
@@ -1149,7 +401,9 @@
               </div>
             </div>
           </section>
-
+          <button class="button hero-sliders-mobile__button">
+            Создать витрину
+          </button>
         </section>
 
         <section class="blogers-media" data-section-id="2">
@@ -1295,8 +549,8 @@
           </div>
           <div class="brands-media__mobile-button-container">
             <button class="button brands-media__mobile-button openBrandModalBtn">
-              Начать продавать
-            </button>
+            Создать витрину
+          </button>
           </div>
         </section>
 
@@ -1417,7 +671,7 @@
           </div>
           <div class="sellers-media__mobile-button-container">
             <button class="button sellers-media__mobile-button openSellerModalBtn">
-              Начать продвигать
+              Создать витрину
             </button>
           </div>
         </section>
@@ -1428,11 +682,13 @@
         </div>
       </main>
       <script src="/src/bloggerModal.js"></script>
+      <link rel="stylesheet" href="/src/styles/dropped-list.scss">
       <script src="/src/brandModals.js"></script>
       <script src="/src/sellerModal.js"></script>
       <script src="/src/modalInit.js"></script>
       <script src="/src/selectDebug.js"></script>
       <script src="/src/questionModal.js"></script>
       <script src="/src/menuNavigation.js"></script>
+      <link rel="stylesheet" href="/src/styles/checkbox-fix.scss">
   </body>
 </html>
