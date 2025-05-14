@@ -20,6 +20,29 @@ $transition-easing: ease;
         display: flex;
         flex-direction: column;
         padding-bottom: 8px 0;
+        position: relative;
+        
+        &_error {            
+            .form__item-input, .multiselect {
+                border-bottom: 1px solid $error-color;
+            }
+
+            .checkbox {
+              // background-color: $error-color;
+              label::before {
+                border: 1px solid $error-color !important;
+              }
+            }
+        }
+    }
+
+    &__item-error {
+        // position: absolute;
+
+        color: $error-color;
+        font-size: 13px;
+        line-height: 20px;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     &__item-label {

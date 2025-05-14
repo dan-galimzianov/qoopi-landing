@@ -189,7 +189,7 @@
               <label class="form__item-label">Электронная почта *</label>
               <input class="form__item-input" type="text" placeholder="example@mail.com" name="contactEmail">
             </div>
-            <div class="form__item" data-form-validation-required="true">
+            <div class="form__item" data-form-validation-required="true" data-form-validation-is-phone="true">
               <label class="form__item-label">Телефон *</label>
               <input data-mask="phone" class="form__item-input" type="text" placeholder="+7 " name="contactPhone">
             </div>
@@ -361,6 +361,29 @@
 
   
 
+
+      <div class="success-modal" id="successModal">
+          <div class="success-modal__container">
+            <button class="success-modal__close" id="successModalClose">
+              &times;
+            </button>
+            <div class="success-modal__icon">
+              <svg
+                width="84"
+                height="84"
+                viewBox="0 0 84 84"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M42 83.6663C65.0116 83.6663 83.6666 65.0113 83.6666 41.9997C83.6666 35.563 82.2071 29.4669 79.6008 24.0248L48.0275 55.598C42.9429 60.683 34.6983 60.683 29.6134 55.598L17.169 43.1534C15.135 41.1193 15.135 37.8218 17.169 35.7876C19.2029 33.7538 22.5007 33.7538 24.5346 35.7876L36.9791 48.2322C37.9962 49.2493 39.645 49.2493 40.6621 48.2322L73.8087 15.0853C66.1658 6.06142 54.7516 0.333008 42 0.333008C18.9881 0.333008 0.333313 18.9878 0.333313 41.9997C0.333313 65.0113 18.9881 83.6663 42 83.6663Z"
+                  fill="#15B385"
+                />
+              </svg>
+            </div>
+            <div class="success-modal__message">Ваша заявка отправлена</div>
+          </div>
+        </div>
         
       <main class="hero">
         <header class="header">
@@ -947,6 +970,7 @@
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
+
       <script type="module" src="/src/script.ts"></script>
       <script src="/src/bloggerModal.js"></script>
       <link rel="stylesheet" href="/src/styles/dropped-list.scss">

@@ -9,7 +9,7 @@ export function initMask() {
   
       // Устанавливаем начальное значение
       if (!phoneInput.value) {
-        phoneInput.value = '+7';
+        phoneInput.value = '';
       }
 
       phoneInput.addEventListener('focus', function(e) {
@@ -35,8 +35,6 @@ export function initMask() {
           : `+7 (${x[2]}${x[3] ? `) ${x[3]}` : ''}${x[4] ? `-${x[4]}` : ''}${
               x[5] ? `-${x[5]}` : ''
             }`;
-
-        // Проверяем формат после ввода
       });
     }
 

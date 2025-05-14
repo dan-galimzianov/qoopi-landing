@@ -14,3 +14,4 @@
 @import './styles/modal/main.scss';
 @import './forms/main.scss';
 @import './multiselect/main.scss';
+@import './styles/modal/success-modal.scss';

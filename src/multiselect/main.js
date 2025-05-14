@@ -10,11 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Функция инициализации мультиселекта
             function initMultiselect(multiselect) {
                 const header = multiselect.querySelector('.multiselect__header');
-                const title = multiselect.querySelector('.multiselect__title');
                 const arrow = multiselect.querySelector('.multiselect__arrow');
                 const dropdown = multiselect.querySelector('.multiselect__dropdown');
                 const options = multiselect.querySelectorAll('.multiselect__option');
-                const name = multiselect.dataset.name;
                 
                 // Добавляем скрытые инпуты для выбранных опций
                 updateHiddenInputs(multiselect);
@@ -81,11 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Функция обновления скрытых инпутов
             function updateHiddenInputs(multiselect) {
-                                // Удаляем существующие скрытые инпуты
                 const hiddenInput = multiselect.querySelector('.multiselect__input');
                 hiddenInput.value = '';
                 
-                // Добавляем новые инпуты для выбранных опций
                 const selectedOptions = multiselect.querySelectorAll('.multiselect__option--selected');
                 selectedOptions.forEach(option => {
                     const value = option.dataset.value;
