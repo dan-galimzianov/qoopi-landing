@@ -8,13 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
             let message = '';
             const formItems = form.querySelectorAll('.form__item');
             const errors = {};
+            const values = {};
 
             Array.from(formItems).forEach(item => {
                 const input = item.querySelector('.form__item-input');
                 const required = item.getAttribute('data-form-validation-required') === 'true';
                 const name = input.getAttribute('name');
-
-                console.log(input.type, input.checked);
 
                 if (required) {
                     if (input.value.trim() === '') {
@@ -42,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         errors[name] = 'Неверный формат электронной почты';
                     }
                 }
+
+                const isMultiselect = item.getAttribute('data-form-validation-is-multiselect') === 'true';
+                values[name] = isMultiselect ? input.value.split(',') : input.value;
             });
 
             if (Object.keys(errors).length > 0) {
@@ -51,6 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (message) {
                 alert(message);
             }
+
+            const serverUrl = form.getAttribute('data-server-url');
+
+            fetch(serverUrl, {
+                method: 'POST',
+                body: JSON.stringify(values)
+            })
         });
     });
 });
