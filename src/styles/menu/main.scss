@@ -11,8 +11,7 @@ $text-color-secondary: #8A8A8A;
   top: 50%;
   transform: translateY(-50%);
   right: -100%;
-  max-width: 520px;
-  width: 100%;
+  width: 520px;
   height: calc(100% - 40px);
   background-color: #373737;
   z-index: 1000;
@@ -163,7 +162,7 @@ $text-color-secondary: #8A8A8A;
 /* Адаптив для меню */
 @media (max-width: 768px) {
   .menu-overlay {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     padding: 20px 16px 16px 16px;
     border-radius: 0;
