@@ -456,60 +456,61 @@
               </li>
             </ul>
           </nav>
-          <div class="hero-section__content" data-section-id="1">
-            <div class="hero-section__content-title title title_h1">
-              Qoopi - это новый формат шоппинга
+          <div class="hero-section__content-container">
+            <div class="hero-section__content" data-section-id="1">
+              <div class="hero-section__content-title title title_h1">
+                Qoopi - это новый формат шоппинга
             </div>
             <div class="title title_h4 title_secondary hero-section__content-description">
               Смотрите обзоры и распаковки от любимых блогеров и экспертов, вдохновляйтесь, находите идеи и покупайте товары прямо из публикаций
             </div>
-          </div>
-          <div class="hero-section__content" data-section-id="2">
-            <div class="hero-section__content-title title title_h1">
-              Рекомендуйте любимые товары и&nbsp;бренды и&nbsp;зарабатывайте
             </div>
-            <div class="title title_h4 title_secondary hero-section__content-description">
-              Создайте собственную витрину, публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину в Qoopi
+            <div class="hero-section__content" data-section-id="2">
+              <div class="hero-section__content-title title title_h1">
+                Рекомендуйте любимые товары и&nbsp;бренды и&nbsp;зарабатывайте
+              </div>
+              <div class="title title_h4 title_secondary hero-section__content-description">
+                Создайте собственную витрину, публикуйте обзоры, распаковки или просто добавляйте товары на свою витрину в Qoopi
+              </div>
+              <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-blogger">
+                Создать витрину
+              </button>
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-blogger">
-              Создать витрину
-            </button>
-          </div>
-          <div class="hero-section__content" data-section-id="3">
-            <div class="hero-section__content-title title title_h1">
-              Продвигайте свои товары и бренд через витрины блогеров и&nbsp;экспертов
+            <div class="hero-section__content" data-section-id="3">
+              <div class="hero-section__content-title title title_h1">
+                Продвигайте свои товары и бренд через витрины блогеров и&nbsp;экспертов
+              </div>
+              <div class="title title_h4 title_secondary hero-section__content-description">
+                Позвольте тысячам блогеров и экспертов продвигать и продавать ваши товары за вас. Увеличивайте продажи и платите только за результат
+              </div>
+              <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-brand">
+                Начать продавать
+              </button>
             </div>
-            <div class="title title_h4 title_secondary hero-section__content-description">
-              Позвольте тысячам блогеров и экспертов продвигать и продавать ваши товары за вас. Увеличивайте продажи и платите только за результат
+            <div class="hero-section__content" data-section-id="4">
+              <div class="hero-section__content-title title title_h1">
+                Внешний трафик на карточки товаров маркетплейсов с оплатой за результат
+              </div>
+              <div class="title title_h4 title_secondary hero-section__content-description">
+                Сотрудничайте с лучшими блогерами и экспертами для продвижения ваших товаров на маркетплейсах
+              </div>
+              <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-seller">
+                Начать продвигать
+              </button>
             </div>
-            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-brand">
-              Начать продавать
-            </button>
-          </div>
-          <div class="hero-section__content" data-section-id="4">
-            <div class="hero-section__content-title title title_h1">
-              Внешний трафик на карточки товаров маркетплейсов с оплатой за результат
-            </div>
-            <div class="title title_h4 title_secondary hero-section__content-description">
-              Сотрудничайте с лучшими блогерами и экспертами для продвижения ваших товаров на маркетплейсах
-            </div>
-            <button class="hero-section__desktop-button button open-modal-btn" data-modal-id="become-seller">
-              Начать продвигать
-            </button>
           </div>
         </section>
 
         <section class="hero-sliders" data-section-id="1">
           <section class="carousel hero-sliders__carousel" id="carousel1">
             <div class="carousel__wrapper">
-              <div class="carousel__slide">
+            <div class="carousel__slide">
                 <div class="media-item">
                     <img src="./src/assets/carousel/about-slider/left-half/photo1.webp" class="media-item__image">
                 </div>
               </div>
               <div class="carousel__slide">
                   <div class="media-item">
-                      <img src="./src/assets/carousel/about-slider/outlines/outline1.webp" alt="" class="media-item__outline-image">
                       <video loop muted autoplay playsinline class="media-item__video" poster="./src/assets/carousel/about-slider/left-half/video1-poster.jpeg">                                        
                         <source data-src="./src/assets/carousel/about-slider/left-half/video1.mp4" type="video/mp4">
                       </video>
@@ -554,9 +555,9 @@
                       </video>
                   </div>
               </div>
-            </div>
+              </div>
           </section>
-          <section class="carousel hero-sliders__carousel" id="carousel2">
+          <!-- <section class="carousel hero-sliders__carousel" id="carousel2">
             <div class="carousel__wrapper">
               <div class="carousel__slide">
                 <div class="media-item">
@@ -611,14 +612,14 @@
                 
             </div>
             </div>
-          </section>
+          </section> -->
         </section>
-        
-        <section class="hero-sliders-mobile" data-section-id="1">
+
+        <div class="media-container">
+          <section class="hero-sliders-mobile" data-section-id="1">
           <section class="carousel carousel_horizontal hero-sliders__carousel" id="hero-sliders-mobile">
             <div class="carousel__wrapper">
-              <!-- Слайд 1: картинка из 1 карусели + видео из 2 карусели -->
-              <div class="carousel__slide">
+            <div class="carousel__slide">
                 <div class="media-item">
                   <img src="./src/assets/carousel/about-slider/left-half/photo1.webp" class="media-item__image">
               </div>
@@ -713,7 +714,7 @@
                   <img src="./src/assets/carousel/about-slider/right-half/photo4.webp" class="media-item__image">
                 </div>
               </div>
-            </div>
+              </div>
           </section>
 
         </section>
@@ -987,6 +988,7 @@
             </button>
           </div>
         </section>
+        </div>        
         
         <div class="policy">
           <div class="policy__copy">© qoopi 2025</div>

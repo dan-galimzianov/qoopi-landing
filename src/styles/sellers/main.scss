@@ -27,7 +27,6 @@
 
   &__mobile-carousel {
     display: none;
-    height: 350px;
   }
 
   &__app-preview {
@@ -79,9 +78,10 @@
         flex-direction: column;
         left: 0;
         right: 0;
-        bottom: 84px;
+        bottom: 0;
         height: auto;
         gap: 12px;
+        height: 100%;
 
         &__carousel {
             display: none;
@@ -93,13 +93,11 @@
 
         &__mobile-carousel {
             display: block;
-            height: 199px;
-            margin-top: auto;
         }
 
-        .media-item__image {
-           width: 150px;
-        }
+        // .media-item__image {
+        //    width: 150px;
+        // }
 
         &__app-preview {
             display: none;

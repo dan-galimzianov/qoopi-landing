@@ -1,5 +1,7 @@
 import { initMask } from './mask.js';
 
+import { initCarousel } from './carousel.js';
+
 // Функция debounce для оптимизации обработки событий
 const debounce = (func: Function, delay: number) => {
   let timeoutId: number;
@@ -114,34 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
   // Объект для хранения инициализированных каруселей
-  const initializedCarousels: Record<string, { type: 'vertical' | 'horizontal', wrapper: HTMLElement, duration: number }> = {};
-
-  const initCarousel = async (id: string, duration: number) => {
-    const carousel = document.getElementById(id);
-    if (!carousel) return;
-
-    const carouselWrapper = carousel.querySelector(".carousel__wrapper") as HTMLElement;
-    if (!carouselWrapper) return;
-
-    const images = Array.from(carousel.querySelectorAll('img'));
-    const videos = Array.from(carousel.querySelectorAll('video'));
-
-    await waitForAllImages(images);
-    
-    await waitForAllVideos(videos);
-
-    let totalHeight = carouselWrapper.clientHeight;
-
-    const originalContent = carouselWrapper.innerHTML;
-    carouselWrapper.innerHTML = originalContent + originalContent;
-
-    carouselWrapper.style.setProperty('--total-slider-height', `-${totalHeight}px`);
-    carouselWrapper.style.setProperty('--iteration-time', `${duration}s`);
-    carouselWrapper.style.setProperty('animation', "scroll var(--iteration-time) linear infinite");
-    
-    // Сохраняем карусель в списке инициализированных
-    initializedCarousels[id] = { type: 'vertical', wrapper: carouselWrapper, duration };
-  }
 
   // Функционал для меню
   const burgerButton = document.querySelector('.header__menu-burger');
@@ -206,130 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const initHorizontalCarousel = async (id: string, duration: number) => {
-    const carousel = document.getElementById(id);
-    if (!carousel) return;
-
-    const carouselWrapper = carousel.querySelector(".carousel__wrapper") as HTMLElement;
-    if (!carouselWrapper) return;
-
-    const images = Array.from(carousel.querySelectorAll('img'));
-    const videos = Array.from(carousel.querySelectorAll('video'));
-
-    await waitForAllImages(images);
-    await waitForAllVideos(videos);
-
-    let totalWidth = carouselWrapper.clientWidth;
-    const originalContent = carouselWrapper.innerHTML;
-    carouselWrapper.innerHTML = originalContent + originalContent;
-
-    carouselWrapper.style.setProperty('--total-slider-width', `-${totalWidth}px`);
-    carouselWrapper.style.setProperty('--iteration-time', `${duration}s`);
-    carouselWrapper.style.setProperty('animation', "scroll-horizontal var(--iteration-time) linear infinite");
-    
-    // Сохраняем карусель в списке инициализированных
-    initializedCarousels[id] = { type: 'horizontal', wrapper: carouselWrapper, duration };
-  }
-  
-  // Функция для обновления размеров карусели
-  const updateCarouselSize = (id: string) => {
-    if (!initializedCarousels[id]) return;
-    
-    const { type, wrapper, duration } = initializedCarousels[id];
-    
-    if (type === 'vertical') {
-      // Останавливаем анимацию перед пересчетом размеров
-      wrapper.style.animation = 'none';
-      // Форсируем перерасчет DOM
-      void wrapper.offsetWidth;
-      
-      const totalHeight = wrapper.clientHeight / 2; // Делим на 2, т.к. контент дублирован
-      wrapper.style.setProperty('--total-slider-height', `-${totalHeight}px`);
-      wrapper.style.setProperty('animation', `scroll ${duration}s linear infinite`);
-    } else {
-      // Останавливаем анимацию перед пересчетом размеров
-      wrapper.style.animation = 'none';
-      // Форсируем перерасчет DOM
-      void wrapper.offsetWidth;
-      
-      const totalWidth = wrapper.clientWidth / 2; // Делим на 2, т.к. контент дублирован
-      wrapper.style.setProperty('--total-slider-width', `-${totalWidth}px`);
-      wrapper.style.setProperty('animation', `scroll-horizontal ${duration}s linear infinite`);
-    }
-  };
-  
-  // Функция для инициализации каруселей в зависимости от размера экрана
-  const initCarouselsBasedOnScreenSize = async () => {
-    const desktopCarouselIds = ['carousel1', 'carousel2', 'carousel3', 'sellers-media-carousel'];
-    const mobileCarouselIds = ['hero-sliders-mobile', 'brands-media-mobile-carousel', 'sellers-media-mobile-carousel'];
-    
-    const isDesktop = window.innerWidth >= 1200;
-    
-    // Сбрасываем все предыдущие инициализации
-    Object.keys(initializedCarousels).forEach(id => {
-      const carousel = document.getElementById(id);
-      if (carousel) {
-        const wrapper = carousel.querySelector('.carousel__wrapper') as HTMLElement;
-        if (wrapper) {
-          wrapper.style.animation = 'none';
-          
-          // Восстанавливаем оригинальный контент (без дублирования)
-          if (wrapper.children.length > 0) {
-            const childrenCount = wrapper.children.length;
-            // Удаляем вторую половину дублированных элементов
-            for (let i = childrenCount - 1; i >= childrenCount / 2; i--) {
-              wrapper.children[i].remove();
-            }
-          }
-        }
-      }
-    });
-    
-    // Очищаем список инициализированных каруселей
-    Object.keys(initializedCarousels).forEach(key => {
-      delete initializedCarousels[key];
-    });
-    
-    if (isDesktop) {
-      // Инициализируем десктопные карусели 
-      for (const id of desktopCarouselIds) {
-        const duration = id === 'carousel1' ? 17 : 15;
-        await initCarousel(id, duration);
-      }
-    } else {
-      // Инициализируем мобильные карусели
-      for (const id of mobileCarouselIds) {
-        await initHorizontalCarousel(id, 20);
-      }
-    }
-  };
-  
-  // Функция для обновления всех каруселей
-  const updateAllCarousels = () => {
-    Object.keys(initializedCarousels).forEach(id => {
-      updateCarouselSize(id);
-    });
-  };
-  
-  // Инициализируем карусели при загрузке
-  initCarouselsBasedOnScreenSize();
-  
-  // Обработчик изменения размера окна с debounce
-  window.addEventListener('resize', debounce(() => {
-    // Если ширина окна меняется с десктопа на мобильный или наоборот
-    const isDesktopNow = window.innerWidth >= 1200;
-    const wasDesktop = Object.keys(initializedCarousels).some(id => 
-      ['carousel1', 'carousel2', 'carousel3', 'sellers-media-carousel'].includes(id)
-    );
-    
-    if (isDesktopNow !== wasDesktop) {
-      // Полная реинициализация каруселей
-      initCarouselsBasedOnScreenSize();
-    } else {
-      // Только обновляем размеры
-      updateAllCarousels();
-    }
-  }, 150));
+  initCarousel('carousel1', 0.5);
 
   const textarea = document.querySelectorAll('.textarea-auto-resize');
 
