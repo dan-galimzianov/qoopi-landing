@@ -57,12 +57,20 @@ const loadLazyVideos = (container?: HTMLElement) => {
 document.addEventListener('DOMContentLoaded', () => {
   initMask();
   
-  
   // Получаем все пункты навигации
   const navItems = document.querySelectorAll('.hero-section__nav-link');
   
   // Обработчик клика по пункту меню
   let activeSection = "1";
+
+  const updateHeroSectionHeight = () => {
+    const heroSection = document.querySelector('.hero-section');
+    
+    
+    if (heroSection) {
+      heroSection.style.setProperty('height', `${window.innerHeight}px`);
+    }
+  }
 
   // Функция для навигации к секции
   const navigateToSection = (sectionId: string) => {
@@ -91,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Загружаем видео для активной секции
         loadLazyVideos(sectionElement);
+
       } else {
         sectionElement.style.setProperty('opacity', '0');
         sectionElement.style.setProperty('visibility', 'hidden');

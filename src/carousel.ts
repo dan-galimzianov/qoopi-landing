@@ -29,9 +29,9 @@ const debounce = (func: Function, delay: number) => {
   };
 };
 
+
 export const initCarousel = async (id: string, speed: number) => {
     const carousel = document.getElementById(id);
-    console.log(carousel)
     if (!carousel) return;
 
     const images = Array.from(carousel.querySelectorAll('img'));
@@ -40,7 +40,7 @@ export const initCarousel = async (id: string, speed: number) => {
     await waitForAllImages(images);
     await waitForAllVideos(videos);
 
-    let children = Array.from(carousel.children).map(child => child.cloneNode(true));
+    let children = Array.from(carousel.querySelector('.carousel__wrapper')!.children).map(child => child.cloneNode(true));
     
     let visible = true;
 
@@ -55,18 +55,108 @@ export const initCarousel = async (id: string, speed: number) => {
         nextCarouselSlide.classList.add('carousel__wrapper');
         children = Array.from(element.children).map(child => child.cloneNode(true));
         nextCarouselSlide.append(...children);
-
         carousel.appendChild(nextCarouselSlide);
-        
+
         const topOffset = carousel.clientHeight;
-        
         const totalDuration = duration + topOffset / speed;
 
         nextCarouselSlide.style.setProperty('top', `${topOffset}px`);
+        nextCarouselSlide.style.setProperty('will-change', 'transform');
         nextCarouselSlide.style.setProperty('transition', `transform ${totalDuration}ms linear ${delayMS}ms`); 
 
-        const translateY = nextCarouselSlide.clientHeight + topOffset;
-        nextCarouselSlide.style.setProperty('transform', `translateY(-${translateY}px)`);
+        nextCarouselSlide.style.setProperty('transform', `translateY(calc(-100% - ${topOffset}px))`);
+
+        const onTransitionStart = () => {
+            createNextCarouselSlide(nextCarouselSlide, duration);
+        }
+
+        const onTransitionEnd = () => {
+            visible && carousel.removeChild(element);
+        }
+
+        nextCarouselSlide.addEventListener('transitionstart', onTransitionStart, { once: true });   
+        nextCarouselSlide.addEventListener('transitionend', onTransitionEnd, { once: true });
+
+                const removeListeners = () => {
+                    nextCarouselSlide.removeEventListener('transitionstart', onTransitionStart);
+                    nextCarouselSlide.removeEventListener('transitionend', onTransitionEnd);
+                }
+
+                unsubscribes.push(removeListeners);
+    }
+
+     const initFirstSlide = () => {
+        const carouselWrapper = document.createElement('div');
+        carouselWrapper.classList.add('carousel__wrapper');
+        carouselWrapper.append(...children);
+        carousel.innerHTML = '';    
+        carousel.appendChild(carouselWrapper);
+
+        const totalHeight = carouselWrapper.clientHeight;
+        const duration = totalHeight / speed;
+        carouselWrapper.style.setProperty('will-change', 'transform');
+        carouselWrapper.style.setProperty('transition', `transform ${duration}ms linear`);
+        carouselWrapper.style.setProperty('transform', `translateY(-${totalHeight}px)`);
+
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+        
+        createNextCarouselSlide(carouselWrapper, (totalHeight - carousel.clientHeight) / speed);
+    }
+
+    initFirstSlide()
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            visible = true;
+            initFirstSlide();
+        } else {
+            visible = false;
+        }
+    });
+
+    window.addEventListener('resize', debounce(() => {
+        initFirstSlide();
+    }, 100));
+}
+
+export const initHorizontalCarousel = async (id: string, speed: number) => {
+    const carousel = document.getElementById(id);
+    if (!carousel) return;
+
+    const images = Array.from(carousel.querySelectorAll('img'));
+    const videos = Array.from(carousel.querySelectorAll('video'));
+
+    await waitForAllImages(images);
+    await waitForAllVideos(videos);
+
+    let children = Array.from(carousel.querySelector('.carousel__wrapper')!.children).map(child => child.cloneNode(true));
+    
+    let visible = true;
+
+    const unsubscribes: (() => void)[] = [];
+    
+    const createNextCarouselSlide = (element: HTMLElement, delayMS: number) => {
+        const totalWidth = element.clientWidth;
+        const duration = totalWidth / speed;
+
+        if (!visible) return;
+        const nextCarouselSlide = document.createElement('div');
+        nextCarouselSlide.classList.add('carousel__wrapper');
+        children = Array.from(element.children).map(child => child.cloneNode(true));
+        nextCarouselSlide.append(...children);
+
+        carousel.appendChild(nextCarouselSlide);
+        
+        const leftOffset = carousel.clientWidth;
+        
+        const totalDuration = duration + leftOffset / speed;
+
+        nextCarouselSlide.style.setProperty('left', `${leftOffset}px`);
+        nextCarouselSlide.style.setProperty('will-change', 'transform');
+        nextCarouselSlide.style.setProperty('transition', `transform ${totalDuration}ms linear ${delayMS}ms`); 
+
+        const translateX = nextCarouselSlide.clientWidth + leftOffset;
+        nextCarouselSlide.style.setProperty('transform', `translateX(-${translateX}px)`);
 
         const onTransitionStart = () => {
             createNextCarouselSlide(nextCarouselSlide, duration);
@@ -94,15 +184,16 @@ export const initCarousel = async (id: string, speed: number) => {
         carousel.innerHTML = '';    
         carousel.appendChild(carouselWrapper);
 
-        const totalHeight = carouselWrapper.clientHeight;
-        const duration = totalHeight / speed;
-        console.log(duration, totalHeight, speed)
+        const totalWidth = carouselWrapper.clientWidth;
+        const duration = totalWidth / speed;
+
+        carouselWrapper.style.setProperty('will-change', 'transform');
         carouselWrapper.style.setProperty('transition', `transform ${duration}ms linear`);
-        carouselWrapper.style.setProperty('transform', `translateY(-${totalHeight}px)`);
+        carouselWrapper.style.setProperty('transform', `translateX(-${totalWidth}px)`);
 
         unsubscribes.forEach(unsubscribe => unsubscribe());
         
-        createNextCarouselSlide(carouselWrapper, (totalHeight - carousel.clientHeight) / speed);
+        createNextCarouselSlide(carouselWrapper, (totalWidth - carousel.clientWidth) / speed);
     }
 
     initFirstSlide()
@@ -120,3 +211,4 @@ export const initCarousel = async (id: string, speed: number) => {
         initFirstSlide();
     }, 100));
 }
+
