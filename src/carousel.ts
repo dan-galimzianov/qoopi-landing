@@ -77,12 +77,12 @@ export const initCarousel = async (id: string, speed: number) => {
         nextCarouselSlide.addEventListener('transitionstart', onTransitionStart, { once: true });   
         nextCarouselSlide.addEventListener('transitionend', onTransitionEnd, { once: true });
 
-                const removeListeners = () => {
-                    nextCarouselSlide.removeEventListener('transitionstart', onTransitionStart);
-                    nextCarouselSlide.removeEventListener('transitionend', onTransitionEnd);
-                }
+        const removeListeners = () => {
+            nextCarouselSlide.removeEventListener('transitionstart', onTransitionStart);
+            nextCarouselSlide.removeEventListener('transitionend', onTransitionEnd);
+        }
 
-                unsubscribes.push(removeListeners);
+        unsubscribes.push(removeListeners);
     }
 
      const initFirstSlide = () => {
@@ -117,6 +117,13 @@ export const initCarousel = async (id: string, speed: number) => {
     window.addEventListener('resize', debounce(() => {
         initFirstSlide();
     }, 100));
+
+    const stopCarousel = () => {
+        carousel.innerHTML = '';
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+    }
+
+    return stopCarousel
 }
 
 export const initHorizontalCarousel = async (id: string, speed: number) => {
@@ -181,7 +188,7 @@ export const initHorizontalCarousel = async (id: string, speed: number) => {
         const carouselWrapper = document.createElement('div');
         carouselWrapper.classList.add('carousel__wrapper');
         carouselWrapper.append(...children);
-        carousel.innerHTML = '';    
+        carousel.innerHTML = '';
         carousel.appendChild(carouselWrapper);
 
         const totalWidth = carouselWrapper.clientWidth;
@@ -210,5 +217,12 @@ export const initHorizontalCarousel = async (id: string, speed: number) => {
     window.addEventListener('resize', debounce(() => {
         initFirstSlide();
     }, 100));
+
+    const stopCarousel = () => {
+        carousel.innerHTML = '';
+        unsubscribes.forEach(unsubscribe => unsubscribe());
+    }
+
+    return stopCarousel
 }
 

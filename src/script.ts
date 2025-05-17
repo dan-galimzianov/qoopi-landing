@@ -54,7 +54,7 @@ const loadLazyVideos = (container?: HTMLElement) => {
   });
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initMask();
   
   // Получаем все пункты навигации
@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Обработчик клика по пункту меню
   let activeSection = "1";
 
-  const updateHeroSectionHeight = () => {
-    const heroSection = document.querySelector('.hero-section');
+  const updateHeroSectionHeight = (sectionId: string) => {
+    const heroSection = document.querySelector('.hero-section__content-container');
+    const section = document.querySelector(`.hero-section__content[data-section-id="${sectionId}"]`);
     
-    
-    if (heroSection) {
-      heroSection.style.setProperty('height', `${window.innerHeight}px`);
+    if (heroSection && section) {
+      heroSection.style.setProperty('height', `${section.clientHeight}px`);
     }
   }
 
@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Загружаем видео для активной секции
         loadLazyVideos(sectionElement);
-
+        updateHeroSectionHeight(sectionId);
+        initCarousel('carousel1', 0.5);
       } else {
         sectionElement.style.setProperty('opacity', '0');
         sectionElement.style.setProperty('visibility', 'hidden');
@@ -111,13 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', () => {
       // Получаем id секции из атрибута
       const sectionId = item.getAttribute('data-section-id');
-      
       if (!sectionId) return;
+      activeSection = sectionId;
       navigateToSection(sectionId);
     });
   });
-  
-
 
   const firstNavItem = navItems[0] as HTMLElement;
       if (firstNavItem) {
@@ -189,7 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  initCarousel('carousel1', 0.5);
+  
+  window.addEventListener('resize', () => {
+    updateHeroSectionHeight(activeSection);
+  });
+
+  updateHeroSectionHeight(activeSection);
 
   const textarea = document.querySelectorAll('.textarea-auto-resize');
 
