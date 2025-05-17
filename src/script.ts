@@ -72,9 +72,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Функция для сброса всех blots
+  const resetBlots = () => {
+    document.body.classList.remove('blot_1', 'blot_2', 'blot_3', 'blot_4');
+  };
+
   // Функция для навигации к секции
   const navigateToSection = (sectionId: string) => {
     if (!sectionId) return;
+    
+    // Сначала сбрасываем все blots
+    resetBlots();
     
     // Выделяем активный пункт меню в основной навигации
     navItems.forEach(navItem => {
@@ -86,7 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Показываем/скрываем соответствующие секции
     const allSections = document.querySelectorAll('[data-section-id]:not(.hero-section__nav-link):not(.menu-nav-link)');
-    document.body.classList.remove(`blot_${activeSection}`);
+    
+    // Добавляем новый blot только после сброса предыдущего
     document.body.classList.add(`blot_${sectionId}`);
     activeSection = sectionId;
     document.body.classList.remove('loading');
