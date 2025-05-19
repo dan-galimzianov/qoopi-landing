@@ -50,3 +50,34 @@
     background-position: top 47px right -79px;
   }
 }
+
+@media (max-width: 850px) {
+  .blot_1 {
+    background-size: 130% 100%;
+    background-position: top 0% right 120%;
+  }
+  .blot_2 {
+    background-size: 130% 100%;
+    background-position: top 0px right 60%  ;
+  }
+  .blot_3 {
+    background-size: 0%;
+  }
+  .blot_4 {
+    background-size: 120% 100%;
+    background-position: top -50px right 50%  ;
+  }
+}
+
+@media (max-width: 425px) {
+  .blot_1 {
+    background-size: 230% 100%;
+    background-position: top -100px right 75%;
+  }
+  .blot_2 {
+    background-size: 230% 100%;
+    background-position: top 0px right 70%  ;
+  }
+}
+
+
