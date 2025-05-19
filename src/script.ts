@@ -65,29 +65,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
-  // const carouselBySectionId: Record<string, (() => void)[]> = {
-  //   '1': [
-  //     initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 }),
-  //     initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 }),
-  //     initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true }),
-  //   ],
-  //   '3': [
-  //     initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 }),
-  //     initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 }),
-  //   ],
-  //   '4': [
-  //     initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 }),
-  //     initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 }),
-  //   ],
-  // }
-
-  initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 }),
-  initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 }),
-  initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true }),
-  initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 }),
-  initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 }),
-  initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 }),
-  initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 }),
+  const carouselBySectionId: Record<string, (() => void)[] > = {
+    '1': [
+      initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 })!,
+      initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 })!,
+      initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true })!,
+    ],
+    '3': [
+      initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 })!,
+      initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 })!,
+    ],
+    '4': [
+      initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 })!,
+      initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 })!,
+    ],
+  }
 
   navItems.forEach(item => {
     item.addEventListener('click', () => {
@@ -96,9 +88,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (!sectionId) return;
       activeSection = sectionId;
 
-      // if (carouselBySectionId[sectionId]) {
-      //   carouselBySectionId[sectionId].forEach(init => init());
-      // }
+      if (carouselBySectionId[sectionId]) {
+        // carouselBySectionId[sectionId].forEach(recalculate => recalculate());
+      }
       navigateToSection(sectionId);
     });
   });
@@ -186,6 +178,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     item.addEventListener('input', () => {
       (item as HTMLTextAreaElement).style.height = 'auto'; // сбросить текущую высоту
       (item as HTMLTextAreaElement).style.height = (item as HTMLTextAreaElement).scrollHeight + 'px'; // установить высоту по содержимому
+    });
+  });
+
+  const elementsToScale = document.querySelectorAll('.scale-element') as NodeListOf<HTMLElement>;
+
+  elementsToScale.forEach(item => {
+    const scale = item.getAttribute('data-scale');
+    const windowWidth = window.innerWidth;
+    const itemWidth = item.clientWidth;
+    const targetWidth = windowWidth * Number(scale);
+    const scaleFactor = targetWidth / itemWidth;
+
+    if (scale) {
+      item.style.transform = `scale(${scaleFactor})`;
+    }
+
+    window.addEventListener('resize', () => {
+      const windowWidth = window.innerWidth;
+      const itemWidth = item.clientWidth;
+      const targetWidth = windowWidth * Number(scale);
+      const scaleFactor = targetWidth / itemWidth;
+
+      if (scale) {
+        item.style.transform = `scale(${scaleFactor})`;
+      }
     });
   });
  });

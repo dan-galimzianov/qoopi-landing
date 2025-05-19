@@ -8,6 +8,7 @@
   gap: 50px;
   max-width: 830px;
   padding-right: 50px;
+  padding-left: 30px;
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 1fr;  
@@ -77,6 +78,7 @@
         gap: 12px;
         height: 100%;
         padding-right: 0;
+        padding-left: 0;
         max-width: 100%;
 
         &__carousel {
@@ -84,6 +86,8 @@
         }
 
         &__mobile-button-container {
+          position: relative;
+          z-index: 1;
             display: block;
         }
 
@@ -99,7 +103,13 @@
         }
 
         &__app-preview {
-            display: none;
+          position: absolute;
+          bottom: 10px;
+          right: 30px;
+          height: 100%;
+          width: auto;
+
+          // display: none;
         }
     }
 }

@@ -1,4 +1,4 @@
-import { loadSources } from "./loadSources";
+import { loadSources, type LoadedSource } from "./loadSources";
 import { drawRoundedMedia } from "./drawRoundedVideo";
 import type { CarouselData } from "./carousel";
 
@@ -118,9 +118,8 @@ function createColumnItems(ctx: CanvasRenderingContext2D, items: any[], gap: num
   return columnItems;
 }
 
-export const initHorizontalCanvasCarousel = async (id: string, data: CarouselData[], options: InitHorizontalCanvasCarouselOptions) => {
+export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], options: InitHorizontalCanvasCarouselOptions) => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
-    console.log(canvas);
     
     canvas.style.opacity = '0';
     canvas.style.transition = `opacity ${options.fadeInDuration || 500}ms ease`;
@@ -129,9 +128,16 @@ export const initHorizontalCanvasCarousel = async (id: string, data: CarouselDat
     if (!ctx) return;
 
     let requestAnimationFrameId: number | null = null;
-    const mediaItems = await loadSources(data);
+    let mediaItems: LoadedSource[] = [];
 
-    const init = async () => {
+    const loadMediaItems = async () => {
+        mediaItems = await loadSources(data);
+        start();
+    }
+
+    loadMediaItems()
+
+    const start = () => {
         if (requestAnimationFrameId) {
             cancelAnimationFrame(requestAnimationFrameId);
         }
@@ -232,7 +238,7 @@ export const initHorizontalCanvasCarousel = async (id: string, data: CarouselDat
         }, 50);
     }
 
-    window.addEventListener('resize', debounce(init, 100));
+    window.addEventListener('resize', debounce(start, 100));
 
-    init();
+    return start
 } 

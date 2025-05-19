@@ -1,4 +1,4 @@
-import { loadSources } from "./loadSources";
+import { loadSources, type LoadedSource } from "./loadSources";
 import { drawRoundedMedia } from "./drawRoundedVideo";
 import { scaleMedia } from "./scaleMedia";
 
@@ -39,7 +39,7 @@ function setupCanvas(canvas: HTMLCanvasElement) {
   return ctx;
 }
 
-export const initCanvasCarousel = async (id: string, data: CarouselData[], options: InitCanvasCarouselOptions) => {
+export const initCanvasCarousel = (id: string, data: CarouselData[], options: InitCanvasCarouselOptions) => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
     canvas.style.opacity = '0';
     canvas.style.transition = `opacity ${options.fadeInDuration || 500}ms ease`;
@@ -48,9 +48,19 @@ export const initCanvasCarousel = async (id: string, data: CarouselData[], optio
     if (!ctx) return;
 
     let requestAnimationFrameId: number | null = null;
-    const mediaItems = await loadSources(data);
 
-    const init = async () => {
+    let mediaItems: LoadedSource[] = [];
+
+    const loadMediaItems = async () => {
+        mediaItems = await loadSources(data);
+    }
+
+    loadMediaItems().then(() => {
+        start();
+    });
+
+    const start = () => {
+        if (!mediaItems.length) return;
         if (requestAnimationFrameId) {
             cancelAnimationFrame(requestAnimationFrameId);
         }
@@ -101,9 +111,7 @@ export const initCanvasCarousel = async (id: string, data: CarouselData[], optio
         }, 50);
     }
 
-    window.addEventListener('resize', debounce(init, 100));
+    window.addEventListener('resize', debounce(start, 100));
 
-    init();
-
-    return init
+    return start
 }
