@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (selectedOptions.length === 0) {
                     title.classList.add('multiselect__title--empty');
-                    title.textContent = 'Выберите категории';
+                    title.textContent = 'Выберите';
                 } else {
                     title.classList.remove('multiselect__title--empty');
                     const selectedTexts = Array.from(selectedOptions).map(opt => 

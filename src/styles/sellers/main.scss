@@ -6,11 +6,11 @@
   opacity: 0;
   z-index: 10;
   gap: 50px;
-  right: 5vw;
+  max-width: 830px;
+  padding-right: 50px;
   align-items: center;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  
+  grid-template-columns: 1fr 1fr;  
   
   &__mobile-button-container {
     display: none;
@@ -76,6 +76,8 @@
         height: auto;
         gap: 12px;
         height: 100%;
+        padding-right: 0;
+        max-width: 100%;
 
         &__carousel {
             display: none;
