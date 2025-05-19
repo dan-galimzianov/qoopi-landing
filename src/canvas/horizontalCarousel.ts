@@ -141,7 +141,6 @@ export const initHorizontalCanvasCarousel = async (id: string, data: CarouselDat
         let offset = 0;
         const speed = options.speed / dpr;
         const gap = options.gap / dpr;
-        const containerHeight = canvas.height / dpr;
         const borderRadius = 40 / dpr;
 
         // В зависимости от режима, рассчитываем элементы обычным способом или в режиме колонок

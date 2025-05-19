@@ -4,9 +4,6 @@ import { carouselData, carouselData2, carouselData3, carouselData4, mobileAboutC
 import { initCanvasCarousel } from './canvas/carousel';
 import { initHorizontalCanvasCarousel } from './canvas/horizontalCarousel.js';
 
-
-
-
 document.addEventListener('DOMContentLoaded', async () => {
   initMask();
   
@@ -21,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const section = document.querySelector(`.hero-section__content[data-section-id="${sectionId}"]`);
     
     if (heroSection && section) {
-      heroSection.style.setProperty('height', `${section.clientHeight}px`);
+      (heroSection as HTMLElement).style.setProperty('height', `${section.clientHeight}px`);
     }
   }
 
@@ -68,12 +65,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
+  // const carouselBySectionId: Record<string, (() => void)[]> = {
+  //   '1': [
+  //     initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 }),
+  //     initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 }),
+  //     initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true }),
+  //   ],
+  //   '3': [
+  //     initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 }),
+  //     initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 }),
+  //   ],
+  //   '4': [
+  //     initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 }),
+  //     initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 }),
+  //   ],
+  // }
+
+  initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 }),
+  initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 }),
+  initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true }),
+  initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 }),
+  initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 }),
+  initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 }),
+  initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 }),
+
   navItems.forEach(item => {
     item.addEventListener('click', () => {
       // Получаем id секции из атрибута
       const sectionId = item.getAttribute('data-section-id');
       if (!sectionId) return;
       activeSection = sectionId;
+
+      // if (carouselBySectionId[sectionId]) {
+      //   carouselBySectionId[sectionId].forEach(init => init());
+      // }
       navigateToSection(sectionId);
     });
   });
@@ -163,13 +188,5 @@ document.addEventListener('DOMContentLoaded', async () => {
       (item as HTMLTextAreaElement).style.height = (item as HTMLTextAreaElement).scrollHeight + 'px'; // установить высоту по содержимому
     });
   });
-
-    initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 })
-    initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 })
-    initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 })
-    initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 })
-    initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 })
-    initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true })
-    initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 })
  });
 

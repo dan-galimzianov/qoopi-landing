@@ -46,7 +46,6 @@ export const initCanvasCarousel = async (id: string, data: CarouselData[], optio
     
     const ctx = setupCanvas(canvas);
     if (!ctx) return;
-    console.log(id);
 
     let requestAnimationFrameId: number | null = null;
     const mediaItems = await loadSources(data);
@@ -106,15 +105,5 @@ export const initCanvasCarousel = async (id: string, data: CarouselData[], optio
 
     init();
 
-    return {
-        stop: () => {
-            if (requestAnimationFrameId) {
-                cancelAnimationFrame(requestAnimationFrameId);
-                canvas.style.opacity = '0';
-            }
-        },
-        start: () => {
-            init()
-        }
-    }
+    return init
 }

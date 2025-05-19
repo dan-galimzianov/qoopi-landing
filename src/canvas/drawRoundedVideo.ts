@@ -12,7 +12,6 @@ export const drawRoundedMedia = (
   const r = normalizeRadii(radius, width, height);
 
   // Учет HiDPI
-  const dpr = window.devicePixelRatio || 1;
   ctx.save();
 
   ctx.beginPath();
@@ -51,9 +50,6 @@ function normalizeRadii(radius: Radius, width: number, height: number) {
       bl: radius.bl ?? 0,
     };
   }
-
-  const sumHorizontal = r.tl + r.tr;
-  const sumVertical = r.tl + r.bl;
 
   const scale = Math.min(
     1,
