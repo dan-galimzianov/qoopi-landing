@@ -1,58 +1,11 @@
 import { initMask } from './mask.js';
 
-import { initCarousel } from './carousel.js';
+import { carouselData, carouselData2, carouselData3, carouselData4, mobileAboutCarouselData } from './carousel-data';
+import { initCanvasCarousel } from './canvas/carousel';
+import { initHorizontalCanvasCarousel } from './canvas/horizontalCarousel.js';
 
-// Функция debounce для оптимизации обработки событий
-const debounce = (func: Function, delay: number) => {
-  let timeoutId: number;
-  return function(this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => func.apply(this, args), delay);
-  };
-};
 
-const waitForVideo = (video: HTMLVideoElement) => {
-  return new Promise((resolve) => {
-    if (video.readyState >= 3) {
-      resolve(video);
-    } else {
-      video.addEventListener('loadeddata', resolve);
-    }
-  });
-}
 
-const waitForImage = (image: HTMLImageElement) => {
-  return new Promise((resolve) => image.complete ? resolve(image) : image.addEventListener('load', resolve));
-}
-
-const waitForAllVideos = (videos: HTMLVideoElement[]) => {
-  return Promise.all(videos.map(video => waitForVideo(video)));
-}
-
-const waitForAllImages = (images: HTMLImageElement[]) => {
-  return Promise.all(images.map(image => waitForImage(image)));
-}
-
-// Функция для загрузки отложенных видео
-const loadLazyVideos = (container?: HTMLElement) => {
-  const parent = container || document;
-  const sources = parent.querySelectorAll('source[data-src]');
-  
-  sources.forEach(source => {
-    const src = source.getAttribute('data-src');
-    if (src) {
-      source.setAttribute('src', src);
-      // Удаляем атрибут data-src, чтобы не загружать повторно
-      source.removeAttribute('data-src');
-      
-      // Перезагружаем видео, чтобы применить новый src
-      const video = source.parentElement as HTMLVideoElement;
-      if (video) {
-        video.load();
-      }
-    }
-  });
-};
 
 document.addEventListener('DOMContentLoaded', async () => {
   initMask();
@@ -107,9 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         sectionElement.style.setProperty('visibility', 'visible');
         
         // Загружаем видео для активной секции
-        loadLazyVideos(sectionElement);
         updateHeroSectionHeight(sectionId);
-        initCarousel('carousel1', 0.5);
       } else {
         sectionElement.style.setProperty('opacity', '0');
         sectionElement.style.setProperty('visibility', 'hidden');
@@ -212,5 +163,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       (item as HTMLTextAreaElement).style.height = (item as HTMLTextAreaElement).scrollHeight + 'px'; // установить высоту по содержимому
     });
   });
-}); 
+
+    initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 })
+    initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 })
+    initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 })
+    initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 })
+    initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 })
+    initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true })
+    initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 })
+ });
 

@@ -5,12 +5,18 @@
   height: 100%;
   opacity: 0;
   z-index: 10;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 50px;
   align-items: center;
-  
-  
+
+  &__app-preview-image {
+    max-width: 400px;
+  }
+
   &__mobile-button-container {
+    position: relative;
+    z-index: 100;
     display: none;
     padding: 0 16px;
     padding-bottom: 10px;
@@ -23,48 +29,25 @@
 
   &__mobile-carousel {
     display: none;
+    width: 100%;
+    height: 1px;
+    flex-grow: 1;
+    min-height: 202px;
+
+    .canvas-carousel {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__app-preview {
     position: relative;
-
-    img {
-      width: 395px;
-    }
-  }
-
-  &__app-preview-video {
-    position: absolute;
-    border-radius: 17px;
-    width: 171px;
-    top: 284px;
-    left: 21px;
-    object-fit: cover;
-    height: 303px;
   }
 }
 
 @media (max-width: 1700px) {
     .brands-media {
         gap: 30px;
-
-        &__carousel {
-            max-width: 260px;
-        }
-
-        &__app-preview {
-            img {
-                width: 292px;
-            }
-        }
-
-        &__app-preview-video {
-            width: 126px;
-            top: 210px;
-            left: 16px;
-            object-fit: cover;
-            height: 224px;
-        }
     }
 }
 
@@ -107,8 +90,28 @@
             width: auto;
         }
 
-        &__app-preview {
-            display: none;
+        &__app-preview-image {
+          position: absolute;
+          height: calc(100% + 0px);
+          width: auto;
+          bottom: 10px;
+          right: 35px;
+          max-width: 300px;
         }
     }
+}
+
+@media (max-width: 768px) {
+    .brands-media {
+        &__app-preview {
+          transform: scale(1.4);
+          bottom: 80px;
+          right: 50px;
+        }
+    }
+}
+
+.brands-carousel {
+  width: 100%;
+  height: 100%;
 }
