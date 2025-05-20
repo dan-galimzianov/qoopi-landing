@@ -131,9 +131,7 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
     let mediaItems: LoadedSource[] = [];
 
     const loadMediaItems = async () => {
-        console.log('start loadMediaItems', id);
         mediaItems = await loadSources(data);
-        console.log('end loadMediaItems', id);
         start();
     }
 

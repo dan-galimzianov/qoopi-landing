@@ -6,6 +6,7 @@ export type LoadedSource = {
   height: number;
   width: number;
   outlineImg?: LoadedSource;
+  posterImg?: LoadedSource;
 }
 
 export const loadImg = async (src: string) => {
@@ -67,30 +68,46 @@ export function loadSources(sources: CarouselData[]): Promise<LoadedSource[]> {
           width: 0
         }
 
-        if (item.outlineSrc) {
-          const outlineImg = await loadImg(item.outlineSrc);
+        
 
-          videoItem.outlineImg = {
-            type: 'image',
-            media: outlineImg,
-            height: outlineImg.height,
-            width: outlineImg.width
+        Promise.all([
+          new Promise<void>(async () => {
+            if (item.posterSrc && video.readyState <= 3) {
+              video.play();
+              const posterImg = await loadImg(item.posterSrc);
+              videoItem.height = posterImg.height;
+              videoItem.width = posterImg.width;
+              video.poster = item.posterSrc;
+              resolve(videoItem);
+            }
+          }),
+          new Promise<void>(async () => {
+            if (item.outlineSrc) {
+            const outlineImg = await loadImg(item.outlineSrc);
+            videoItem.outlineImg = {
+              type: 'image',
+              media: outlineImg,
+              height: outlineImg.height,
+              width: outlineImg.width
+            }
           }
-        }
+          })
+        ])
+
         if (video.readyState > 3) {
-          video.play();
+          videoItem.media = video;
           videoItem.height = video.videoHeight;
           videoItem.width = video.videoWidth;
           resolve(videoItem);
-        } else {
-          video.addEventListener('loadeddata', () => {
-            video.play();
-            videoItem.height = video.videoHeight;
-            videoItem.width = video.videoWidth;
-            resolve(videoItem);
-          });
         }
 
+        video.addEventListener('loadeddata', () => {
+          video.play();
+          videoItem.media = video;
+          videoItem.height = video.videoHeight;
+          videoItem.width = video.videoWidth;
+          resolve(videoItem);
+        });
       } else {
         const img = new Image();
         img.crossOrigin = 'anonymous';

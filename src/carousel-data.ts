@@ -8,6 +8,7 @@ const carouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video1.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
     },
     {
@@ -17,6 +18,7 @@ const carouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video2.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline2.webp",
     },
     {
@@ -26,6 +28,7 @@ const carouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video3.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
     },
     {
@@ -35,6 +38,7 @@ const carouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video4.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline4.webp",
     },
 ]
@@ -43,6 +47,7 @@ const carouselData2: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video1.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video1-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
     },
     {
@@ -52,6 +57,7 @@ const carouselData2: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video2.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video2-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline8.webp",
     },
     {
@@ -61,7 +67,8 @@ const carouselData2: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video3.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video3-poster.jpeg",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline6.webp",
     },
     {
         type: 'image',
@@ -70,6 +77,7 @@ const carouselData2: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video4.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video4-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline7.webp",
     },
     {
@@ -86,11 +94,13 @@ const mobileAboutCarouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video1.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video1-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
     },
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video1.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
     },
     {
@@ -104,12 +114,13 @@ const mobileAboutCarouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video2.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video2-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
     },
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video2.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline2.webp",
     },
     {
         type: 'image',
@@ -122,12 +133,14 @@ const mobileAboutCarouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video3.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video3-poster.jpeg",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline6.webp",
     },
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video3.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.jpeg",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
     },
     {
         type: 'image',
@@ -140,12 +153,14 @@ const mobileAboutCarouselData: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/right-half/video4.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video4-poster.jpeg",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline7.webp",
     },
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video4.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.jpeg",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline4.webp",
     },
     {
         type: 'image',
@@ -162,6 +177,7 @@ const carouselData3: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video1.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
     },
     {
@@ -171,7 +187,8 @@ const carouselData3: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video2.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline2.webp",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.jpeg",
+        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline8.webp",
     },
     {
         type: 'image',
@@ -180,6 +197,7 @@ const carouselData3: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video3.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
     },
     {
@@ -189,6 +207,7 @@ const carouselData3: CarouselData[] = [
     {
         type: 'video',
         src: "./src/assets/carousel/about-slider/left-half/video4.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.jpeg",
         outlineSrc: "./src/assets/carousel/about-slider/outlines/outline4.webp",
     },
 ]

@@ -6,6 +6,7 @@ export type CarouselData = {
     type: 'image' | 'video';
     src: string;
     outlineSrc?: string;
+    posterSrc?: string;
 }
 
 type InitCanvasCarouselOptions = {
@@ -53,19 +54,16 @@ export const initCanvasCarousel = (id: string, data: CarouselData[], options: In
 
     const loadMediaItems = async () => {
         mediaItems = await loadSources(data);
+        start();
     }
 
-    loadMediaItems().then(() => {
-        start();
-    });
+    loadMediaItems()
 
     const start = () => {
         if (!mediaItems.length) return;
         if (requestAnimationFrameId) {
             cancelAnimationFrame(requestAnimationFrameId);
         }
-
-        // console.log('start', id);
 
         const ctx = setupCanvas(canvas);
         if (!ctx) return;
@@ -90,6 +88,7 @@ export const initCanvasCarousel = (id: string, data: CarouselData[], options: In
 
             while (y < canvas.height + 500) {
                 const item = items[i % items.length];
+                console.log(item.media);
                 drawRoundedMedia(ctx, item.media, 0, y, containerWidth, item.height, borderRadius);
                 if (item.outlineImg) {
                     ctx.drawImage(item.outlineImg.media, 0, y, containerWidth, item.outlineImg.height);
