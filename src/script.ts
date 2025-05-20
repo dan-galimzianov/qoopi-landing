@@ -4,6 +4,62 @@ import { carouselData, carouselData2, carouselData3, carouselData4, mobileAboutC
 import { initCanvasCarousel } from './canvas/carousel';
 import { initHorizontalCanvasCarousel } from './canvas/horizontalCarousel.js';
 
+const initedCarousel: Record<string, boolean> = {
+  '1': false,
+  '3': false,
+  '4': false,
+}
+
+const recalcCarouselBySectionId: Record<string, (() => void)[] > = {
+  '1': [],
+  '3': [],
+  '4': [],
+}
+
+const stopCarouselBySectionId: Record<string, (() => void)[] > = {
+  '1': [],
+  '3': [],
+  '4': [],
+}
+
+const initCarouselBySectionId: Record<string, (() => void) > = {
+  '1': () => {
+    if (initedCarousel['1']) {
+      console.log('recalc 1');
+      recalcCarouselBySectionId['1'].forEach(recalculate => recalculate());
+      return;
+    }
+    const [start1, stop1] = initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 })!;
+    const [start2, stop2] = initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 })!;
+    const [start3, stop3] = initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true })!;
+    initedCarousel['1'] = true;
+    stopCarouselBySectionId['1'].push(stop1, stop2, stop3);
+    recalcCarouselBySectionId['1'].push(start1, start2, start3);
+  },
+  '3': () => {
+    if (initedCarousel['3']) {
+      recalcCarouselBySectionId['3'].forEach(recalculate => recalculate());
+      return;
+    }
+    const [start1, stop1] = initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 })!;
+    const [start2, stop2] = initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 })!;
+    initedCarousel['3'] = true;
+    stopCarouselBySectionId['3'].push(stop1, stop2);
+    recalcCarouselBySectionId['3'].push(start1, start2);
+  },
+  '4': () => {
+    if (initedCarousel['4']) {
+      recalcCarouselBySectionId['4'].forEach(recalculate => recalculate());
+      return;
+    }
+    const [start1, stop1] = initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 })!;
+    const [start2, stop2] = initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 })!;
+    initedCarousel['4'] = true;
+    stopCarouselBySectionId['4'].push(stop1, stop2);
+    recalcCarouselBySectionId['4'].push(start1, start2);
+  },
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   initMask();
   
@@ -12,6 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Обработчик клика по пункту меню
   let activeSection = "1";
+
 
   const updateHeroSectionHeight = (sectionId: string) => {
     const heroSection = document.querySelector('.hero-section__content-container');
@@ -65,33 +122,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
-  const carouselBySectionId: Record<string, (() => void)[] > = {
-    '1': [
-      initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 })!,
-      initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 })!,
-      initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true })!,
-    ],
-    '3': [
-      initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 })!,
-      initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 })!,
-    ],
-    '4': [
-      initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 })!,
-      initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 })!,
-    ],
-  }
-
   navItems.forEach(item => {
     item.addEventListener('click', () => {
       // Получаем id секции из атрибута
       const sectionId = item.getAttribute('data-section-id');
       if (!sectionId) return;
-      activeSection = sectionId;
 
-      if (carouselBySectionId[sectionId]) {
-        // carouselBySectionId[sectionId].forEach(recalculate => recalculate());
+      if (stopCarouselBySectionId[activeSection]) {
+        stopCarouselBySectionId[activeSection].forEach(stop => stop());
       }
-      navigateToSection(sectionId);
+      activeSection = sectionId;
+      if (initCarouselBySectionId[activeSection]) {
+        console.log('initCarouselBySectionId', activeSection);
+        initCarouselBySectionId[activeSection]();
+      }
+      setTimeout(() => {
+        navigateToSection(sectionId);
+      }, 100);
     });
   });
 

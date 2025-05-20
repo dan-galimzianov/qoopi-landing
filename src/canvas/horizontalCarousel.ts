@@ -131,7 +131,9 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
     let mediaItems: LoadedSource[] = [];
 
     const loadMediaItems = async () => {
+        console.log('start loadMediaItems', id);
         mediaItems = await loadSources(data);
+        console.log('end loadMediaItems', id);
         start();
     }
 
@@ -240,5 +242,12 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
 
     window.addEventListener('resize', debounce(start, 100));
 
-    return start
+    const stop = () => {
+        canvas.style.opacity = '0';
+        if (requestAnimationFrameId) {
+            cancelAnimationFrame(requestAnimationFrameId);
+        }
+    }
+
+    return [start, stop]
 } 

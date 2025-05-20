@@ -65,6 +65,8 @@ export const initCanvasCarousel = (id: string, data: CarouselData[], options: In
             cancelAnimationFrame(requestAnimationFrameId);
         }
 
+        // console.log('start', id);
+
         const ctx = setupCanvas(canvas);
         if (!ctx) return;
         let offset = 0;
@@ -113,5 +115,11 @@ export const initCanvasCarousel = (id: string, data: CarouselData[], options: In
 
     window.addEventListener('resize', debounce(start, 100));
 
-    return start
+    const stop = () => {
+        if (requestAnimationFrameId) {
+            cancelAnimationFrame(requestAnimationFrameId);
+        }
+    }
+
+    return [start, stop]
 }

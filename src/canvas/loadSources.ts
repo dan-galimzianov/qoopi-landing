@@ -12,6 +12,9 @@ export const loadImg = async (src: string) => {
   const img = new Image();
   img.crossOrigin = 'anonymous';
   img.src = src;
+  if (img.complete) {
+    return img;
+  }
   await new Promise(resolve => {
     img.onload = () => {
         resolve(img);
@@ -31,6 +34,11 @@ export const loadVideo = async (src: string) => {
   video.autoplay = true;
   video.playsInline = true;
   video.crossOrigin = 'anonymous';
+
+  if (video.readyState > 3) {
+    video.play();
+    return video;
+  }
 
   return new Promise<HTMLVideoElement>(resolve => {
     video.addEventListener('loadeddata', () => {
@@ -69,21 +77,31 @@ export function loadSources(sources: CarouselData[]): Promise<LoadedSource[]> {
             width: outlineImg.width
           }
         }
-
-        video.addEventListener('loadeddata', () => {
+        if (video.readyState > 3) {
           video.play();
           videoItem.height = video.videoHeight;
           videoItem.width = video.videoWidth;
           resolve(videoItem);
-        });
+        } else {
+          video.addEventListener('loadeddata', () => {
+            video.play();
+            videoItem.height = video.videoHeight;
+            videoItem.width = video.videoWidth;
+            resolve(videoItem);
+          });
+        }
 
       } else {
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.src = item.src;
-        img.onload = () => {
+        if (img.complete) {
           resolve({ type: 'image', media: img, height: img.height, width: img.width });
-        };
+        } else {
+          img.onload = () => {
+            resolve({ type: 'image', media: img, height: img.height, width: img.width });
+          };
+        }
       }
     });
   }));
