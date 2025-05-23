@@ -261,25 +261,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   elementsToScale.forEach(item => {
     const scale = item.getAttribute('data-scale');
-    const windowWidth = window.innerWidth;
-    const itemWidth = item.clientWidth;
-    const targetWidth = windowWidth * Number(scale);
-    const scaleFactor = targetWidth / itemWidth;
 
-    if (scale && windowWidth > 1200) {
-      item.style.transform = `scale(${scaleFactor})`;
-    }
-
-    window.addEventListener('resize', () => {
+    const updateScale = () => requestAnimationFrame(() => {
       const windowWidth = window.innerWidth;
-      const itemWidth = item.clientWidth;
       const targetWidth = windowWidth * Number(scale);
+      const itemWidth = item.clientWidth;
       const scaleFactor = targetWidth / itemWidth;
 
-      if (scale) {
+      if (scale && windowWidth > 1200) {
         item.style.transform = `scale(${scaleFactor})`;
       }
     });
+
+    updateScale();
+
+    window.addEventListener('resize', updateScale);
   });
 
   const elementsToScaleMobile = document.querySelectorAll('.scale-element-mobile') as NodeListOf<HTMLElement>;
@@ -290,34 +286,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Получаем желаемый коэффициент масштабирования из data-атрибута
     const desiredScale = Number(item.dataset.scaleMobile) || 1;
-    const originalWidth = item.offsetWidth;
-    const originalHeight = item.offsetHeight;
+    item.style.transform = 'none';
+
+      
     
     // Функция для обновления масштаба
-    const updateScale = () => {
-      if (window.innerWidth > 1200) {
-        return;
-      }
+      const updateScale = () => requestAnimationFrame(() => {
+        const originalWidth = item.offsetWidth;
+        const originalHeight = item.offsetHeight;
 
-      const parentWidth = parent.offsetWidth;
-      const parentHeight = parent.offsetHeight;
-      
-      // Вычисляем максимально возможный масштаб отдельно для ширины и высоты
-      const maxScaleX = parentWidth / originalWidth;
-      const maxScaleY = parentHeight / originalHeight;
-      
-      // Находим максимально возможный масштаб, при котором элемент поместится в родителя
-      const maxPossibleScale = Math.min(maxScaleX, maxScaleY);
-      
-      const finalScale = Math.min(desiredScale, maxPossibleScale);
-      
-      item.style.transform = `scale(${finalScale})`;
-    };
+        if (window.innerWidth > 1200) {
+          return;
+        }
 
-    // Обновляем масштаб при загрузке и изменении размера окна
-    updateScale();
-    const observer = new ResizeObserver(updateScale);
-    observer.observe(parent);
+        const parentWidth = parent.offsetWidth;
+        const parentHeight = parent.offsetHeight;
+        // Вычисляем максимально возможный масштаб отдельно для ширины и высоты
+        const maxScaleX = parentWidth / originalWidth;
+        const maxScaleY = parentHeight / originalHeight;
+        
+
+        // Находим максимально возможный масштаб, при котором элемент поместится в родителя
+        const maxPossibleScale = Math.min(maxScaleX, maxScaleY);
+        
+        const finalScale = Math.min(desiredScale, maxPossibleScale);
+        console.log(finalScale);
+
+        item.style.transform = `scale(${finalScale})`;
+      });
+
+      updateScale();
+      const observer = new ResizeObserver(updateScale);
+      observer.observe(parent);
   });
 
 

@@ -156,39 +156,39 @@ const mobileAboutCarouselData: CarouselData[] = [
 const carouselData3: CarouselData[] = [
     {
         type: 'image',
-        src: "./src/assets/carousel/about-slider/left-half/photo1.webp",
+        src: "./src/assets/brands/carousel/photo1.png",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video1-with-outline.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.webp",
+        src: "./src/assets/brands/carousel/video1.mp4",
+        posterSrc: "./src/assets/brands/carousel/video1-poster.webp",
     },
     {
         type: 'image',
-        src: "./src/assets/carousel/about-slider/left-half/photo2.webp",
+        src: "./src/assets/brands/carousel/photo2.png",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video2-with-outline.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.webp",
+        src: "./src/assets/brands/carousel/video2.mp4",
+        posterSrc: "./src/assets/brands/carousel/video2-poster.webp",
     },
     {
         type: 'image',
-        src: "./src/assets/carousel/about-slider/left-half/photo3.webp",
+        src: "./src/assets/brands/carousel/photo3.png",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video3-with-outline.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.webp",
+        src: "./src/assets/brands/carousel/video3.mp4",
+        posterSrc: "./src/assets/brands/carousel/video3-poster.webp",
     },
     {
         type: 'image',
-        src: "./src/assets/carousel/about-slider/left-half/photo4.webp",
+        src: "./src/assets/brands/carousel/photo4.png",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video4-with-outline.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.webp",
+        src: "./src/assets/brands/carousel/video4.mp4",
+        posterSrc: "./src/assets/brands/carousel/video4-poster.webp",
     },
 ]
 

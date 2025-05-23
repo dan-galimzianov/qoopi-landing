@@ -2,7 +2,6 @@
     position: absolute;
     display: flex;
     width: 100%;
-    max-width: 830px;
     height: max-content;
     z-index: 1;
     align-items: flex-start;
@@ -148,7 +147,6 @@
             gap: 37px;
             z-index: -1;
             transform-origin: bottom;
-            margin-top: auto;
         }
 
         &__good {
