@@ -13,6 +13,7 @@ type InitCanvasCarouselOptions = {
     speed: number;
     gap: number;
     fadeInDuration?: number; // Продолжительность анимации появления в миллисекундах
+    backgroundImgSrc?: string; // Путь до превью картинки
 }
 
 const debounce = (func: Function, delay: number) => {
@@ -49,7 +50,6 @@ export const initCanvasCarousel = (id: string, data: CarouselData[], options: In
     if (!ctx) return;
 
     let requestAnimationFrameId: number | null = null;
-
     let mediaItems: LoadedSource[] = [];
 
     const loadMediaItems = async () => {
@@ -78,23 +78,37 @@ export const initCanvasCarousel = (id: string, data: CarouselData[], options: In
             return media;
         });
 
-        const render = () => {
+        const render = () => {            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             const totalHeight = items.reduce((sum, item) => sum + item.height + gap, 0);
             let y = -offset % totalHeight;
 
-            let i = 0;
+                let i = 0;
 
             while (y < canvas.height + 500) {
-                const item = items[i % items.length];
-                console.log(item.media);
-                drawRoundedMedia(ctx, item.media, 0, y, containerWidth, item.height, borderRadius);
-                if (item.outlineImg) {
-                    ctx.drawImage(item.outlineImg.media, 0, y, containerWidth, item.outlineImg.height);
-                }
-                y += item.height + gap;
-                i++;
+                    const item = items[i % items.length];
+
+                    if (item.media instanceof HTMLVideoElement && item.media.readyState === 4) {
+                        if (item.media.paused) {
+                            item.media.play();
+                        }
+                        drawRoundedMedia(ctx, item.media, 0, y, containerWidth, item.height, borderRadius);
+                    }
+
+                    if (item.media instanceof HTMLVideoElement && item.posterImg && item.media.readyState <= 3) {
+                        drawRoundedMedia(ctx, item.posterImg.media, 0, y, containerWidth, item.posterImg.height, borderRadius);
+                    }
+
+                    if (item.media instanceof HTMLImageElement) {
+                        drawRoundedMedia(ctx, item.media, 0, y, containerWidth, item.height, borderRadius);
+                    }
+
+                    if (item.outlineImg) {
+                        drawRoundedMedia(ctx, item.outlineImg.media, 0, y, containerWidth, item.outlineImg.height, borderRadius);
+                    }
+                    y += item.height + gap;
+                    i++;
             }
 
             offset += speed;

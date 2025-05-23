@@ -17,9 +17,10 @@
       <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-blogger">
         <header class="modal__header">
           <h3 class="modal__header-title">
-            Стать блогером на qoopi
+            <span>Стать блогером на qoopi</span>
+            <button class="modal__close-button" type="button"></button>
           </h3>
-          <button class="modal__close-button" type="button"></button>
+          
           <p class="modal__header-description">
             Заполните анкету и мы свяжемся с вами в ближайшее время
           </p>
@@ -113,9 +114,9 @@
       <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-brand">
         <header class="modal__header">
           <h3 class="modal__header-title">
-            Стать брендом на qoopi
+            <span>Стать брендом на qoopi</span>
+            <button class="modal__close-button" type="button"></button>
           </h3>
-          <button class="modal__close-button" type="button"></button>
           <p class="modal__header-description">
             Заполните анкету и мы свяжемся с вами в ближайшее время
           </p>
@@ -225,9 +226,9 @@
       <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-form">
         <header class="modal__header">
           <h3 class="modal__header-title">
-            Стать селлером на qoopi
+            <span>Стать селлером на qoopi</span>
+            <button class="modal__close-button" type="button"></button>
           </h3>
-          <button class="modal__close-button" type="button"></button>
           <p class="modal__header-description">
             Заполните анкету и мы свяжемся с вами в ближайшее время
           </p>
@@ -337,9 +338,9 @@
       <form class="modal__content form" data-server-url="http://localhost:3000/api/public/submit-question">
         <header class="modal__header">
           <h3 class="modal__header-title">
-            Задать вопрос
+            <span>Задать вопрос</span>
+            <button class="modal__close-button" type="button"></button>
           </h3>
-          <button class="modal__close-button" type="button"></button>
           <p class="modal__header-description">
             Заполните форму или напишите нам на почту <a class="text-link" href="mailto:hello@qoopi.ru">hello@qoopi.ru</a>
           </p>
@@ -513,7 +514,8 @@
             </section>
 
           <section class="blogers-media" data-section-id="2">
-            <div class="blogers-media__container scale-element" data-scale="0.4">
+            <div class="blogers-media__container-wrapper">
+              <div class="blogers-media__container scale-element scale-element-mobile" data-scale="0.5" data-scale-mobile="5">
               <div class="blogers-media__video-container">
                 <video class="blogers-media__video" autoplay loop muted playsinline poster="./src/assets/blogers/video1-poster.jpeg">
                   <source src="./src/assets/blogers/video1.mp4" type="video/mp4">
@@ -527,6 +529,8 @@
                 <img src="./src/assets/blogers/photo1.webp" alt="Bloger photo" class="blogers-media__good-image">
               </div>
             </div>
+            </div>
+            
             <div class="blogers-media__mobile-button-container">
               <button class="button blogers-media__mobile-button" data-modal-id="become-blogger">
                   Создать витрину
@@ -541,7 +545,9 @@
             <section class="brands-media__mobile-carousel">
               <canvas class="canvas-carousel media__carousel" id="brands-media-mobile-carousel"></canvas>
             </section>
-            <img src="./src/assets/brands/output.webp" alt="App preview" class="brands-media__app-preview-image">
+            <video class="brands-media__app-preview-image adaptive-border-radius" data-brs="9.7" autoplay loop muted playsinline poster="./src/assets/sellers/app-preview-poster.webp">
+                <source src="./src/assets/brands/video1.mp4" type="video/mp4">
+              </video>
             <div class="brands-media__mobile-button-container">
               <button class="button brands-media__mobile-button openBrandModalBtn" data-modal-id="become-brand">
                 Начать продавать
@@ -551,8 +557,12 @@
 
           <section class="sellers-media" data-section-id="4">
             <canvas class="canvas-carousel sellers-media__carousel" id="sellers-carousel"></canvas>
-            <canvas class="canvas-carousel sellers-media__carousel-mobile" id="sellers-carousel-mobile"></canvas>
-            <img src="./src/assets/sellers/app-preview.webp" alt="App preview" class="sellers-media__app-preview">
+            <section class="sellers-media__mobile-carousel">
+                <canvas class="canvas-carousel" id="sellers-carousel-mobile"></canvas>
+            </section>
+            <video class="sellers-media__app-preview adaptive-border-radius" data-brs="9.7" autoplay loop muted playsinline poster="./src/assets/sellers/app-preview-poster.webp">
+                <source src="./src/assets/sellers/app-preview.mp4" type="video/mp4">
+              </video>
             <div class="sellers-media__mobile-button-container">
               <button class="button sellers-media__mobile-button" data-modal-id="become-seller">
                 Начать продвигать
@@ -567,6 +577,20 @@
           <a href="./privacy/privacy.html" class="policy__link">Правила обработки персональных данных</a>
         </div>
       </main>
+    <script type="text/javascript" >
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
+      ym(101816850, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+      });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/101816850" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   </body>
 </html>

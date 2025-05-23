@@ -644,3 +644,7 @@ body:not(.menu-open) .menu-content__button {
     opacity: 0;
     visibility: hidden;
 }
+
+ul, li {
+    list-style: none;
+}

@@ -13,8 +13,7 @@
     &__mobile-button-container {
         display: none;
         width: 100%;
-        margin: 16px 0;
-        margin-bottom: 0;
+        margin-bottom: 16px;
         padding: 0 16px;
         justify-content: stretch;
     }
@@ -77,8 +76,6 @@
 
 @media (max-width: 1840px) {
     .blogers-media {
-        right: 30px;
-
         &__app-preview-image {
             border-radius: 16px;
         }
@@ -87,9 +84,6 @@
 
 @media (max-width: 1700px) {
     .blogers-media {
-        transform: none;
-        top: 120px;
-
         &__video {
             width: 231px;
             height: 342px;
@@ -125,6 +119,16 @@
         right: 0;
         max-width: 100%;
         height: 100%;
+        transform: none;
+
+        &__container-wrapper {
+            flex: 1;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: end;
+            height: 1px;
+        }
 
         &__mobile-button-container {
             display: flex;
@@ -137,15 +141,14 @@
         }
 
         &__app-preview {
-            width: 125px;
+            width: 150px;
         }
 
         &__container {
             gap: 37px;
-            flex: 1;
-            transform: scale(1.1) !important;
-            align-items: end;
             z-index: -1;
+            transform-origin: bottom;
+            margin-top: auto;
         }
 
         &__good {
@@ -159,13 +162,9 @@
             height: 105px;
         }
 
-        &__container {
-            
-        }
-
         &__video-container {
             margin-bottom: 70px;
-            transform: scale(1.5);
+            transform: scale(1.1);
         }
     }
 }

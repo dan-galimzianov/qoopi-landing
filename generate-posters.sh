@@ -7,10 +7,10 @@ find . -type f -name "*.mp4" | while read -r video; do
     filename=$(basename "$video" .mp4)
     
     # Формируем имя постера
-    output="$dir/${filename}-poster.jpeg"
+    output="$dir/${filename}-poster.webp"
     
     echo "Создание постера для: $video -> $output"
     
     # Извлечение первого кадра с помощью ffmpeg
-    ffmpeg -y -i "$video" -vf "select=eq(n\,0)" -q:v 2 -frames:v 1 "$output"
+    ffmpeg -y -i "$video" -vf "select=eq(n\,0)" -frames:v 1 -c:v libwebp -q:v 70 -loop 0 -an "$output"
 done

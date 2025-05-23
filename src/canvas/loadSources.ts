@@ -9,6 +9,42 @@ export type LoadedSource = {
   posterImg?: LoadedSource;
 }
 
+// Очередь для управления загрузкой видео
+class VideoLoadQueue {
+  private queue: (() => Promise<void>)[] = [];
+  private activeLoads = 0;
+  private maxConcurrent = 4; // Ограничиваем количество одновременных загрузок видео
+
+  async add(task: () => Promise<void>) {
+    if (this.activeLoads >= this.maxConcurrent) {
+      await new Promise<void>(resolve => {
+        this.queue.push(async () => {
+          await task();
+          resolve();
+        });
+      });
+    } else {
+      this.activeLoads++;
+      await task();
+      this.activeLoads--;
+      this.processQueue();
+    }
+  }
+
+  private processQueue() {
+    if (this.queue.length > 0 && this.activeLoads < this.maxConcurrent) {
+      const nextTask = this.queue.shift();
+      if (nextTask) {
+        this.activeLoads++;
+        nextTask().finally(() => {
+          this.activeLoads--;
+          this.processQueue();
+        });
+      }
+    }
+  }
+}
+
 export const loadImg = async (src: string) => {
   const img = new Image();
   img.crossOrigin = 'anonymous';
@@ -37,7 +73,6 @@ export const loadVideo = async (src: string) => {
   video.crossOrigin = 'anonymous';
 
   if (video.readyState > 3) {
-    video.play();
     return video;
   }
 
@@ -49,77 +84,50 @@ export const loadVideo = async (src: string) => {
   });
 }
 
-export function loadSources(sources: CarouselData[]): Promise<LoadedSource[]> {
-  return Promise.all(sources.map(item => {
-    return new Promise<LoadedSource>(async (resolve) => {
-      if (item.type === 'video') {
-        const video = document.createElement('video');
-        video.src = item.src;
-        video.muted = true;
-        video.loop = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.crossOrigin = 'anonymous';
+const videoLoadQueue = new VideoLoadQueue();
 
-        const videoItem: LoadedSource = {
-          type: 'video',
-          media: video,
-          height: 0,
-          width: 0
-        }
+export async function loadSources(sources: CarouselData[]): Promise<LoadedSource[]> {
+  const loadAllImages = async (item: CarouselData): Promise<LoadedSource> => {
+    if (item.type === 'image') {
+      const img = await loadImg(item.src);
+      if (!img) throw new Error(`Failed to load image: ${item.src}`);
+      return { type: 'image', media: img, height: img.height, width: img.width };
+    }
 
-        
+    // Загружаем постер и аутлайн для видео
+    const posterImg = item.posterSrc ? await loadImg(item.posterSrc) : null;
 
-        Promise.all([
-          new Promise<void>(async () => {
-            if (item.posterSrc && video.readyState <= 3) {
-              video.play();
-              const posterImg = await loadImg(item.posterSrc);
-              videoItem.height = posterImg.height;
-              videoItem.width = posterImg.width;
-              video.poster = item.posterSrc;
-              resolve(videoItem);
-            }
-          }),
-          new Promise<void>(async () => {
-            if (item.outlineSrc) {
-            const outlineImg = await loadImg(item.outlineSrc);
-            videoItem.outlineImg = {
-              type: 'image',
-              media: outlineImg,
-              height: outlineImg.height,
-              width: outlineImg.width
-            }
-          }
-          })
-        ])
+    return {
+      type: 'video',
+      media: null as any, // Временно null, видео загрузим позже
+      height: posterImg?.height || 0,
+      width: posterImg?.width || 0,
+      posterImg: posterImg ? {
+        type: 'image',
+        media: posterImg,
+        height: posterImg.height,
+        width: posterImg.width
+      } : undefined
+    };
+  };
 
-        if (video.readyState > 3) {
-          videoItem.media = video;
-          videoItem.height = video.videoHeight;
-          videoItem.width = video.videoWidth;
-          resolve(videoItem);
-        }
+  // Загружаем все изображения параллельно
+  const loadedImages = await Promise.all(sources.map(loadAllImages));
 
-        video.addEventListener('loadeddata', () => {
-          video.play();
-          videoItem.media = video;
-          videoItem.height = video.videoHeight;
-          videoItem.width = video.videoWidth;
-          resolve(videoItem);
+  // После загрузки изображений загружаем видео через очередь
+  await Promise.all(loadedImages.map(async (result, index) => {
+      const source = sources[index];
+      if (source.type === 'video') {
+        await videoLoadQueue.add(async () => {
+          const video = await loadVideo(source.src);
+          result.height = video.videoHeight;
+          result.width = video.videoWidth;
+          result.media = video;
         });
-      } else {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.src = item.src;
-        if (img.complete) {
-          resolve({ type: 'image', media: img, height: img.height, width: img.width });
-        } else {
-          img.onload = () => {
-            resolve({ type: 'image', media: img, height: img.height, width: img.width });
-          };
-        }
       }
-    });
+      
+      return result;
   }));
+
+  return loadedImages;
 }

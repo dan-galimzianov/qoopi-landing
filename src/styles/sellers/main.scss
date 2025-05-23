@@ -11,7 +11,7 @@
   padding-left: 30px;
   align-items: center;
   display: grid;
-  grid-template-columns: 1fr 1fr;  
+  grid-template-columns: 3fr 4fr;
   
   &__mobile-button-container {
     display: none;
@@ -29,12 +29,12 @@
       gap: 10px;
   }
 
-  &__mobile-carousel {
-    display: none;
+  &__app-preview {
+    width: 100%;
   }
 
   &__app-preview {
-    width: 100%;
+    border-radius: 44px;
   }
 
   &__carousel {
@@ -42,8 +42,17 @@
     width: 100%;
   }
 
-  &__carousel-mobile {
+  &__mobile-carousel {
     display: none;
+    flex-grow: 1;
+    min-height: 1px;
+    align-items: flex-end;
+    width: 100%;
+
+    .canvas-carousel {
+      height: 90%;
+      width: 100%;
+    }
   }
 }
 
@@ -92,7 +101,7 @@
         }
 
         &__mobile-carousel {
-            display: block;
+            display: flex;
         }
 
         &__carousel-mobile {

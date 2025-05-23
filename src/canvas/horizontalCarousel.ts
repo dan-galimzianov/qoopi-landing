@@ -118,6 +118,34 @@ function createColumnItems(ctx: CanvasRenderingContext2D, items: any[], gap: num
   return columnItems;
 }
 
+//                     drawMedia(ctx, item.first.media, x, item.first.yOffset, item.first.displayWidth, item.first.displayHeight, borderRadius)
+                    
+//                     // Отрисовка второго элемента колонки
+
+
+const drawMedia = (ctx: CanvasRenderingContext2D, item: any, x: number, y: number, width: number, height: number, borderRadius: number) => {
+   if (item.media instanceof HTMLVideoElement && item.media.readyState === 4) {
+      if (item.media.paused) {
+          item.media.play();
+      }
+      drawRoundedMedia(ctx, item.media, x, y, width, height, borderRadius);
+  }
+
+  if (item.media instanceof HTMLVideoElement && item.posterImg && item.media.readyState <= 3) {
+      drawRoundedMedia(ctx, item.posterImg.media, x, y, width, height, borderRadius);
+  }
+
+  if (item.media instanceof HTMLImageElement) {
+      drawRoundedMedia(ctx, item.media, x, y, width, height, borderRadius);
+  }
+
+  if (item.outlineImg) {
+        const outlineHeight = item.outlineImg.height * (item.displayHeight / item.height);
+      drawRoundedMedia(ctx, item.outlineImg.media, x, y, width, outlineHeight, borderRadius);
+  }
+}
+
+
 export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], options: InitHorizontalCanvasCarouselOptions) => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
     
@@ -131,7 +159,10 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
     let mediaItems: LoadedSource[] = [];
 
     const loadMediaItems = async () => {
+        const startTime = performance.now();
         mediaItems = await loadSources(data);
+        const endTime = performance.now();
+        console.log(`loadMediaItems: ${endTime - startTime}ms`);
         start();
     }
 
@@ -155,68 +186,43 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
             ? createColumnItems(ctx, scaledItems, gap) 
             : scaledItems;
 
+
         const render = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const totalWidth = items.reduce((sum, item) => sum + item.displayWidth + gap, 0);
+            const totalWidth = items.reduce((sum, item) => {
+              sum += item.displayWidth + gap
+              return sum
+            }, 0);
             let x = -offset % totalWidth;
 
             let i = 0;
 
             while (x < canvas.width + 500) {
                 const item = items[i % items.length];
-                
+
                 if (options.columnMode && item.type === 'column') {
-                    // Отрисовка первого элемента колонки
-                    drawRoundedMedia(
+                    drawMedia(
                         ctx, 
-                        item.first.media, 
+                        item.first, 
                         x, 
                         item.first.yOffset, 
                         item.first.displayWidth, 
                         item.first.displayHeight, 
                         borderRadius
                     );
-                    
-                    if (item.first.outlineImg) {
-                        const outlineHeight = item.first.outlineImg.height * (item.first.displayHeight / item.first.height);
-                        ctx.drawImage(
-                            item.first.outlineImg.media, 
-                            x, 
-                            item.first.yOffset, 
-                            item.first.displayWidth, 
-                            outlineHeight
-                        );
-                    }
-                    
-                    // Отрисовка второго элемента колонки
-                    drawRoundedMedia(
+
+                    drawMedia(
                         ctx, 
-                        item.second.media, 
+                        item.second, 
                         x, 
                         item.second.yOffset, 
                         item.second.displayWidth, 
                         item.second.displayHeight, 
                         borderRadius
                     );
-                    
-                    if (item.second.outlineImg) {
-                        const outlineHeight = item.second.outlineImg.height * (item.second.displayHeight / item.second.height);
-                        ctx.drawImage(
-                            item.second.outlineImg.media, 
-                            x, 
-                            item.second.yOffset, 
-                            item.second.displayWidth, 
-                            outlineHeight
-                        );
-                    }
                 } else {
-                    // Обычная отрисовка для режима без колонок
-                    drawRoundedMedia(ctx, item.media, x, 0, item.displayWidth, item.displayHeight, borderRadius);
-                    if (item.outlineImg) {
-                        const outlineHeight = item.outlineImg.height * (item.displayHeight / item.height);
-                        ctx.drawImage(item.outlineImg.media, x, 0, item.displayWidth, outlineHeight);
-                    }
+                    drawMedia(ctx, item, x, 0, item.displayWidth, item.displayHeight, borderRadius);
                 }
                 
                 x += item.displayWidth + gap;
@@ -231,6 +237,7 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
             requestAnimationFrameId = requestAnimationFrame(render);
         }
 
+
         requestAnimationFrameId = requestAnimationFrame(render);
         
         setTimeout(() => {
@@ -238,7 +245,17 @@ export const initHorizontalCanvasCarousel = (id: string, data: CarouselData[], o
         }, 50);
     }
 
-    window.addEventListener('resize', debounce(start, 100));
+    const debouncedStart = debounce(start, 100);
+
+    const parent = canvas.parentElement;
+    if (parent) {
+        const resizeObserver = new ResizeObserver((entries) => {
+          if (entries[0].target) {
+            debouncedStart();
+          }
+        });
+        resizeObserver.observe(parent);
+    }
 
     const stop = () => {
         canvas.style.opacity = '0';

@@ -7,9 +7,8 @@ const carouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video1.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video1-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.webp",
     },
     {
         type: 'image',
@@ -17,9 +16,8 @@ const carouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video2.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline2.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video2-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.webp",
     },
     {
         type: 'image',
@@ -27,9 +25,8 @@ const carouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video3.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video3-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.webp",
     },
     {
         type: 'image',
@@ -37,18 +34,16 @@ const carouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video4.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline4.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video4-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.webp",
     },
 ]
 
 const carouselData2: CarouselData[] = [
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video1.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video1-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video1-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video1-poster.webp",
     },
     {
         type: 'image',
@@ -56,9 +51,8 @@ const carouselData2: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video2.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video2-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline8.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video2-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video2-poster.webp",
     },
     {
         type: 'image',
@@ -66,9 +60,8 @@ const carouselData2: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video3.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video3-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline6.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video3-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video3-poster.webp",
     },
     {
         type: 'image',
@@ -76,9 +69,8 @@ const carouselData2: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video4.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video4-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline7.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video4-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video4-poster.webp",
     },
     {
         type: 'image',
@@ -93,15 +85,13 @@ const mobileAboutCarouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video1.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video1-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video1-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video1-poster.webp",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video1.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video1-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.webp",
     },
     {
         type: 'image',
@@ -113,14 +103,12 @@ const mobileAboutCarouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video2.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video2-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video2-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video2-poster.webp",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video2.mp4",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline2.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video2-with-outline.mp4",
     },
     {
         type: 'image',
@@ -132,15 +120,13 @@ const mobileAboutCarouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video3.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video3-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline6.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video3-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video3-poster.webp",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video3.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video3-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.webp",
     },
     {
         type: 'image',
@@ -152,15 +138,13 @@ const mobileAboutCarouselData: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/right-half/video4.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/right-half/video4-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline7.webp",
+        src: "./src/assets/carousel/about-slider/right-half/video4-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/right-half/video4-poster.webp",
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video4.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline4.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video4-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.webp",
     },
     {
         type: 'image',
@@ -176,9 +160,8 @@ const carouselData3: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video1.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline1.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video1-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video1-poster.webp",
     },
     {
         type: 'image',
@@ -186,9 +169,8 @@ const carouselData3: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video2.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline8.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video2-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video2-poster.webp",
     },
     {
         type: 'image',
@@ -196,9 +178,8 @@ const carouselData3: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video3.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline3.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video3-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video3-poster.webp",
     },
     {
         type: 'image',
@@ -206,9 +187,8 @@ const carouselData3: CarouselData[] = [
     },
     {
         type: 'video',
-        src: "./src/assets/carousel/about-slider/left-half/video4.mp4",
-        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.jpeg",
-        outlineSrc: "./src/assets/carousel/about-slider/outlines/outline4.webp",
+        src: "./src/assets/carousel/about-slider/left-half/video4-with-outline.mp4",
+        posterSrc: "./src/assets/carousel/about-slider/left-half/video4-poster.webp",
     },
 ]
 

@@ -4,6 +4,23 @@ import { carouselData, carouselData2, carouselData3, carouselData4, mobileAboutC
 import { initCanvasCarousel } from './canvas/carousel';
 import { initHorizontalCanvasCarousel } from './canvas/horizontalCarousel.js';
 
+function scrollIfNotFullyHorizontallyVisible(item: HTMLElement, container: HTMLElement) {
+  const itemRect = item.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+
+  const isFullyHorizontallyVisible =
+    itemRect.left >= containerRect.left &&
+    itemRect.right <= containerRect.right;
+
+  if (!isFullyHorizontallyVisible) {
+    item.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
+    });
+  }
+}
+
 const initedCarousel: Record<string, boolean> = {
   '1': false,
   '3': false,
@@ -25,35 +42,57 @@ const stopCarouselBySectionId: Record<string, (() => void)[] > = {
 const initCarouselBySectionId: Record<string, (() => void) > = {
   '1': () => {
     if (initedCarousel['1']) {
-      console.log('recalc 1');
-      recalcCarouselBySectionId['1'].forEach(recalculate => recalculate());
       return;
     }
-    const [start1, stop1] = initCanvasCarousel('about-carousel-1', carouselData, { speed: 2, gap: 20 })!;
-    const [start2, stop2] = initCanvasCarousel('about-carousel-2', carouselData2, { speed: 3, gap: 20 })!;
-    const [start3, stop3] = initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { speed: 1, gap: 10, columnMode: true })!;
+    const [start1, stop1] = initCanvasCarousel('about-carousel-1', carouselData, { 
+      speed: 2, 
+      gap: 20,
+      backgroundImgSrc: './src/assets/carousels/about-carousel-1.webp'
+    })!;
+    const [start2, stop2] = initCanvasCarousel('about-carousel-2', carouselData2, { 
+      speed: 3, 
+      gap: 20,
+      backgroundImgSrc: './src/assets/carousels/about-carousel-2.webp'
+    })!;
+    const [start3, stop3] = initHorizontalCanvasCarousel('about-carousel-mobile', mobileAboutCarouselData, { 
+      speed: 2, 
+      gap: 10, 
+      columnMode: true,
+    })!;
     initedCarousel['1'] = true;
     stopCarouselBySectionId['1'].push(stop1, stop2, stop3);
     recalcCarouselBySectionId['1'].push(start1, start2, start3);
   },
   '3': () => {
     if (initedCarousel['3']) {
-      recalcCarouselBySectionId['3'].forEach(recalculate => recalculate());
       return;
     }
-    const [start1, stop1] = initCanvasCarousel('brands-carousel', carouselData3, { speed: 3, gap: 20 })!;
-    const [start2, stop2] = initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { speed: 1, gap: 10 })!;
+    const [start1, stop1] = initCanvasCarousel('brands-carousel', carouselData3, { 
+      speed: 3, 
+      gap: 20,
+      backgroundImgSrc: './src/assets/carousels/brands-carousel.webp'
+    })!;
+    const [start2, stop2] = initHorizontalCanvasCarousel('brands-media-mobile-carousel', carouselData3, { 
+      speed: 1, 
+      gap: 10,
+    })!;
     initedCarousel['3'] = true;
     stopCarouselBySectionId['3'].push(stop1, stop2);
     recalcCarouselBySectionId['3'].push(start1, start2);
   },
   '4': () => {
     if (initedCarousel['4']) {
-      recalcCarouselBySectionId['4'].forEach(recalculate => recalculate());
       return;
     }
-    const [start1, stop1] = initCanvasCarousel('sellers-carousel', carouselData4, { speed: 3, gap: 20 })!;
-    const [start2, stop2] = initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { speed: 1, gap: 10 })!;
+    const [start1, stop1] = initCanvasCarousel('sellers-carousel', carouselData4, { 
+      speed: 3, 
+      gap: 20,
+      backgroundImgSrc: './src/assets/carousels/sellers-carousel.webp'
+    })!;
+    const [start2, stop2] = initHorizontalCanvasCarousel('sellers-carousel-mobile', carouselData4, { 
+      speed: 1, 
+      gap: 10,
+    })!;
     initedCarousel['4'] = true;
     stopCarouselBySectionId['4'].push(stop1, stop2);
     recalcCarouselBySectionId['4'].push(start1, start2);
@@ -65,10 +104,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Получаем все пункты навигации
   const navItems = document.querySelectorAll('.hero-section__nav-link');
+  const navItemsContainer = document.querySelector('.hero-section__nav');
   
   // Обработчик клика по пункту меню
   let activeSection = "1";
-
 
   const updateHeroSectionHeight = (sectionId: string) => {
     const heroSection = document.querySelector('.hero-section__content-container');
@@ -128,13 +167,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const sectionId = item.getAttribute('data-section-id');
       if (!sectionId) return;
 
-      if (stopCarouselBySectionId[activeSection]) {
-        stopCarouselBySectionId[activeSection].forEach(stop => stop());
-      }
       activeSection = sectionId;
       if (initCarouselBySectionId[activeSection]) {
-        console.log('initCarouselBySectionId', activeSection);
         initCarouselBySectionId[activeSection]();
+      }
+
+      if (!document.body.classList.contains('loading')) {
+        scrollIfNotFullyHorizontallyVisible(item as HTMLElement, navItemsContainer as HTMLElement);
       }
       setTimeout(() => {
         navigateToSection(sectionId);
@@ -197,16 +236,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Небольшая задержка перед навигацией для плавного закрытия меню
         setTimeout(() => {
           navigateToSection(sectionId);
-          
-          // Находим соответствующий пункт в основной навигации и делаем скролл к нему
-          const mainNavItem = document.querySelector(`.hero-section__nav-link[data-section-id="${sectionId}"]`) as HTMLElement;
-          if (mainNavItem) {
-            mainNavItem.scrollIntoView({
-              behavior: 'smooth',
-              block: 'nearest',
-              inline: 'start'
-            });
-          }
         }, 300);
       }
     });
@@ -237,7 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const targetWidth = windowWidth * Number(scale);
     const scaleFactor = targetWidth / itemWidth;
 
-    if (scale) {
+    if (scale && windowWidth > 1200) {
       item.style.transform = `scale(${scaleFactor})`;
     }
 
@@ -252,5 +281,61 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   });
+
+  const elementsToScaleMobile = document.querySelectorAll('.scale-element-mobile') as NodeListOf<HTMLElement>;
+
+  elementsToScaleMobile.forEach(item => {
+    const parent = item.parentElement;
+    if (!parent) return;
+
+    // Получаем желаемый коэффициент масштабирования из data-атрибута
+    const desiredScale = Number(item.dataset.scaleMobile) || 1;
+    const originalWidth = item.offsetWidth;
+    const originalHeight = item.offsetHeight;
+    
+    // Функция для обновления масштаба
+    const updateScale = () => {
+      if (window.innerWidth > 1200) {
+        return;
+      }
+
+      const parentWidth = parent.offsetWidth;
+      const parentHeight = parent.offsetHeight;
+      
+      // Вычисляем максимально возможный масштаб отдельно для ширины и высоты
+      const maxScaleX = parentWidth / originalWidth;
+      const maxScaleY = parentHeight / originalHeight;
+      
+      // Находим максимально возможный масштаб, при котором элемент поместится в родителя
+      const maxPossibleScale = Math.min(maxScaleX, maxScaleY);
+      
+      const finalScale = Math.min(desiredScale, maxPossibleScale);
+      
+      item.style.transform = `scale(${finalScale})`;
+    };
+
+    // Обновляем масштаб при загрузке и изменении размера окна
+    updateScale();
+    const observer = new ResizeObserver(updateScale);
+    observer.observe(parent);
+  });
+
+
+  const adaptiveBorderRadius = document.querySelectorAll('.adaptive-border-radius') as NodeListOf<HTMLElement>;
+
+  adaptiveBorderRadius.forEach(item => {
+    const brsPercent = item.getAttribute('data-brs');
+    const brs = item.clientWidth * Number(brsPercent) / 100;
+
+    item.style.borderRadius = `${brs}px`;
+    const observer = new ResizeObserver(entries => {
+      const target = entries[0].target as HTMLElement;
+      const brs = target.clientWidth * Number(brsPercent) / 100;
+      target.style.borderRadius = `${brs}px`;
+    });
+
+    observer.observe(item);
+  });
+
  });
 

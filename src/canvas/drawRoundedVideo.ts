@@ -11,7 +11,6 @@ export const drawRoundedMedia = (
 ) => {
   const r = normalizeRadii(radius, width, height);
 
-  // Учет HiDPI
   ctx.save();
 
   ctx.beginPath();
